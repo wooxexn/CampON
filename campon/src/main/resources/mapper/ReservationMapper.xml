@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.tz.campon.mapper.ReservationMapper">
+
+    <!-- 사용자 예약 목록 조회 -->
+    <select id="findReservationsByUserId" parameterType="String" resultType="com.tz.campon.dto.ReservationDto">
+        SELECT r.id, r.campground_name AS campgroundName, r.address, r.reservation_date AS reservationDate, r.price, r.photo_url AS photoUrl
+        FROM reservations r
+        WHERE r.user_id = #{userId}
+    </select>
+
+    <!-- 예약 취소 (삭제) -->
+    <delete id="deleteReservation" parameterType="int">
+        DELETE FROM reservations WHERE id = #{id}
+    </delete>
+
+</mapper>

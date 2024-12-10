@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.tz.campon.mapper.UserMapper">
+
+    <!-- 사용자 정보 조회 -->
+    <select id="findUserById" parameterType="String" resultType="com.tz.campon.model.User">
+        SELECT id, email, name, password, phone
+        FROM users
+        WHERE id = #{id}
+    </select>
+
+    <!-- 사용자 정보 업데이트 (아이디는 제외하고 이메일, 이름, 전화번호, 비밀번호만 업데이트) -->
+    <update id="updateUser" parameterType="com.tz.campon.model.User">
+        UPDATE users
+        SET email = #{email}, name = #{name}, phone = #{phone}, password = #{password}
+        WHERE id = #{id}  <!-- 아이디는 변경되지 않음 -->
+    </update>
+
+    <!-- 비밀번호 업데이트 -->
+    <update id="updatePassword" parameterType="map">
+        UPDATE users
+        SET password = #{password}
+        WHERE id = #{userId}
+    </update>
+
+</mapper>
