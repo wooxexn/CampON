@@ -1,4 +1,4 @@
-package com.tz.campon.login.DTO;
+package com.tz.campon.login.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

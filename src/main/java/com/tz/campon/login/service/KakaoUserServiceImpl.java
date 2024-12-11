@@ -1,9 +1,9 @@
-package com.tz.campon.login.Service;
+package com.tz.campon.login.service;
 
-import com.tz.campon.login.DTO.KakaoUserInfoResponseDto;
-import com.tz.campon.login.DTO.UserDTO;
-import com.tz.campon.login.Exception.UserNotFoundException;
-import com.tz.campon.login.Mapper.UserMapper;
+import com.tz.campon.login.dto.KakaoUserInfoResponseDto;
+import com.tz.campon.login.dto.UserDTO;
+import com.tz.campon.login.exception.UserNotFoundException;
+import com.tz.campon.login.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 @Service

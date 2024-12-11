@@ -1,6 +1,6 @@
-package com.tz.campon.login.Mapper;
+package com.tz.campon.login.mapper;
 
-import com.tz.campon.login.DTO.UserDTO;
+import com.tz.campon.login.dto.UserDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
