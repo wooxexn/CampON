@@ -1,5 +1,6 @@
-package com.camping.project.Config;
+package com.tz.campon.login.Config;
 
+import com.tz.campon.login.Handler.CustomAuthFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -29,6 +31,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationFailureHandler CustomAuthFailureHandler() {
+        return new CustomAuthFailureHandler();
+    }
+
+    @Bean
     public DaoAuthenticationProvider authenticationProvider(UserDetailsService UserService, PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(UserService);
@@ -41,12 +48,24 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/login","/register","/callback").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/register",
+                                "/callback",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/webjars/**",
+                                "/css/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
+                        //.failureForwardUrl("/login?error=true")
+                        .failureHandler(CustomAuthFailureHandler())
                         .defaultSuccessUrl("/")
                         .permitAll()
                 )

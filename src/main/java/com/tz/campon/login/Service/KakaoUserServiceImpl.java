@@ -1,9 +1,9 @@
-package com.camping.project.Service;
+package com.tz.campon.login.Service;
 
-import com.camping.project.DTO.KakaoUserInfoResponseDto;
-import com.camping.project.DTO.UserDTO;
-import com.camping.project.Exception.UserNotFoundException;
-import com.camping.project.Mapper.UserMapper;
+import com.tz.campon.login.DTO.KakaoUserInfoResponseDto;
+import com.tz.campon.login.DTO.UserDTO;
+import com.tz.campon.login.Exception.UserNotFoundException;
+import com.tz.campon.login.Mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 @Service

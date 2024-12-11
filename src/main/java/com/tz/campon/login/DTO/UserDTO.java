@@ -1,4 +1,4 @@
-package com.camping.project.DTO;
+package com.tz.campon.login.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

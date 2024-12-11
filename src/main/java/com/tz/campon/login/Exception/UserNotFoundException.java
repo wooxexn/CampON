@@ -1,6 +1,6 @@
-package com.camping.project.Exception;
+package com.tz.campon.login.Exception;
 
-import com.camping.project.DTO.KakaoUserInfoResponseDto;
+import com.tz.campon.login.DTO.KakaoUserInfoResponseDto;
 import lombok.Getter;
 
 @Getter

@@ -1,6 +1,6 @@
-package com.camping.project.Mapper;
+package com.tz.campon.login.Mapper;
 
-import com.camping.project.DTO.UserDTO;
+import com.tz.campon.login.DTO.UserDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -1,7 +1,7 @@
-package com.camping.project.Controller;
+package com.tz.campon.login.Controller;
 
-import com.camping.project.DTO.UserDTO;
-import com.camping.project.Service.UserService;
+import com.tz.campon.login.DTO.UserDTO;
+import com.tz.campon.login.Service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
