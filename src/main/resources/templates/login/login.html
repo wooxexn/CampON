@@ -17,11 +17,19 @@
   <h1>카카오 로그인</h1>
     <input type="hidden" id="alertMessage" th:value="${alertMessage}" />
   <a th:href="${location}">
-    카카오
+      <img src="/images/kakao_login_medium_narrow.png" >
   </a>
 </div>
 <h1>일반 로그인</h1>
-<form th:action="@{/templates/login}" method="post">
+<div th:if="${session.errorMessage}" style="color: red;">
+    <p th:text="${session.errorMessage}"></p>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/clear-error-message', { method: 'POST' });
+        });
+    </script>
+</div>
+<form th:action="@{/login}" method="post">
     <input type="text" name="username" placeholder="ID"/>
     <input type="password" name="password" placeholder="Password"/>
     <button type="submit">로그인</button>

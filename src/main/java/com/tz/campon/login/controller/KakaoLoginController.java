@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -33,7 +35,7 @@ public class KakaoLoginController {
     private final KakaoUserService kakaoUserService;
 
     @GetMapping("/callback")
-    public void callback(@RequestParam("code") String code, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public RedirectView callback(@RequestParam("code") String code, HttpServletResponse response, HttpServletRequest request, RedirectAttributes attributes) throws IOException {
         try {
             // 1. 카카오에서 Access Token 받기
             String accessToken = kakaoService.getAccessTokenFromKakao(code);
@@ -53,18 +55,16 @@ public class KakaoLoginController {
             session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 
             // 5. 응답 반환
-            response.sendRedirect("/");
+            return new RedirectView("/");
         } catch (UserNotFoundException e) {
             // 회원가입 페이지로 리다이렉트
-            String redirectUrl = "/register?kakaoId=" + URLEncoder.encode(String.valueOf(e.getKakaoUserInfo().getId()), StandardCharsets.UTF_8);
-            response.sendRedirect(redirectUrl);
+            attributes.addFlashAttribute("alertMessage", e.getMessage());
+            return new RedirectView("/register?kakaoId=" + URLEncoder.encode(String.valueOf(e.getKakaoUserInfo().getId()), StandardCharsets.UTF_8));
         } catch (Exception e) {
             log.error("카카오 로그인 실패: ", e);
-            try {
-                response.sendRedirect("/error"); // 에러 페이지로 리다이렉트
-            } catch (IOException ex) {
-                log.error("리다이렉트 중 에러 발생: ", ex);
-            }
+            // 에러 페이지로 리다이렉트
+            attributes.addFlashAttribute("errorMessage", "카카오 로그인 중 오류가 발생했습니다.");
+            return new RedirectView("/error");
         }
     }
 

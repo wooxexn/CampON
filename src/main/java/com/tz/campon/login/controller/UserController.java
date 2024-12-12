@@ -2,14 +2,13 @@ package com.tz.campon.login.controller;
 
 import com.tz.campon.login.dto.UserDTO;
 import com.tz.campon.login.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @RequestMapping("")
 public class UserController {
@@ -31,12 +30,15 @@ public class UserController {
         String location = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
         model.addAttribute("location", location);
 
-        return "login";
+        return "/login/login";
     }
 
     @GetMapping("/register")
-    public String registerPage() {
-        return "register";
+    public String registerPage(@RequestParam(value = "kakaoId",required = false) String kakaoId, Model model,@ModelAttribute("alertMessage") String alertMessage) {
+        log.debug("Register page called with alertMessage: {}", alertMessage);
+        model.addAttribute("kakaoId", kakaoId);
+        model.addAttribute("alertMessage", alertMessage);
+        return "/login/register";
     }
 
     @PostMapping("/register")
