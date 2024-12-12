@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            const alertMessage = /*[[${alertMessage}]]*/ '';
+            if (alertMessage) {
+                alert(alertMessage);
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="container" style="display: flex; justify-content: center; align-content: center; align-items: center; flex-direction: column; margin: 200px auto; ">
+  <h1>카카오 로그인</h1>
+    <input type="hidden" id="alertMessage" th:value="${alertMessage}" />
+  <a th:href="${location}">
+    카카오
+  </a>
+</div>
+<h1>일반 로그인</h1>
+<div th:if="${session.errorMessage}" style="color: red;">
+    <p th:text="${session.errorMessage}"></p>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/clear-error-message', { method: 'POST' });
+        });
+    </script>
+</div>
+<form th:action="@{/login}" method="post">
+    <input type="text" name="username" placeholder="ID"/>
+    <input type="password" name="password" placeholder="Password"/>
+    <button type="submit">로그인</button>
+</form>
+<h4>회원가입</h4>
+<a th:href="@{/register}">회원가입</a>
+</body>
+</html>

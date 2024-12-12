@@ -1,0 +1,7 @@
+package com.tz.campon.mypage.exception;
+
+public class ReservationNotFoundException extends RuntimeException {
+    public ReservationNotFoundException(String message) {
+        super(message);
+    }
+}
