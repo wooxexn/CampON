@@ -19,7 +19,7 @@ public class KakaoUserServiceImpl implements KakaoUserService {
     public UserDTO findOrRegisterUser(KakaoUserInfoResponseDto userInfo) {
         UserDTO user = userMapper.findByKakaoId(userInfo.getId().toString());
         if (user == null) {
-            throw new UserNotFoundException("회원 정보가 없습니다.",userInfo);
+            throw new UserNotFoundException("카카오 회원이 존재하지 않습니다. 회원가입 후 이용해주세요.",userInfo);
         }
         return user;
     }

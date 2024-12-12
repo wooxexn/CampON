@@ -58,7 +58,7 @@ public class KakaoLoginController {
             return new RedirectView("/");
         } catch (UserNotFoundException e) {
             // 회원가입 페이지로 리다이렉트
-            attributes.addFlashAttribute("alertMessage", "카카오 회원이 존재하지 않습니다. 회원가입 후 이용해주세요.");
+            attributes.addFlashAttribute("alertMessage", e.getMessage());
             return new RedirectView("/register?kakaoId=" + URLEncoder.encode(String.valueOf(e.getKakaoUserInfo().getId()), StandardCharsets.UTF_8));
         } catch (Exception e) {
             log.error("카카오 로그인 실패: ", e);

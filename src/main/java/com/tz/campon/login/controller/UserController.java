@@ -30,7 +30,7 @@ public class UserController {
         String location = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
         model.addAttribute("location", location);
 
-        return "login";
+        return "/login/login";
     }
 
     @GetMapping("/register")
@@ -38,7 +38,7 @@ public class UserController {
         log.debug("Register page called with alertMessage: {}", alertMessage);
         model.addAttribute("kakaoId", kakaoId);
         model.addAttribute("alertMessage", alertMessage);
-        return "register";
+        return "/login/register";
     }
 
     @PostMapping("/register")
