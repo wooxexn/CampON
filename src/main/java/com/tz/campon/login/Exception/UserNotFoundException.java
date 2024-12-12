@@ -1,6 +1,6 @@
-package com.tz.campon.login.exception;
+package com.tz.campon.login.Exception;
 
-import com.tz.campon.login.dto.KakaoUserInfoResponseDto;
+import com.tz.campon.login.DTO.KakaoUserInfoResponseDto;
 import lombok.Getter;
 
 @Getter

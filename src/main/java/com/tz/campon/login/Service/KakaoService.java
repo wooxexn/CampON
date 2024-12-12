@@ -1,16 +1,21 @@
-package com.tz.campon.login.service;
+package com.tz.campon.login.Service;
 
-import com.tz.campon.login.dto.KakaoTokenResponseDTO;
-import com.tz.campon.login.dto.KakaoUserInfoResponseDto;
+import com.tz.campon.login.DTO.KakaoTokenResponseDTO;
+import com.tz.campon.login.DTO.KakaoUserInfoResponseDto;
+import io.netty.handler.codec.http.HttpHeaderValues;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @RequiredArgsConstructor

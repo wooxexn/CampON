@@ -1,18 +1,20 @@
-package com.tz.campon.login.controller;
+package com.tz.campon.login.Controller;
 
-import com.tz.campon.login.dto.KakaoUserInfoResponseDto;
-import com.tz.campon.login.dto.UserDTO;
-import com.tz.campon.login.exception.UserNotFoundException;
-import com.tz.campon.login.service.KakaoService;
-import com.tz.campon.login.service.KakaoUserService;
+import com.tz.campon.login.DTO.KakaoUserInfoResponseDto;
+import com.tz.campon.login.DTO.UserDTO;
+import com.tz.campon.login.Exception.UserNotFoundException;
+import com.tz.campon.login.Service.KakaoService;
+import com.tz.campon.login.Service.KakaoUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

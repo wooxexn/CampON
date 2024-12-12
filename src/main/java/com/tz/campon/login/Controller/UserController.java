@@ -1,7 +1,7 @@
-package com.tz.campon.login.controller;
+package com.tz.campon.login.Controller;
 
-import com.tz.campon.login.dto.UserDTO;
-import com.tz.campon.login.service.UserService;
+import com.tz.campon.login.DTO.UserDTO;
+import com.tz.campon.login.Service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
