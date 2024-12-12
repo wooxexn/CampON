@@ -1,4 +1,4 @@
-package com.tz.campon.login.Config;
+package com.tz.campon.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

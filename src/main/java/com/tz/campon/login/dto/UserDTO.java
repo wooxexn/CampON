@@ -1,4 +1,4 @@
-package com.tz.campon.login.DTO;
+package com.tz.campon.login.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

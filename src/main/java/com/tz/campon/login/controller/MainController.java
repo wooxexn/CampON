@@ -1,4 +1,4 @@
-package com.tz.campon.login.Controller;
+package com.tz.campon.login.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

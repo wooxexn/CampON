@@ -1,6 +1,5 @@
-package com.tz.campon.login.Handler;
+package com.tz.campon.login.handler;
 
-import com.tz.campon.login.Exception.UserNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
