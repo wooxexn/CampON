@@ -2,14 +2,13 @@ package com.tz.campon.login.Controller;
 
 import com.tz.campon.login.DTO.UserDTO;
 import com.tz.campon.login.Service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @RequestMapping("")
 public class UserController {
@@ -35,7 +34,10 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String registerPage() {
+    public String registerPage(@RequestParam(value = "kakaoId",required = false) String kakaoId, Model model,@ModelAttribute("alertMessage") String alertMessage) {
+        log.debug("Register page called with alertMessage: {}", alertMessage);
+        model.addAttribute("kakaoId", kakaoId);
+        model.addAttribute("alertMessage", alertMessage);
         return "register";
     }
 
