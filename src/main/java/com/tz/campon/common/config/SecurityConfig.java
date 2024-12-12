@@ -1,6 +1,6 @@
 package com.tz.campon.common.config;
 
-import com.tz.campon.login.Handler.CustomAuthFailureHandler;
+import com.tz.campon.login.handler.CustomAuthFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
