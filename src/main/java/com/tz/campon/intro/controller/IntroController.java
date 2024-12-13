@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IntroController {
 
-    // Intro 페이지 요청 처리
-    @GetMapping("/intro")
-    public String intro() {
-        return "Intro";
+    @GetMapping("/")
+    public String showIntroPage() {
+        return "intro/Intro";  // /intro/Intro.html 파일을 반환
     }
 }

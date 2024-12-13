@@ -4,23 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CampON</title>
-  <link rel="stylesheet" href="/static/css/mainpage/MainPage.css">
+  <link rel="stylesheet" href="/css/mainpage/MainPage.css">
 </head>
 <body>
 <!-- Header -->
 <header>
   <div class="logo">
     <a href="/main" style="display: flex; align-items: center; text-decoration: none;">
-      <img src="/static/images/campon-logo.png" alt="CampON Logo">
+      <img src="/images/campon-logo.png" alt="CampON Logo">
       <span style="font-size: 24px; font-weight: bold; margin-left: 10px; color: inherit;">CAMPON</span>
     </a>
   </div>
   <nav>
     <ul>
-      <li><a href="/main">HOME</a></li>
-      <li><a href="/detail">CAMPING LIST</a></li>
-      <li><a href="/reserve">RESERVATION</a></li>
-      <li><a href="/board">CAMPING LOG</a></li>
+      <li><a href="/main" class="menu-link">HOME</a></li>
+      <li><a href="/detail" class="menu-link">CAMPING LIST</a></li>
+      <li><a href="/reserve" class="menu-link">RESERVATION</a></li>
+      <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
     </ul>
     <div class="auth-links">
       <a href="/login">로그인</a>
@@ -32,7 +32,7 @@
 <!-- Main Section -->
 <section class="main-section">
   <video class="main-video" autoplay muted loop>
-    <source src="/static/videos/bannervideo.mp4" type="video/mp4">
+    <source src="/videos/bannervideo.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div class="overlay"></div>
@@ -48,5 +48,8 @@
   <p>캠프온(CAMP ON) Address: 에이콘 아카데미 Tel: 010-1234-5678</p>
   <p>Designer: 전우선 Business: 563-12-02365 E-commerce: 2024 서울홍대 0962</p>
 </footer>
+
+<!-- JavaScript 파일 연결 -->
+<script src="/static/js/MapinPage.js"></script>
 </body>
 </html>

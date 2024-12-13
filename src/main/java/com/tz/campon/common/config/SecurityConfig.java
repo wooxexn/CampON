@@ -51,7 +51,6 @@ public class SecurityConfig {
                         // 인증 없이 접근 가능한 URL
                         .requestMatchers(
                                 "/",            // 인트로 화면
-                                "/intro",       // 명시적으로 추가
                                 "/main",        // 메인 페이지
                                 "/login",       // 로그인
                                 "/register",    // 회원가입
@@ -59,6 +58,7 @@ public class SecurityConfig {
                                 "/css/**",      // 정적 리소스
                                 "/js/**",
                                 "/images/**",
+                                "/videos/**",
                                 "/check-duplicate", // 중복 확인
                                 "/detail",      // 캠핑장 상세
                                 "/detail/3d",   // 3D 화면

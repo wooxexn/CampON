@@ -54,7 +54,16 @@ nav ul li {
     position: relative;
 }
 
-nav ul li:first-child a::after {
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-family: 'Nanum Gothic', sans-serif;
+    position: relative;
+}
+
+/* 밑줄 표시 */
+nav ul li a.active::after {
     content: "";
     position: absolute;
     left: 0;
@@ -64,14 +73,7 @@ nav ul li:first-child a::after {
     background-color: #333;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    font-family: 'Nanum Gothic', sans-serif;
-    position: relative;
-}
-
+/* Hover 시 밑줄 추가 */
 nav ul li a:hover::after {
     content: "";
     position: absolute;
