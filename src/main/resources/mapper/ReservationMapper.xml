@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="a">
+
+    <select id="getReservationDate" resultType="com.example.campTest.Reservation">
+        <![CDATA[
+    SELECT *
+    FROM reservations r
+    JOIN campground ON campground.camp_id = r.camp_id
+    JOIN campdetail ON campdetail.campdetail_id = r.campdetail_id
+    WHERE (check_in_date <= #{check_in_date} AND check_out_date >= #{check_out_date})
+    AND r.camp_id = #{camp_id}
+    ]]>
+    </select>
+
+    <select id="getReservationById" parameterType="String" resultType="com.example.campTest.Reservation">
+        SELECT *
+        FROM reservations WHERE user_id = #{user_id};
+    </select>
+
+
+    <insert id="addReserve" parameterType="Reservation">
+        INSERT INTO reservations (user_id, camp_id, campdetail_id, check_in_date, check_out_date, number_of_guest, total_price, status, created_at)
+        VALUES (#{user_id}, #{camp_id}, #{campdetail_id}, #{check_in_date}, #{check_out_date}, #{number_of_guest}, #{total_price}, #{status}, NOW())
+    </insert>
+
+
+
+
+</mapper>
