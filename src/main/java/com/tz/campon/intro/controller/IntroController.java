@@ -9,6 +9,6 @@ public class IntroController {
     // Intro 페이지 요청 처리
     @GetMapping("/intro")
     public String intro() {
-        return "intro/intro";
+        return "Intro";
     }
 }
