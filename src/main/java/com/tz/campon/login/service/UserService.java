@@ -28,6 +28,9 @@ public class UserService implements UserDetailsService {
     public void register(UserDTO userDTO) {
         String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
         userDTO.setPassword(encodedPassword);
+        if (isIdDuplicated(userDTO.getId())) {
+            throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
+        }
         userMapper.insertUser(userDTO);
     }
 
@@ -40,4 +43,10 @@ public class UserService implements UserDetailsService {
         }
         return new User(userDTO.getId(),userDTO.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
     }
+
+
+    public boolean isIdDuplicated(String id) {
+        return userMapper.existsById(id);
+    }
+
 }
