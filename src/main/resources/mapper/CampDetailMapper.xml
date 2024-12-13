@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="c">
+
+    <select id="getCampDetailById" parameterType="int" resultType="com.example.campTest.CampDetail">
+        select campdetail.campdetail_id, campdetail.camp_id, campdetail.detail_name, campdetail.price, campdetail.photo_url
+        from campdetail
+        join campground
+        on campdetail.camp_id = campground.camp_id
+        where campground.camp_id = #{camp_id};
+    </select>
+
+
+</mapper>

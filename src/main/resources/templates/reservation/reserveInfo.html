@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>예약 페이지</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>아이디</th>
+        <th>입실</th>
+        <th>퇴실</th>
+        <th>상태</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${reservelist}">
+        <td th:text="${item.user_id}">아이디</td>
+        <td th:text="${#temporals.format(item.check_in_date, 'yyyy-MM-dd')}">입실</td>
+        <td th:text="${#temporals.format(item.check_out_date, 'yyyy-MM-dd')}">퇴실</td>
+        <td th:text="${item.status}">상태</td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>
