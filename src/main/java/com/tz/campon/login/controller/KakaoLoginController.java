@@ -5,11 +5,13 @@ import com.tz.campon.login.dto.UserDTO;
 import com.tz.campon.login.exception.UserNotFoundException;
 import com.tz.campon.login.service.KakaoService;
 import com.tz.campon.login.service.KakaoUserService;
+import com.tz.campon.login.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +25,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -33,6 +37,7 @@ public class KakaoLoginController {
 
     private final KakaoService kakaoService;
     private final KakaoUserService kakaoUserService;
+    private final UserService userService;
 
     @GetMapping("/callback")
     public RedirectView callback(@RequestParam("code") String code, HttpServletResponse response, HttpServletRequest request, RedirectAttributes attributes) throws IOException {
@@ -66,6 +71,14 @@ public class KakaoLoginController {
             attributes.addFlashAttribute("errorMessage", "카카오 로그인 중 오류가 발생했습니다.");
             return new RedirectView("/error");
         }
+    }
+
+    @GetMapping("/check-duplicate")
+    public ResponseEntity<Map<String, Object>> checkDuplicate(@RequestParam("id") String id) {
+        boolean isDuplicate = userService.isIdDuplicated(id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("isDuplicate", isDuplicate);
+        return ResponseEntity.ok(response);
     }
 
 }
