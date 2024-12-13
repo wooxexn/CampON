@@ -4,9 +4,7 @@
 
 ## 기술 스택 (Tech Stack)
 
-이 프로젝트는 다음과 같은 기술 스택을 사용하여 개발되었습니다:
-
-- **Backend**: Spring Boot, MyBatis
-- **Frontend**: Thymeleaf (템플릿 엔진을 사용하여 서버 사이드 렌더링)
-- **Database**: MySQL
-- **Architecture**: MVC 패턴 (Model-View-Controller)
+- **Backend**: Spring Boot, MyBatis  
+- **Frontend**: Thymeleaf, HTML, CSS, JavaScript  
+- **Database**: MySQL  
+- **Architecture**: MVC 패턴 (Model-View-Controller)  
