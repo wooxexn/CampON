@@ -48,22 +48,50 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/login","/register","/callback", "/css/**", "/js/**", "/images/**","/check-duplicate").permitAll()
-                        .anyRequest().authenticated()
+                        // 인증 없이 접근 가능한 URL
+                        .requestMatchers(
+                                "/",            // 인트로 화면
+                                "/intro",       // 명시적으로 추가
+                                "/main",        // 메인 페이지
+                                "/login",       // 로그인
+                                "/register",    // 회원가입
+                                "/callback",    // 소셜 로그인 콜백
+                                "/css/**",      // 정적 리소스
+                                "/js/**",
+                                "/images/**",
+                                "/check-duplicate", // 중복 확인
+                                "/detail",      // 캠핑장 상세
+                                "/detail/3d",   // 3D 화면
+                                "/board",       // 게시판 메인
+                                "/board/search" // 게시판 검색
+                        ).permitAll()
+                        // 로그인한 사용자만 접근 가능한 URL
+                        .requestMatchers(
+                                "/mypage/edit",         // 내 정보 수정
+                                "/mypage/reservations", // 예약 조회
+                                "/mypage/cancel",       // 예약 취소
+                                "/reserve",             // 예약 페이지
+                                "/board/new",           // 게시판 글 작성
+                                "/board/edit/**",       // 게시판 글 수정
+                                "/board/delete/**",     // 게시판 글 삭제
+                                "/board/like/**",       // 게시판 좋아요
+                                "/board/comment/**"     // 게시판 댓글 작성
+                        ).authenticated()
+                        .anyRequest().authenticated() // 기타 모든 요청은 인증 필요
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/login") // 커스텀 로그인 페이지
                         .loginProcessingUrl("/login")
-                        .failureHandler(CustomAuthFailureHandler())
-                        .defaultSuccessUrl("/")
+                        .failureHandler(CustomAuthFailureHandler()) // 로그인 실패 처리
+                        .defaultSuccessUrl("/main") // 로그인 성공 시 메인 페이지로 이동
                         .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("/") // 로그아웃 성공 시 인트로 페이지로 이동
+                        .invalidateHttpSession(true) // 세션 무효화
+                        .clearAuthentication(true) // 인증 정보 삭제
+                        .deleteCookies("JSESSIONID") // 쿠키 삭제
                         .permitAll()
                 )
                 .anonymous(AbstractHttpConfigurer::disable)
@@ -72,6 +100,5 @@ public class SecurityConfig {
                 );
         return http.build();
     }
-
-
 }
+
