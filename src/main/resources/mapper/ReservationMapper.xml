@@ -4,7 +4,7 @@
 
 <mapper namespace="a">
 
-    <select id="getReservationDate" resultType="com.example.campTest.Reservation">
+    <select id="getReservationDate" resultType="com.tz.campon.reservation.DTO.Reservation">
         <![CDATA[
     SELECT *
     FROM reservations r
@@ -15,13 +15,13 @@
     ]]>
     </select>
 
-    <select id="getReservationById" parameterType="String" resultType="com.example.campTest.Reservation">
+    <select id="getReservationById" parameterType="String" resultType="com.tz.campon.reservation.DTO.Reservation">
         SELECT *
         FROM reservations WHERE user_id = #{user_id};
     </select>
 
 
-    <insert id="addReserve" parameterType="Reservation">
+    <insert id="addReserve" parameterType="com.tz.campon.reservation.DTO.Reservation">
         INSERT INTO reservations (user_id, camp_id, campdetail_id, check_in_date, check_out_date, number_of_guest, total_price, status, created_at)
         VALUES (#{user_id}, #{camp_id}, #{campdetail_id}, #{check_in_date}, #{check_out_date}, #{number_of_guest}, #{total_price}, #{status}, NOW())
     </insert>
