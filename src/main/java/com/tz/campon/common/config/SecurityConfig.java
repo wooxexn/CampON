@@ -63,7 +63,10 @@ public class SecurityConfig {
                                 "/detail",      // 캠핑장 상세
                                 "/detail/3d",   // 3D 화면
                                 "/board",       // 게시판 메인
-                                "/board/search" // 게시판 검색
+                                "/board/search", // 게시판 검색
+                                "/camplist",
+                                "/campinfo",
+                                "/campdetail"
                         ).permitAll()
                         // 로그인한 사용자만 접근 가능한 URL
                         .requestMatchers(
@@ -88,7 +91,7 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/") // 로그아웃 성공 시 인트로 페이지로 이동
+                        .logoutSuccessUrl("/main") // 로그아웃 성공 시 인트로 페이지로 이동
                         .invalidateHttpSession(true) // 세션 무효화
                         .clearAuthentication(true) // 인증 정보 삭제
                         .deleteCookies("JSESSIONID") // 쿠키 삭제

@@ -79,7 +79,7 @@ public class ReservationController {
         model.addAttribute("reservation", reservationList);
 
 
-        return "reserve";
+        return "reservation/reserve";
     }
 
 }

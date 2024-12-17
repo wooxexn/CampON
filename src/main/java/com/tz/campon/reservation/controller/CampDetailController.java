@@ -60,7 +60,7 @@ public class CampDetailController {
 
 
 
-        return "campdetail";
+        return "reservation/campdetail";
     }
 
 
