@@ -13,7 +13,7 @@
     </select>
 
 
-    <select id="selectCampDetailOne" parameterType="int" resultType="com.example.campTest.CampDetail">
+    <select id="selectCampDetailOne" parameterType="int" resultType="com.tz.campon.reservation.DTO.CampDetail">
         select campdetail.campdetail_id, campdetail.camp_id, campdetail.detail_name, campdetail.price, campdetail.photo_url
         from campdetail
         join campground
