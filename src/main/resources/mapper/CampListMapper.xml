@@ -4,12 +4,12 @@
 
 <mapper namespace="b">
 
-    <select id="getCampground" resultType="com.example.campTest.CampList">
+    <select id="getCampground" resultType="com.tz.campon.reservation.DTO.CampList">
         SELECT *
         FROM campground;
     </select>
 
-    <select id="getCampgroundById" parameterType="int" resultType="com.example.campTest.CampList">
+    <select id="getCampgroundById" parameterType="int" resultType="com.tz.campon.reservation.DTO.CampList">
         SELECT *
         FROM campground where camp_id = #{camp_id};
     </select>

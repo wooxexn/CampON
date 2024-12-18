@@ -1,6 +1,5 @@
 package com.tz.campon.reservation.controller;
 
-import com.tz.campon.reservation.DTO.CampDetail;
 import com.tz.campon.reservation.Repository.CampDetailRepository;
 import com.tz.campon.reservation.Repository.CampListRepository;
 import com.tz.campon.reservation.Repository.ReservationRepository;

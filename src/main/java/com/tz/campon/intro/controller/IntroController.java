@@ -8,6 +8,6 @@ public class IntroController {
 
     @GetMapping("/")
     public String showIntroPage() {
-        return "intro/Intro";  // /intro/Intro.html 파일을 반환
+        return "intro/intro";
     }
 }
