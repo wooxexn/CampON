@@ -16,6 +16,7 @@ function initKakaoMap() {
         }
         window.onload = initKakaoMap;
 
+
         // 주소 복사
         function copyAddress() {
             const address = document.getElementById("camping-address").innerText;
