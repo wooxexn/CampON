@@ -13,4 +13,15 @@
     </select>
 
 
+    <select id="selectCampDetailOne" parameterType="int" resultType="com.example.campTest.CampDetail">
+        select campdetail.campdetail_id, campdetail.camp_id, campdetail.detail_name, campdetail.price, campdetail.photo_url
+        from campdetail
+        join campground
+        on campdetail.camp_id = campground.camp_id
+        where campground.camp_id = #{camp_id} AND campdetail.campdetail_id = #{campdetail_id};
+    </select>
+
+
+
+
 </mapper>

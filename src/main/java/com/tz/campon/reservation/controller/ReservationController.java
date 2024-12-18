@@ -66,17 +66,24 @@ public class ReservationController {
     @GetMapping("/reserve")
     public String getCampDetail(@RequestParam (name = "camp_id") int camp_id,
                                 @RequestParam(name = "user_id", defaultValue = "rlaanrnd") String user_id,
+                                @RequestParam(name="check_in_date")  String  check_in_date,
+                                @RequestParam(name="check_out_date") String   check_out_date,
+                                @RequestParam (name = "campdetail_id") int campdetail_id,
                                 Model model){
 
-        List<CampDetail> list = campDetailRepository.getCampDetail(camp_id);
+        CampDetail campDetailOne = campDetailRepository.selectCampDetailOne(camp_id, campdetail_id);
         CampList campList = campListRepository.getCampgroundById(camp_id);
         List<Reservation> reservationList = reservationRepository.getReservationById(user_id);
 
-        System.out.println(list);
+        System.out.println(campDetailOne);
 
-        model.addAttribute("campDetailList", list);
+        model.addAttribute("campDetailOne", campDetailOne);
         model.addAttribute("camplist2", campList);
-        model.addAttribute("reservation", reservationList);
+        model.addAttribute("reservationList", reservationList);
+        model.addAttribute("check_in_date",check_in_date);
+        model.addAttribute("check_out_date",check_out_date);
+        model.addAttribute("campdetail_id",campdetail_id);
+        model.addAttribute("user_id", user_id);
 
 
         return "reserve";
