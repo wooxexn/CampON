@@ -1,6 +1,9 @@
 package com.tz.campon.common.config;
 
 import com.tz.campon.login.handler.CustomAuthFailureHandler;
+import com.tz.campon.login.handler.CustomAuthSuccessHandler;
+import com.tz.campon.login.handler.CustomLogoutFilter;
+import com.tz.campon.login.handler.CustomLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -31,6 +39,29 @@ public class SecurityConfig {
     }
 
     @Bean
+    public RequestCache requestCache() {
+        return new HttpSessionRequestCache();
+    }
+
+    @Bean
+    public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
+        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
+        successHandler.setRequestCache(requestCache());
+        successHandler.setDefaultTargetUrl("/main"); // 기본 이동 경로
+        return successHandler;
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customAuthSuccessHandler() {
+        return new CustomAuthSuccessHandler();
+    }
+
+    @Bean
+    public CustomLogoutSuccessHandler customLogoutSuccessHandler() {
+        return new CustomLogoutSuccessHandler();
+    }
+
+    @Bean
     public AuthenticationFailureHandler CustomAuthFailureHandler() {
         return new CustomAuthFailureHandler();
     }
@@ -44,7 +75,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomLogoutFilter customLogoutFilter) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
@@ -63,7 +94,10 @@ public class SecurityConfig {
                                 "/detail",      // 캠핑장 상세
                                 "/detail/3d",   // 3D 화면
                                 "/board",       // 게시판 메인
-                                "/board/search" // 게시판 검색
+                                "/board/search", // 게시판 검색
+                                "/camplist",
+                                "/campinfo",
+                                "/campdetail"
                         ).permitAll()
                         // 로그인한 사용자만 접근 가능한 URL
                         .requestMatchers(
@@ -83,13 +117,14 @@ public class SecurityConfig {
                         .loginPage("/login") // 커스텀 로그인 페이지
                         .loginProcessingUrl("/login")
                         .failureHandler(CustomAuthFailureHandler()) // 로그인 실패 처리
-                        .defaultSuccessUrl("/main") // 로그인 성공 시 메인 페이지로 이동
+                        .successHandler(customAuthSuccessHandler()) // 이전 페이지로 이동 설정
                         .permitAll()
                 )
+                .addFilterBefore(customLogoutFilter, LogoutFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/") // 로그아웃 성공 시 인트로 페이지로 이동
-                        .invalidateHttpSession(true) // 세션 무효화
+                        .logoutSuccessHandler(customLogoutSuccessHandler()) // 로그아웃 성공 시 이전 페이지로 이동
+                        .invalidateHttpSession(false) // 세션 무효화
                         .clearAuthentication(true) // 인증 정보 삭제
                         .deleteCookies("JSESSIONID") // 쿠키 삭제
                         .permitAll()

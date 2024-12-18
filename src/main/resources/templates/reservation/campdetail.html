@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
 <h2>예약 추가</h2>
 
-<form th:action="@{/campdetail}" method="post" onsubmit="return checkValue()">
 
   <!-- 입실일 입력 -->
   <label for="check_in_date">입실일:</label>
@@ -19,57 +18,117 @@
   <label for="check_out_date">퇴실일:</label>
   <input type="date" id="check_out_date" name="check_out_date" required /> <br>
 
-  <input type="hidden" id="camp_id" name="camp_id" value="1" required>
+  <input type="hidden" id="camp_id" name="camp_id" th:value="${camp_id}" required>
 
 
-  <button type="submit">확인</button>
-
-  <script>
-    function checkValue() {
-      const checkInDate = document.getElementById('check_in_date').value;
-      const checkOutDate = document.getElementById('check_out_date').value;
-
-      // AJAX 요청을 보내는 부분
-        fetch('/campdetail', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `check_in_date=${checkInDate}&check_out_date=${checkOutDate}&camp_id=1`
-  })
-  .then(response => {
-  if (response.ok) {
-      return response.json();  // 응답이 JSON이면 파싱
-    }
-    throw new Error('네트워크 응답이 실패했습니다');
-  })
-  .then(data => {
-    console.log(data);  // 서버 응답 확인
-    // 예약된 캠핑장 목록을 화면에 출력
-    const reservedCampDiv = document.querySelector('#reservedCamp');
-    if (data && data.length > 0) {
-      let html = '<h3>예약 가능한 캠핑장</h3><ul>';
-      data.forEach(reservation => {
-        html += `<li>캠핑장 ID: ${reservation.camp_id}, 입실일: ${reservation.check_in_date}, 퇴실일: ${reservation.check_out_date}</li>`;
-      });
-      html += '</ul>';
-      reservedCampDiv.innerHTML = html;
-    } else {
-      reservedCampDiv.innerHTML = '<p>예약 가능한 캠핑장이 없습니다.</p>';
-    }
-  });
-
-  return false; // 폼 기본 제출을 막음
-}
-  </script>
-
-  <!-- 예약된 캠핑장을 출력할 곳 -->
-  <div id="reservedCamp"></div>
+  <button id="loadCampings">확인</button>
 
 
-
+<form id="reserveForm" action="/reserve" method="GET">
+  <!-- 선택된 캠핑장 목록을 저장할 hidden input -->
+  <input type="hidden" id="selectedCampId" name="camp_id">
+  <input type="hidden" id="selectedDetailId" name="campdetail_id">
+  <input type="hidden" id="selectedCheckInDate" name="check_in_date">
+  <input type="hidden" id="selectedCheckOutDate" name="check_out_date">
 
 </form>
+
+  <form>
+    <ul id="campDetailList"></ul> <!-- 캠핑장 리스트 출력 영역 -->
+  </form>
+
+<button type="submit" id="reserveBtn" style="display:none;">예약하기</button>
+
+
+  <script>
+              $(document).ready(function() {
+              // 날짜 선택 버튼 클릭 시
+              $('#loadCampings').click(function() {
+                  var checkInDate = $('#check_in_date').val(); // 선택된 시작 날짜
+                  var checkOutDate = $('#check_out_date').val(); // 선택된 끝 날짜
+                  let camp_id = $('#camp_id').val(); // 캠핑장 ID 가져오기
+
+                  if (!checkInDate || !checkOutDate) {
+                      alert("시작 날짜와 끝 날짜를 모두 선택해주세요.");
+                      return;
+                  }
+
+                  // AJAX 요청 보내기
+                  $.ajax({
+                      url: '/campdetail',
+                      method: 'GET',
+                      data: { check_in_date: checkInDate, check_out_date: checkOutDate , camp_id: camp_id },
+                      success: function(response) {
+                          console.log(response); // 서버 응답 확인
+
+                          var campDetailList = response.campDetailList;
+                          var reservedId = response.reservedId;
+
+                          // 기존 캠핑장 리스트 초기화
+                          $('#campDetailList').empty();
+
+                          // 캠핑장 리스트를 동적으로 생성
+                          campDetailList.forEach(function(campInfo) {
+                              console.log("campInfo =", campInfo);
+                              var disabled = reservedId.includes(campInfo.campdetail_id) ? 'disabled' : ''; // 예약된 캠핑장은 disabled 처리
+                              console.log("disabled", disabled);
+                              $('#campDetailList').append(
+                                  '<li><input type="checkbox" value="' + campInfo.campdetail_id + '" ' + disabled + ' /> ' + campInfo.detail_name + ' (' + campInfo.price + ')</li>'
+                              );
+                          });
+                      },
+                      error: function() {
+                          alert('데이터를 불러오는 데 실패했습니다.');
+                      }
+                  });
+
+                    if (checkInDate && checkOutDate) {
+                        $('#reserveBtn').show();  // 예약 버튼 보이기
+                    } else {
+                        $('#reserveBtn').hide();  // 예약 버튼 숨기기
+                    }
+              });
+
+              // 예약 버튼 클릭 시 폼 제출
+              $('#reserveBtn').click(function(e) {
+                  e.preventDefault(); // 기본 폼 제출을 막음
+
+                  // 예약하기 전에 선택된 캠핑장 정보와 날짜를 hidden 필드에 넣기
+                  var selectedDetailId = $('input[type="checkbox"]:checked').val();  // 체크된 캠핑장 ID
+                  var selectedCampId = $('#camp_id').val();
+                  var checkInDate = $('#check_in_date').val();
+                  var checkOutDate = $('#check_out_date').val();
+
+                  if (!selectedCampId || !checkInDate || !checkOutDate || !selectedDetailId) {
+                      console.log(selectedDetailId);
+                      console.log(selectedCampId);
+                      console.log(checkInDate);
+                      console.log(checkOutDate);
+                      alert("모든 정보를 선택해야 예약이 가능합니다.");
+                      return;
+                  }
+
+                  // hidden 필드에 값 설정
+                  $('#selectedCampId').val(selectedCampId);
+                  $('#selectedDetailId').val(selectedDetailId);
+                  $('#selectedCheckInDate').val(checkInDate);
+                  $('#selectedCheckOutDate').val(checkOutDate);
+
+                  // 폼 action URL에 파라미터 추가
+                  var actionUrl = "/reserve?camp_id=" + selectedCampId +
+                  "&campdetail_id=" + selectedDetailId +
+                  "&check_in_date=" + checkInDate +
+                  "&check_out_date=" + checkOutDate;
+
+                  $('#reserveForm').attr('action', actionUrl);  // action 속성 수정
+
+                  // 폼 제출
+                  $('#reserveForm').submit();  // 예약 폼 제출
+              });
+          });
+
+  </script>
+
 
 </body>
 </html>

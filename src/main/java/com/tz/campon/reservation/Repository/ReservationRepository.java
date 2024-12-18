@@ -17,12 +17,13 @@ public class ReservationRepository {
     @Autowired
     SqlSession session;
 
-    public List<Reservation> getReservationDate(LocalDate check_id_date, LocalDate check_out_date, int camp_id){
+    public List<Integer> getReservationId(LocalDate check_id_date, LocalDate check_out_date, int camp_id){
 
         System.out.println(check_id_date);
 
         System.out.println(check_out_date);
         System.out.println(camp_id);
+
 
 
         Map<String, Object> params = new HashMap<>();
@@ -32,7 +33,7 @@ public class ReservationRepository {
 
 
 
-        return session.selectList("a.getReservationDate", params);
+        return session.selectList("a.getReservationId", params);
 
     }
 
@@ -40,6 +41,8 @@ public class ReservationRepository {
 
         return session.selectList("a.getReservationById", id);
     }
+
+
 
     public int register(Reservation reservation ){
        int row =   session.insert("a.addReserve", reservation );

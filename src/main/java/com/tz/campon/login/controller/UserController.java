@@ -2,6 +2,8 @@ package com.tz.campon.login.controller;
 
 import com.tz.campon.login.dto.UserDTO;
 import com.tz.campon.login.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,13 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(HttpServletRequest request, HttpSession session, Model model) {
+        // 이전 페이지 URL 저장
+        String referrer = request.getHeader("Referer");
+        if (referrer != null && !referrer.contains("/login")) {
+            session.setAttribute("prevPage", referrer);
+        }
+
         String location = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
         model.addAttribute("location", location);
 

@@ -4,9 +4,11 @@
 
 <mapper namespace="a">
 
+
     <select id="getReservationDate" resultType="com.tz.campon.reservation.DTO.Reservation">
+
         <![CDATA[
-    SELECT *
+    SELECT r.campdetail_id
     FROM reservations r
     JOIN campground ON campground.camp_id = r.camp_id
     JOIN campdetail ON campdetail.campdetail_id = r.campdetail_id

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>캠핑장 상세 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}">
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=da61be973f2dec7ef4fce7a4678d40df"></script>
+    <script type="text/javascript" th:src="@{/js/campdetail.js}"></script>
+</head>
+<body>
+<!-- 헤더 -->
+<header>
+    <div class="header-bar">
+        <span>로고</span>
+        <div class="header-buttons">
+            <button>로그인</button>
+            <button>회원가입</button>
+            <button>마이페이지</button>
+        </div>
+    </div>
+    <nav>
+        네비바 (카테고리)
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        <!-- 캠핑장 정보 -->
+        <div class="camping-info">
+            <div class="image-section"></div>
+            <div class="info-section">
+                <h2>함양용추오토캠핑장</h2>
+                <p id="camping-address">
+                    주소: 경상남도 함양군 안의면 용추계곡로 493 용추오토캠핑장 관리사무소
+                    <button class="copy-button" onclick="copyAddress()">복사</button>
+                </p>
+                <p><i class="fas fa-phone" style="color: gold;"></i> 010-1234-5678</p>
+                <button class="reserve-button">예약 하기</button>
+            </div>
+        </div>
+
+        <!-- 지도 및 정보 -->
+        <div class="tab-section">
+            <div>
+                <h3>기본정보</h3><br>
+                <h4>한줄소개</h4> 착한가격에 깨끗한 캠핑장을 원한신다면~ <br><br>
+                <h4>위치소개</h4> 황석,거망,기백,금원,남덕유산,용추폭포,상림공원,오도재 조망공원,서암정사,와인터널
+            </div>
+            <div class="map" id="kakao-map"></div>
+        </div>
+
+        <!-- 기타 설명 -->
+        <div class="description">
+            <p class="camp-description">캠핑장 소개글
+            <p>"함양용추오토캠핑장"으로 낭만캠퍼 여러분들을 초대 합니다!</p><br>
+
+            <p>시원한 용추계곡을 배경으로 한 우리 용추오토캠핑장은</p><br>
+
+            <p>일상에서 벗어나 휴식과 여유를 찾는 건강한 문화가 조성되어 있습니다.</p><br>
+
+            <p>가족, 친구, 사랑하는 사람과 함께 자연 속에서 쾌적한 캠핑을 즐기실 수 있는 용추오토캠핑장은</p><br>
+
+            <p>해 마다 수많은 사람들의 발길이 끊이지 않으며 용추오토캠핑장만의 새로운 캠핑지역을 형성하고 있습니다.</p><br>
+
+                <p>바쁜 일상에서 벗어나 자연과 어우러져 캠핑이 주는 특별한 힐링을 만끽해보세요!</p><br>
+
+            <button class="toggle-description" onclick="toggleDescription()">더보기</button>
+        </div>
+
+        <div class="facility-info">캠핑장 시설정보 (아이콘 or 글)</div>
+        <div class="empty-section">비어있음</div>
+
+        <!-- 리뷰 섹션 -->
+        <div class="review-section">
+            <h3>캠핑로그</h3>
+            <div class="review-box">
+                <div class="review-user">
+                    <span class="user-name">유저 비공개</span>
+                    <span class="user-info">2024.12.04</span>
+                </div>
+                <p class="review-content">저렴한 가격에 잘 놀다 갑니다.</p>
+            </div>
+            <!-- 리뷰 작성 -->
+            <div class="review-input-box">
+                <h4>리뷰 쓰기</h4>
+                <textarea placeholder="리뷰를 작성해주세요..." rows="4"></textarea>
+                <button class="submit-review">등록하기</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- 푸터 -->
+<footer>
+    푸터 영역
+</footer>
+
+</body>
+</html>

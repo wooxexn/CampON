@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampON</title>
+    <link rel="stylesheet" href="/css/mypage/mypage.css">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="logo">
+        <a href="/main" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="/images/campon-logo.png" alt="CampON Logo">
+            <span style="font-size: 24px; font-weight: bold; margin-left: 10px; color: inherit;">CAMPON</span>
+        </a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/main" class="menu-link">HOME</a></li>
+            <li><a href="/detail" class="menu-link">CAMPING LIST</a></li>
+            <li><a href="/reserve" class="menu-link">RESERVATION</a></li>
+            <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
+        </ul>
+        <div class="auth-links">
+            <!-- 로그인 상태일 때만 로그아웃/마이페이지 표시 -->
+            <div th:if="${isLoggedIn}">
+                <a href="/logout">로그아웃</a>
+                <a href="/mypage">마이페이지</a>
+            </div>
+            <!-- 로그인 상태가 아닐 때만 로그인/회원가입 표시 -->
+            <div th:unless="${isLoggedIn}">
+                <a href="/login">로그인</a>
+                <a href="/register">회원가입</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- MyPage Section -->
+<section class="mypage-section">
+    <div class="mypage-container">
+        <nav class="mypage-menu">
+            <ul>
+                <li><a href="/mypage/reservations" class="active">예약 조회</a></li>
+                <li><a href="/mypage/edit">정보 수정</a></li>
+            </ul>
+        </nav>
+        <div class="content-area">
+            <h3>예약 조회</h3>
+            <div class="reservation-list">
+                <p>예약 내역이 없습니다.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Main Section -->
+<section class="main-section">
+    <video class="main-video" autoplay muted loop>
+        <source src="/videos/bannervideo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
+    <div class="main-text">
+        <div class="title">캠프온: 營地</div>
+        <p>자연과 함께하는 특별한 하루</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p class="footer-title">CAMPON</p>
+    <p>캠프온(CAMP ON) Address: 에이콘 아카데미 Tel: 010-1234-5678</p>
+    <p>Designer: 전우선 Business: 563-12-02365 E-commerce: 2024 서울홍대 0962</p>
+</footer>
+
+<!-- JavaScript 파일 연결 -->
+<script src="/js/main.js"></script>
+</body>
+</html>
