@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script>
-        window.onload = function () {
-            const alertMessage = /*[[${alertMessage}]]*/ '';
-            if (alertMessage) {
-                alert(alertMessage);
-            }
-        };
-    </script>
-</head>
+    <title>로그인</title>
+    <link rel="stylesheet" href="/css/login/login.css">
 <body>
-<div class="container" style="display: flex; justify-content: center; align-content: center; align-items: center; flex-direction: column; margin: 200px auto; ">
-  <h1>카카오 로그인</h1>
-    <input type="hidden" id="alertMessage" th:value="${alertMessage}" />
-  <a th:href="${location}">
-      <img src="/images/kakao_login_medium_narrow.png" >
-  </a>
+<div class="container">
+    <div class="login-box">
+        <!-- 닫기 버튼 -->
+        <span class="close-btn" onclick="closeLoginBox()">×</span>
+
+        <h2>로그인</h2>
+
+        <!-- 에러 메시지 출력 -->
+        <div th:if="${session.errorMessage}" class="error-message" th:text="${session.errorMessage}"></div>
+
+        <!-- 카카오 로그인 -->
+        <div class="kakao-login">
+            <a th:href="${location}">
+                <img src="/images/kakao_login_medium_narrow.png" alt="카카오 로그인 버튼">
+            </a>
+        </div>
+
+        <!-- 일반 로그인 폼 -->
+        <form th:action="@{/login}" method="post">
+            <input type="text" name="username" placeholder="아이디" required />
+            <input type="password" name="password" placeholder="비밀번호" required />
+
+            <div class="checkbox-group">
+                <input type="checkbox" name="rememberMe" id="rememberMe">
+                <label for="rememberMe">로그인 상태 유지</label>
+            </div>
+            <button type="submit">로그인</button>
+        </form>
+
+        <div class="links">
+            <a th:href="@{/register}">회원가입</a> |
+            <a th:href="@{/find-account}">아이디·비밀번호 찾기</a>
+        </div>
+    </div>
 </div>
-<h1>일반 로그인</h1>
-<div th:if="${session.errorMessage}" style="color: red;">
-    <p th:text="${session.errorMessage}"></p>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/clear-error-message', { method: 'POST' });
-        });
-    </script>
-</div>
-<form th:action="@{/login}" method="post">
-    <input type="text" name="username" placeholder="ID"/>
-    <input type="password" name="password" placeholder="Password"/>
-    <button type="submit">로그인</button>
-</form>
-<h4>회원가입</h4>
-<a th:href="@{/register}">회원가입</a>
+
+<script src="/js/login.js"></script>
 </body>
 </html>

@@ -12,6 +12,6 @@ public class MainPageController {
     public String main(Model model) {
         model.addAttribute("title", "캠핑 예약 사이트");
         model.addAttribute("description", "캠핑장 예약을 쉽고 간편하게!");
-        return "mainpage/MainPage";
+        return "mainpage/main";
     }
 }
