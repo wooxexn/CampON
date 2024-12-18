@@ -5,6 +5,35 @@
     <title>Title</title>
 </head>
 <body>
+<!-- Header -->
+<header>
+    <div class="logo">
+        <a href="/main" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="/images/campon-logo.png" alt="CampON Logo">
+            <span style="font-size: 24px; font-weight: bold; margin-left: 10px; color: inherit;">CAMPON</span>
+        </a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/main" class="menu-link">HOME</a></li>
+            <li><a href="/camplist" class="menu-link">CAMPING LIST</a></li>
+            <li><a href="/reserve" class="menu-link">RESERVATION</a></li>
+            <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
+        </ul>
+        <div class="auth-links">
+            <!-- 로그인 상태일 때만 로그아웃/마이페이지 표시 -->
+            <div th:if="${#authentication != null}">
+                <a href="/logout">로그아웃</a>
+                <a href="/mypage">마이페이지</a>
+            </div>
+            <!-- 로그인 상태가 아닐 때만 로그인/회원가입 표시 -->
+            <div th:if="${#authentication == null}">
+                <a href="/login">로그인</a>
+                <a href="/register">회원가입</a>
+            </div>
+        </div>
+    </nav>
+</header>
 
 <h2>캠핑장 리스트</h2>
 
