@@ -3,33 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .camp-detail-container {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
 
+        }
+
+        .camp-detail-item {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .camp-detail-item label {
+            font-weight: bold;
+            width: 120px; /* 라벨 너비 설정 */
+        }
+
+        .camp-detail-item .value {
+            flex-grow: 1;
+        }
+
+        .camp-detail-item img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
 <h2>예약 추가</h2>
 
-<form th:action="@{/addReserve}" method="post" onsubmit="return checkValue()">
+<form th:action="@{/addReserve}" method="post" >
 
-    <!-- 입실일 입력 -->
-    <label for="check_in_date">입실일:</label>
-    <input type="datetime-local" id="check_in_date" name="check_in_date" required /> <br>
-
-    <!-- 퇴실일 입력 -->
-    <label for="check_out_date">퇴실일:</label>
-    <input type="datetime-local" id="check_out_date" name="check_out_date" required /> <br>
-
-    <div th:each="item : ${campDetailList}">
-        <div><img th:src="${camplist2.photo_url}" alt="Camping Image"></div>
-        <div th:text="${item.detail_name}"></div>
-        <div th:text="${item.price}"></div>
-        <input type="checkbox" name="campdetail_id" th:value="${item.campdetail_id}" onclick="checkOnlyOne(this)" /> 선택
+    <div class="camp-detail-container">
+        <div class="camp-detail-item">
+            <div><img th:src="${campDetailOne.photo_url}" alt="Camping Image"></div>
+        </div>
+        <div class="camp-detail-item">
+            <label>사용자 ID:</label>
+            <div class="value" th:text="${user_id}"></div>
+        </div>
+        <div class="camp-detail-item">
+            <label>캠핑장 이름:</label>
+            <div class="value" th:text="${campDetailOne.detail_name}"></div>
+        </div>
+        <div class="camp-detail-item">
+            <label>가격:</label>
+            <div class="value" th:text="${campDetailOne.price}"></div>
+        </div>
     </div>
 
-
+    <input type="hidden" id="check_in_date" name="check_in_date" th:value="${check_in_date}" required /> <br>
+    <input type="hidden" id="check_out_date" name="check_out_date" th:value="${check_out_date}" required /> <br>
     <input type="hidden" th:value="${camplist2.camp_id}" name="camp_id" required />
     <input type="hidden" value="rlaanrnd" name="user_id" required />
-    <input type="hidden" id="selectedCampdetail" name="selectedCampdetail" />
+    <input type="hidden" id="campdetail_id" name="campdetail_id" th:value="${campdetail_id}" required />
     <input type="hidden" id="number_of_guest" name="number_of_guest" th:value="${camplist2.capacity}" required /> <br>
     <input type="hidden" id="total_price" name="total_price" th:value="${camplist2.price}" required /> <br>
     <input type="hidden" id="status" name="status" value="예약 완료" required /> <br>
@@ -38,24 +74,6 @@
 </form>
 
 <script>
-
-    function checkValue() {
-        var selectedCampdetail = null;
-
-        var checkBoxes = document.getElementsByName("campdetail_id");
-        for (let i = 0; i < checkBoxes.length; i++) {
-            if (checkBoxes[i].checked) {
-                selectedCampdetail = checkBoxes[i].value;
-                break;
-            }
-        }
-
-        if (selectedCampdetail) {
-            document.getElementById("selectedCampdetail").value = selectedCampdetail;
-        }
-
-        return true;
-    }
 
 </script>
 
