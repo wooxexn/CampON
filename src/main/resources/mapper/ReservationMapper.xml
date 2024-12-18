@@ -4,17 +4,6 @@
 
 <mapper namespace="a">
 
-    <select id="getReservationDate" resultType="com.example.campTest.Reservation">
-        <![CDATA[
-    SELECT *
-    FROM reservations r
-    JOIN campground ON campground.camp_id = r.camp_id
-    JOIN campdetail ON campdetail.campdetail_id = r.campdetail_id
-    WHERE (check_in_date <= #{check_in_date} AND check_out_date >= #{check_out_date})
-    AND r.camp_id = #{camp_id}
-    ]]>
-    </select>
-
     <select id="getReservationId" resultType="Integer">
         <![CDATA[
     SELECT r.campdetail_id

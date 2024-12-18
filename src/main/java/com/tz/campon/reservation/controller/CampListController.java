@@ -1,5 +1,7 @@
 package com.tz.campon.reservation.controller;
 
+import com.tz.campon.reservation.DTO.CampList;
+import com.tz.campon.reservation.Repository.CampListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

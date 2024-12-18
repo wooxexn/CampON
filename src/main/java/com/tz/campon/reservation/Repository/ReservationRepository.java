@@ -1,6 +1,7 @@
 package com.tz.campon.reservation.Repository;
 
 
+import com.tz.campon.reservation.DTO.Reservation;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,25 +16,6 @@ public class ReservationRepository {
 
     @Autowired
     SqlSession session;
-
-    public List<Reservation> getReservationDate(LocalDate check_id_date, LocalDate check_out_date, int camp_id){
-
-        System.out.println(check_id_date);
-
-        System.out.println(check_out_date);
-        System.out.println(camp_id);
-
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("check_in_date", check_id_date);
-        params.put("check_out_date", check_out_date);
-        params.put("camp_id", camp_id);
-
-
-
-        return session.selectList("a.getReservationDate", params);
-
-    }
 
     public List<Integer> getReservationId(LocalDate check_id_date, LocalDate check_out_date, int camp_id){
 
