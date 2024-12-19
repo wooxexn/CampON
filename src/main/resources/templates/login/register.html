@@ -14,7 +14,7 @@
         <div class="subtitle">아래 항목을 빠짐없이 기입해주세요.</div>
 
         <!-- 회원가입 폼 -->
-        <form th:action="@{/register}" method="post">
+        <form th:action="@{/register}" method="post" onsubmit="validateForm(event)">
             <div class="input-group">
                 <label for="id">아이디</label>
                 <div class="input-row">
@@ -30,12 +30,14 @@
 
             <div class="input-group">
                 <label for="password">비밀번호 (8자리 이상)</label>
-                <input type="password" name="password" id="password" placeholder="비밀번호" required>
+                <small id="password-error" class="error-message">비밀번호를 8자리 이상이여야 합니다</small> <br>
+                <input type="password" name="password" id="password" placeholder="비밀번호" required onblur="validatePassword()">
             </div>
 
             <div class="input-group">
                 <label for="confirm-password">비밀번호 확인</label>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호 확인" required>
+                <small id="password-match-message"></small><br>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호 확인" required oninput="validatePasswordMatch()">
             </div>
 
             <div class="input-group">
