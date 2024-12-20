@@ -86,7 +86,7 @@ public class ReservationController {
         model.addAttribute("user_id", user_id);
 
 
-        return "reserve";
+        return "reservation/reserve";
     }
 
 }

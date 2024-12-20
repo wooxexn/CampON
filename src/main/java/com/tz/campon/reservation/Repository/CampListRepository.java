@@ -2,29 +2,53 @@ package com.tz.campon.reservation.Repository;
 
 
 import com.tz.campon.reservation.DTO.CampList;
+import com.tz.campon.reservation.mapper.CampListMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class CampListRepository {
 
-    @Autowired
-    SqlSession session;
+    private final CampListMapper campListMapper;
 
-    public List<CampList> getAllCamp(){
+    public CampListRepository(CampListMapper campListMapper) {
+        this.campListMapper = campListMapper;
+    }
 
-        return  session.selectList("b.getCampground");
+    public ArrayList<CampList> getAllCamp(){
+
+        return campListMapper.getCampList();
     }
 
     public CampList getCampgroundById(int camp_id){
 
-        CampList campList = session.selectOne("b.getCampgroundById", camp_id);
+        return campListMapper.getCampListByCampId(camp_id);
 
-        return campList;
+    }
 
+    public ArrayList<CampList> getCampsByPrice() {
+        return campListMapper.getCampListByPrice();
+    }
+
+    public ArrayList<CampList> getCampsByRating() {
+        return campListMapper.getCampListByRating();
+    }
+
+    public ArrayList<CampList> getCampListByRegion(String region) {
+        return campListMapper.getCampListByRegion(region);
+    }
+
+    public ArrayList<CampList> getCampListByRegionSorted(String region, String sort) {
+        if ("price".equals(sort)) {
+            return campListMapper.getCampListByRegionSortedByPrice(region);
+        } else if ("rating".equals(sort)) {
+            return campListMapper.getCampListByRegionSortedByRating(region);
+        }
+        return getCampListByRegion(region);
     }
 
 }

@@ -8,22 +8,53 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class CampListController {
     
-    @Autowired
-    CampListRepository repository;
+    private final CampListRepository repository;
+
+    public CampListController(CampListRepository campListRepository) {
+        this.repository = campListRepository;
+    }
     
     @GetMapping("/camplist")
-    public String getCampList(Model model){
+    public String getCampList(@RequestParam(name = "region", required = false) String region, @RequestParam(name = "sort", required = false) String sort, Model model){
 
-       List<CampList> list = repository.getAllCamp();
+        ArrayList<CampList> list;
+        if (region != null && !region.isEmpty()) {
+            if ("price".equals(sort)) {
+                list = repository.getCampListByRegionSorted(region, "price");
+            } else if ("rating".equals(sort)) {
+                list = repository.getCampListByRegionSorted(region, "rating");
+            } else {
+                list = repository.getCampListByRegion(region);
+            }
+        } else {
+            if ("price".equals(sort)) {
+                list = repository.getCampsByPrice();
+            } else if ("rating".equals(sort)) {
+                list = repository.getCampsByRating();
+            } else {
+                list = repository.getAllCamp();
+            }
+        }
       
-       model.addAttribute("camplist1", list);
+        model.addAttribute("camplist1", list);
+        model.addAttribute("selectedRegion", region);
+        model.addAttribute("selectedSort", sort);
         
-        return "/camplist";
+        return "reservation/camplist";
+    }
+
+    @GetMapping("/camplist/region")
+    public String getCampListByRegion(@RequestParam("region") String region, Model model) {
+        List<CampList> campList = repository.getCampListByRegion(region);
+        model.addAttribute("camplist1", campList);
+        model.addAttribute("selectedRegion", region);
+        return "reservation/camplist";
     }
 
 
@@ -34,7 +65,7 @@ public class CampListController {
 
         model.addAttribute("camplist2", camplist);
 
-        return "/campinfo";
+        return "reservation/campinfo";
     }
 
 }

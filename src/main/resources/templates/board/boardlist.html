@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Member List</title>
+
+    <style>
+
+        .active{
+            color:red;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.like-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    const boardId = this.getAttribute('data-id');
+                    fetch(`/board/like/${boardId}`, { method: 'POST' })
+                        .then(response => response.json())
+                        .then(likeCount => {
+                            // 좋아요 개수 업데이트
+                            this.querySelector('span').textContent = likeCount;
+                        });
+                });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.comment-submit').forEach(button => {
+                button.addEventListener('click', function () {
+                    const boardId = this.getAttribute('data-id');
+                    const content = document.querySelector(`.comment-input[data-id="${boardId}"]`).value;
+
+                    fetch(`/board/comment/${boardId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `content=${encodeURIComponent(content)}`
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to add comment');
+                            }
+                            return response.json(); // JSON 응답 파싱
+                        })
+                        .then(comments => {
+                            const commentList = document.querySelector(`ul[data-id="${boardId}"]`);
+                            if (!commentList) {
+                                console.error('Comment list element not found for boardId:', boardId);
+                                return;
+                            }
+                            // 댓글 목록 업데이트
+                            commentList.innerHTML = comments.map(comment =>
+                                `<li>${comment.user_id}: ${comment.content}</li>`).join('');
+                        })
+                        .catch(error => {
+                            console.error('Error:', error.message);
+                        });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Member List</h1>
+
+<a th:href="@{/list/add}">+</a>
+
+<!-- Display member list -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>image</th>
+        <th>caption</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${members}">
+        <td th:text="${member.userId}"></td>
+        <td>
+            <img th:src="@{/images/{filePath}(filePath=${member.imageUrl})}" alt="Image" style="width: 100px; height: auto;">
+        </td>
+        <td th:text="${member.caption}"></td>
+        <td>
+            <!-- 본인 글 확인 -->
+            <div th:if="${member.userId} == ${#authentication.name}">
+                <div class="dropdown">
+                    <button class="dropdown-toggle">⋮</button>
+                    <div class="dropdown-menu">
+                        <a th:href="@{/board/edit/{id}(id=${member.boardId})}" class="dropdown-item">수정</a>
+                        <a th:href="@{/board/delete/{id}(id=${member.boardId})}" class="dropdown-item" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td>
+            <button class="like-button" th:attr="data-id=${member.boardId}">
+                좋아요 (<span th:text="${member.likeCount}">0</span>)
+            </button>
+        </td>
+        <td>
+            <!-- 댓글 목록 -->
+            <div>
+                <h4>댓글</h4>
+                <ul class="comment-list" th:attr="data-id=${member.boardId}">
+                    <!-- 서버에서 제공한 댓글 목록 표시 -->
+                    <li th:each="comment : ${member.comments}" th:text="${comment.userId} + ': ' + ${comment.content}"></li>
+                </ul>
+            </div>
+            <!-- 댓글 입력 -->
+            <textarea class="comment-input" th:attr="data-id=${member.boardId}" placeholder="댓글을 입력하세요"></textarea>
+            <button class="comment-submit" th:attr="data-id=${member.boardId}">댓글 등록</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<!-- 페이징-->
+<div class="pagination">
+
+    <!-- 이전 그룹 -->
+    <span th:if="${pageHandler.grpStartPage > 1}">
+        <a th:href="@{/list(currentPage=${pageHandler.grpStartPage -1})}" class="prev">이전</a>
+    </span>
+
+    <!-- 페이지 번호 -->
+    <span th:each="page : ${#numbers.sequence(pageHandler.grpStartPage, pageHandler.grpEndPage)}">
+        <a th:href="@{/list(currentPage=${page})}"
+           th:classappend="${page == pageHandler.currentPage} ? 'active' : ''"
+           th:text="${page}"></a>
+    </span>
+
+    <!-- 다음 그룹 -->
+    <span th:if="${pageHandler.grpEndPage < pageHandler.totalPage}">
+        <a th:href="@{/list(currentPage=${pageHandler.grpEndPage +1})}" class="next">다음</a>
+    </span>
+
+</div>
+
+
+</body>
+</html>
