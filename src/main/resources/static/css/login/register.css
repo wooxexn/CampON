@@ -121,3 +121,8 @@ body {
 .register-submit:hover {
     background: #555;
 }
+.error-message {
+    color: red;
+    display: none; /* 초기에는 숨김 */
+    margin-top: 4px;
+}
