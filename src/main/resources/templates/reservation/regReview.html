@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/regReview}" method="post">
+
+
+    <label for="reply">리뷰: </label>
+    <input type="text" id="reply" name="reply" required> <br>
+    <div class="rating">
+        <input type="radio" id="star5" name="rating" value="5" />
+        <label for="star5">★</label>
+        <input type="radio" id="star4" name="rating" value="4" />
+        <label for="star4">★</label>
+        <input type="radio" id="star3" name="rating" value="3" />
+        <label for="star3">★</label>
+        <input type="radio" id="star2" name="rating" value="2" />
+        <label for="star2">★</label>
+        <input type="radio" id="star1" name="rating" value="1" />
+        <label for="star1">★</label>
+    </div>
+
+    <button type="submit" id="regBtn">등록하기</button>
+
+    <input type="hidden" id="camp_id" name="camp_id" th:value="${camp_id}" required> <br>
+    <input type="hidden" id="user_id" name="user_id" th:value="${user_id}" required> <br>
+
+
+</form>
+
+<script>
+
+    $('#regBtn').click(function(){
+        var message = $('#message').text().trim();
+
+        if (message) {
+            alert("경고: " + message);
+        }
+    });
+
+</script>
+
+</body>
+</html>
