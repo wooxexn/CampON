@@ -19,9 +19,9 @@
     </thead>
     <tbody>
     <tr th:each="item : ${reservelist}">
-        <td th:text="${item.user_id}">아이디</td>
-        <td th:text="${#temporals.format(item.check_in_date, 'yyyy-MM-dd')}">입실</td>
-        <td th:text="${#temporals.format(item.check_out_date, 'yyyy-MM-dd')}">퇴실</td>
+        <td th:text="${item.userId}">아이디</td>
+        <td th:text="${#temporals.format(item.checkInDate, 'yyyy-MM-dd')}">입실</td>
+        <td th:text="${#temporals.format(item.checkOutDate, 'yyyy-MM-dd')}">퇴실</td>
         <td th:text="${item.status}">상태</td>
     </tr>
     </tbody>

@@ -20,21 +20,21 @@ public interface PostMapper {
      @return 게시글 상세정보
      */
     @Select("select * from board where board_id = #{boardId}")
-    Board findById(Integer id);
+    Board findById(@Param("boardId") Integer id);
 
     /*
      게시글 수정
      @param params - 게시글 정보
      */
     @Update("update board set image_url = #{imageUrl}, caption = #{caption} where board_id = #{boardId}")
-    void update(String image_url, String caption, Integer board_id);
+    void update(@Param("imageUrl")String image_url,@Param("caption") String caption,@Param("boardId") Integer board_id);
 
     /*
      게시글 삭제
      @param id - PK
      */
     @Delete("delete from board where board_id = #{boardId}")
-    void deleteById(Integer id);
+    void deleteById(@Param("boardId")Integer id);
 
     /*
      게시글 리스트 조회

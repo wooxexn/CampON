@@ -7,3 +7,11 @@ function closeLoginBox() {
 document.addEventListener('DOMContentLoaded', function() {
     fetch('/clear-error-message', { method: 'POST' });
 });
+// 쿼리 매개변수로 전달된 메시지를 alert로 표시
+window.onload = function() {
+    const params = new URLSearchParams(window.location.search);
+    const message = params.get("message");
+    if (message === "loginRequired") {
+        alert("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
+    }
+}

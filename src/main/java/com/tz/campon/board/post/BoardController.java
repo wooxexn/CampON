@@ -20,7 +20,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/board")
     public String getboard(@RequestParam(required = false, defaultValue = "1", name = "currentPage") Integer currentPage, Model model){
         int size = 2;
         int grpSize = 5;
@@ -43,7 +43,7 @@ public class BoardController {
         return "board/boardlist";
     }
 
-    @GetMapping("/list/add")
+    @GetMapping("/board/add")
     public String addBoard(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
@@ -54,7 +54,7 @@ public class BoardController {
     }
 
 
-    @PostMapping("/list/add")
+    @PostMapping("/board/add")
     public String saveBoard(
             @RequestParam("userId") String userId,
             @RequestParam("image") MultipartFile image,
@@ -68,7 +68,7 @@ public class BoardController {
         board.setCaption(caption);
 
         boardService.saveBoard(board); // 데이터 저장
-        return "redirect:/list";
+        return "redirect:/board";
     }
 
     @GetMapping("/board/edit/{id}")
@@ -76,6 +76,19 @@ public class BoardController {
         Board board = boardService.getPostById(id);
         model.addAttribute("board", board);
         return "board/boardedit";
+    }
+
+    @PostMapping("/board/edit")
+    public String editBoard(
+            @RequestParam("boardId") int boardId,
+            @RequestParam("image") MultipartFile image,
+            @RequestParam("caption") String caption,
+            Model model
+    ) {
+        String imageUrl = boardService.saveImage(image); // 이미지 저장
+
+        boardService.updateBoard(imageUrl, caption, boardId); // 데이터 저장
+        return "redirect:/board";
     }
 
     @GetMapping("/board/delete/{id}")
