@@ -3,6 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .rating {
+          display: flex;
+          direction: row-reverse;
+          /*justify-content: center;*/
+        }
+
+        .rating input {
+          display: none;
+        }
+
+        .rating label {
+          font-size: 2rem;
+          color: lightgray;
+          cursor: pointer;
+          transition: color 0.2s;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+          color: gold;
+        }
+    </style>
 </head>
 <body>
 
