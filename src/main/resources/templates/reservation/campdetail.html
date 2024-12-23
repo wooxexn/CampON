@@ -48,10 +48,39 @@
                   var checkOutDate = $('#check_out_date').val(); // 선택된 끝 날짜
                   let camp_id = $('#camp_id').val(); // 캠핑장 ID 가져오기
 
+                   function getCurrentDay (){
+                      const today = new Date();
+                      const year = today.getFullYear();
+                      const month = String(today.getMonth() + 1).padStart(2, '0');
+                      const day = String(today.getDate()).padStart(2, '0');
+
+                      return `${year}-${month}-${day}`;
+                  }
+
+                  const currentDay = getCurrentDay();
+
+
                   if (!checkInDate || !checkOutDate) {
                       alert("시작 날짜와 끝 날짜를 모두 선택해주세요.");
                       return;
                   }
+
+                  if(checkInDate < currentDay){
+                      alert("시작 날짜가 오늘 날짜보다 빠를 순 없습니다.");
+                      return;
+                  }
+
+                   if(checkOutDate < currentDay){
+                      alert("종료 날짜가 오늘 날짜보다 빠를 순 없습니다.");
+                      return;
+                  }
+
+                  if(checkInDate >= checkOutDate){
+                      alert("시작 날짜가 종료 날짜보다 빠를 순 없습니다.");
+                      return;
+                  }
+
+
 
                   // AJAX 요청 보내기
                   $.ajax({
