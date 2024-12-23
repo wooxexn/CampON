@@ -44,6 +44,10 @@ public class BoardRepository {
         return postMapper.findById(id);
     }
 
+    public void update(String image_url, String caption, int board_id){
+        postMapper.update(image_url, caption, board_id);
+    }
+
     public void delete(int id){
         postMapper.deleteById(id);
     }

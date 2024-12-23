@@ -36,6 +36,32 @@
             margin-top: 10px;
         }
     </style>
+    <script>
+        function count(type)  {
+            // 결과를 표시할 element
+            const resultElement = document.getElementById('number_of_guest');
+            const capacityElement = document.getElementById('capacity');
+
+            // 현재 화면에 표시된 값
+            let number = resultElement.value;
+            let capacity = capacityElement.value;
+
+
+            // 더하기/빼기
+            if(type === 'plus') {
+                if(number < capacity){
+                    number = parseInt(number) + 1;
+                }else {
+                    alert("최대 인원을 넘길 수 없습니다.")
+                }
+            }else if(type === 'minus' && number > 1)  {
+                number = parseInt(number) - 1;
+            }
+
+            // 결과 출력
+            resultElement.value = number;
+        }
+    </script>
 </head>
 <body>
 
@@ -45,7 +71,7 @@
 
     <div class="camp-detail-container">
         <div class="camp-detail-item">
-            <div><img th:src="${campDetailOne.photo_url}" alt="Camping Image"></div>
+            <div><img th:src="${campDetailOne.photoUrl}" alt="Camping Image"></div>
         </div>
         <div class="camp-detail-item">
             <label>사용자 ID:</label>
@@ -53,29 +79,36 @@
         </div>
         <div class="camp-detail-item">
             <label>캠핑장 이름:</label>
-            <div class="value" th:text="${campDetailOne.detail_name}"></div>
+            <div class="value" th:text="${campDetailOne.detailName}"></div>
+        </div>
+        <div class="camp-detail-item">
+            <label>인원 :</label>
+            <input type='button'
+                   onclick='count("plus")'
+                   value='+'/>
+            <input type="text" id="number_of_guest" name="numberOfGuest" readonly="readonly" value="0"/>
+            <input type='button'
+                   onclick='count("minus")'
+                   value='-'/>
         </div>
         <div class="camp-detail-item">
             <label>가격:</label>
-            <div class="value" th:text="${campDetailOne.price}"></div>
+            <div class="value" th:text="${campDetailOne.price * days} + ' / ' + ${days} + '박'"></div>
         </div>
     </div>
 
-    <input type="hidden" id="check_in_date" name="check_in_date" th:value="${check_in_date}" required /> <br>
-    <input type="hidden" id="check_out_date" name="check_out_date" th:value="${check_out_date}" required /> <br>
-    <input type="hidden" th:value="${camplist2.camp_id}" name="camp_id" required />
-    <input type="hidden" value="rlaanrnd" name="user_id" required />
-    <input type="hidden" id="campdetail_id" name="campdetail_id" th:value="${campdetail_id}" required />
-    <input type="hidden" id="number_of_guest" name="number_of_guest" th:value="${camplist2.capacity}" required /> <br>
-    <input type="hidden" id="total_price" name="total_price" th:value="${camplist2.price}" required /> <br>
+    <input type="hidden" id="check_in_date" name="checkInDate" th:value="${check_in_date}" required /> <br>
+    <input type="hidden" id="check_out_date" name="checkOutDate" th:value="${check_out_date}" required /> <br>
+    <input type="hidden" th:value="${camplist2.campId}" name="campId" required />
+    <input type="hidden" th:value="${user_id}" name="userId" required />
+    <input type="hidden" th:value="${camplist2.capacity}" id="capacity" name="capacity" required />
+    <input type="hidden" id="campdetail_id" name="campdetailId" th:value="${campdetail_id}" required />
+    <input type="hidden" id="total_price" name="totalPrice" th:value="${camplist2.price}" required /> <br>
     <input type="hidden" id="status" name="status" value="예약 완료" required /> <br>
 
     <button type="submit">예약 추가</button>
 </form>
 
-<script>
-
-</script>
 
 </body>
 </html>

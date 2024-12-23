@@ -16,7 +16,7 @@ public class Comment {
 
     @JsonProperty("comment_id")
     public int commentId;
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     public String userId;
     @JsonProperty("board_id")
     public int boardId;

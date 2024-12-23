@@ -31,13 +31,13 @@ public class CampDetailController {
 
         model.addAttribute("camp_id", camp_id);
 
-        return "campdetail"; // campdetail.html을 반환
+        return "reservation/campdetail"; // campdetail.html을 반환
     }
 /*
     @GetMapping("/campdetail")
-    public Map<String, Object> getCampDetail(@RequestParam("check_in_date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate check_in_date,
-                                             @RequestParam("check_out_date") @DateTimeFormat(pattern = "yyyy-MM-dd")  LocalDate check_out_date,
-                                             @RequestParam("camp_id") int camp_id, Model model){
+    public Map<String, Object> getCampDetail(@RequestParam("checkInDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInDate,
+                                             @RequestParam("checkOutDate") @DateTimeFormat(pattern = "yyyy-MM-dd")  LocalDate checkOutDate,
+                                             @RequestParam("campId") int campId, Model model){
 
   */
 
@@ -56,8 +56,10 @@ public class CampDetailController {
 
 
         List<Integer> reservedId = reservationRepository.getReservationId(start, end, camp_id);
+        System.out.println(reservedId);
 
         List<CampDetail> campDetailList = campDetailRepository.getCampDetail(camp_id);
+        System.out.println(campDetailList);
 
 
         Map<String, Object> result = new HashMap<>();

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CampList {
 
-    @JsonProperty("camp_id")
+    @JsonProperty("campId")
     int campId;
     @JsonProperty("name")
     String name;
@@ -33,6 +33,11 @@ public class CampList {
     String photoUrl;
     @JsonProperty("rating")
     int rating;
+    @JsonProperty("mapX")
+    double mapX;
+    @JsonProperty("mapY")
+    double mapY;
+
 
 
 }

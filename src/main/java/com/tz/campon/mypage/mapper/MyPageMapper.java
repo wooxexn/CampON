@@ -18,6 +18,6 @@ public interface MyPageMapper {
     @Select("SELECT * FROM reservations WHERE user_id = #{userId}")
     List<ReservationDTO> findReservationsByUserId(String userId);
 
-    @Delete("DELETE FROM reservations WHERE id = #{reservationId}")
-    int deleteReservation(int reservationId); // 반환 타입을 int로 변경
+    @Delete("DELETE FROM reservations WHERE reservation_id = #{reservationId}")
+    int deleteReservation(@Param("reservationId") int reservationId); // 반환 타입을 int로 변경
 }

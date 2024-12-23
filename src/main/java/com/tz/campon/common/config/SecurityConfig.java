@@ -94,10 +94,9 @@ public class SecurityConfig {
                                 "/detail",      // 캠핑장 상세
                                 "/detail/3d",   // 3D 화면
                                 "/board",       // 게시판 메인
-                                "/board/search", // 게시판 검색
                                 "/camplist",
-                                "/campinfo",
-                                "/campdetail"
+                                "/campinfo/**",
+                                "/campdetail/**"
                         ).permitAll()
                         // 로그인한 사용자만 접근 가능한 URL
                         .requestMatchers(
@@ -105,7 +104,7 @@ public class SecurityConfig {
                                 "/mypage/reservations", // 예약 조회
                                 "/mypage/cancel",       // 예약 취소
                                 "/reserve",             // 예약 페이지
-                                "/board/new",           // 게시판 글 작성
+                                "/board/add",           // 게시판 글 작성
                                 "/board/edit/**",       // 게시판 글 수정
                                 "/board/delete/**",     // 게시판 글 삭제
                                 "/board/like/**",       // 게시판 좋아요
@@ -119,6 +118,11 @@ public class SecurityConfig {
                         .failureHandler(CustomAuthFailureHandler()) // 로그인 실패 처리
                         .successHandler(customAuthSuccessHandler()) // 이전 페이지로 이동 설정
                         .permitAll()
+                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.sendRedirect("/login?message=loginRequired");
+                        })
                 )
                 .addFilterBefore(customLogoutFilter, LogoutFilter.class)
                 .logout(logout -> logout

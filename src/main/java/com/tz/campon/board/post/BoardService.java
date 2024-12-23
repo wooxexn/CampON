@@ -52,6 +52,10 @@ public class BoardService {
         return boardRepository.findById(id);
     }
 
+    public void updateBoard(String image_url, String caption, int board_id) {
+        boardRepository.update(image_url, caption, board_id);
+    }
+
     public void deletePostById(int id) {
         boardRepository.delete(id);
     }
