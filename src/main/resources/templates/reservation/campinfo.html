@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .reviewWrap{
+             border: 1px solid black;
+             display: flex;
+        }
+        .review{
+            border: 1px solid black;
+            width: 200px;
+
+        }
+        .review-item{
+            border: 1px solid black;
+            padding: 10px;
+        }
 </head>
 <body>
 
@@ -16,7 +30,7 @@
     <div th:text="${camplist2.capacity}"></div>
     <div th:text="${camplist2.facilities}"></div>
     <div>
-        <img th:src="${camplist2.photo_url}" alt="Camping Image">
+        <img th:src="${camplist2.photoUrl}" alt="Camping Image">
     </div>
     <div th:text="${camplist2.rating}"></div>
 </div>
@@ -24,6 +38,20 @@
 <div th:if="${camplist2 == null}">
     <p>캠핑장 상세정보를 찾을 수 없습니다.</p>
 </div>
+
+<a th:href="@{/campdetailView(camp_id=${camplist2.campId})}">버튼</a>
+
+<div class="reviewWrap">
+    <div th:each="review : ${reviews}" class="review">
+
+        <div th:text="${review.user_id}" class="review-item"></div>
+        <div th:text="${review.reply}" class="review-item"></div>
+        <div th:text="${#dates.format(review.created_at, 'yyyy-MM-dd')}" class="review-item"></div>
+
+    </div>
+    <a th:href="@{/reviewAll(camp_id=${camplist2.camp_id})}">더보기</a> <br>
+</div>
+
 
 <a th:href="@{/campdetailView(camp_id=${camplist2.camp_id})}">버튼</a>
 

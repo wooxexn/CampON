@@ -5,7 +5,7 @@
 <mapper namespace="a">
 
 
-    <select id="getReservationDate" resultType="com.tz.campon.reservation.DTO.Reservation">
+    <select id="getReservationId" resultType="Integer">
 
         <![CDATA[
     SELECT r.campdetail_id
@@ -25,7 +25,7 @@
 
     <insert id="addReserve" parameterType="com.tz.campon.reservation.DTO.Reservation">
         INSERT INTO reservations (user_id, camp_id, campdetail_id, check_in_date, check_out_date, number_of_guest, total_price, status, created_at)
-        VALUES (#{user_id}, #{camp_id}, #{campdetail_id}, #{check_in_date}, #{check_out_date}, #{number_of_guest}, #{total_price}, #{status}, NOW())
+        VALUES (#{userId}, #{campId}, #{campdetailId}, #{checkInDate}, #{checkOutDate}, #{numberOfGuest}, #{totalPrice}, #{status}, NOW())
     </insert>
 
 

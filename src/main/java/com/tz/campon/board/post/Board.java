@@ -14,7 +14,7 @@ import java.util.List;
 public class Board {
         @JsonProperty("board_id")
         public int boardId;
-        @JsonProperty("user_id")
+        @JsonProperty("userId")
         public String userId;
         @JsonProperty("image_url")
         public String imageUrl;

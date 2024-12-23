@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<form th:action="@{/board/edit}" method="post" enctype="multipart/form-data">
+    <input type="text" id="boardId" name="boardId" th:value="${board.boardId}" hidden>
+
+    <label for="image">Image:</label>
+    <input type="file" id="image" name="image" required>
+
+    <label for="caption">Caption:</label>
+    <textarea id="caption" name="caption" required th:text="${board.caption}"></textarea>
+
+    <button type="submit">Submit</button>
+</form>
+
 
 </body>
 </html>

@@ -1,14 +1,22 @@
 package com.tz.campon.reservation.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CampDetail {
 
-    int campdetail_id;
-    int camp_id;
-    String detail_name;
+    @JsonProperty("campdetail_id")
+    int campdetailId;
+    @JsonProperty("camp_id")
+    int campId;
+    @JsonProperty("detail_name")
+    String detailName;
+    @JsonProperty("price")
     int price;
-    String photo_url;
+    @JsonProperty("photo_url")
+    String photoUrl;
 
 }
