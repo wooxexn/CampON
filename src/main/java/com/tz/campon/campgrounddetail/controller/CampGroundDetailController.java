@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CampGroundDetailController {
     @GetMapping("/campgrounddetail")
     public String campGroundDetail() {
-        return "campgrounddetail";
+        return "campgrounddetail/campgrounddetail";
     }
 }
