@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="d">
+
+
+    <select id="getReview" parameterType="int" resultType="com.tz.campon.reservation.DTO.Review">
+
+        select *
+        from review
+        join campground cg
+        on review.camp_id = cg.camp_id
+        where cg.camp_id = #{camp_id};
+
+    </select>
+
+    <select id="getReviewOnly3" parameterType="int" resultType="com.tz.campon.reservation.DTO.Review">
+
+        select *
+        from review
+        join campground cg
+        on review.camp_id = cg.camp_id
+        where cg.camp_id = #{camp_id}
+        ORDER BY review.created_at DESC
+        LIMIT 3;
+
+    </select>
+
+    <insert id="regReview" parameterType="com.tz.campon.reservation.DTO.Review">
+        insert into review ( user_id, camp_id, rating, reply, created_at) values (#{user_id}, #{camp_id}, #{rating}, #{reply}, NOW());
+    </insert>
+
+
+</mapper>
