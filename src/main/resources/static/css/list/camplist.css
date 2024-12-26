@@ -1,0 +1,311 @@
+ 
+ 
+        /* 헤더 / 푸터 */
+        
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #fff;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px;
+            margin-right: 15px;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        .logo a:hover {
+            text-decoration: underline;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-family: 'Nanum Gothic', sans-serif;
+            position: relative;
+        }
+
+        /* 밑줄 표시 */
+        nav ul li a.active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+        }
+
+        /* Hover 시 밑줄 추가 */
+        nav ul li a:hover::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+        }
+
+        .auth-links {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+        }
+
+        .auth-links a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #333;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 50px;
+            background-color: #f9f9f9;
+            text-align: center;
+            border-top: 1px solid #ccc;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10; 
+            box-sizing: border-box;
+        }
+
+        footer p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #777;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        footer .footer-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+
+
+
+
+
+
+        /* 전체 컨테이너 */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* 지역선택과 정렬을 같은 라인에 배치 */
+        .select-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+
+        /* 드롭다운 */
+        select {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #f3f3f3;
+            color: #333;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border: 2px solid black; 
+            background-color: white; 
+        }
+
+        select option {
+            padding: 10px;
+            font-size: 16px;
+        }
+        
+        select::-ms-expand {
+            display: none;
+        }
+
+        /* 라벨 스타일 */
+        label {
+            font-size: 15px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    
+
+
+        /* 캠핑장 목록 영역 */
+        .camp-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .camp-image {
+            width: 50%;
+            margin-right: 20px;
+            border: 1px solid black;
+        }
+
+        .camp-item {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 15px 0px 40px;
+            width: 90%;
+            height: 200px;
+            max-width: 1000px;
+            position: relative;
+
+            
+        }
+
+        .camp-info {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 2px;
+            margin: 0;
+            height: 100%;
+        }
+
+        .camp-info h3, .camp-info p {
+            margin: 2px;
+        }
+
+        .detail-price {
+            margin-top: auto;
+            margin-bottom: 0;
+            text-align: right;
+        }
+
+        /* 별점 */
+        .star-point {
+            font-weight: bold; 
+            font-size: 15px;
+            color: black; 
+        }
+
+        .icon-star{
+            color : #ffd400;
+        }
+
+    
+        /* 시설정보 */
+        .facilities-info {
+            width: 99%;
+            height: 20px;
+            position: absolute;
+            margin: 0 auto;
+            bottom: 0;
+            padding-left: 12px; 
+            font-size: 10px;
+            font-weight: bold;
+            align-items: center;
+            display: flex;
+            border-radius: 8px; 
+            background-color: #f3f5fa;
+            color: #7a7a7a;
+            
+        }
+
+        /* 경계선 */
+        .camp-info-line {
+            margin-top: 10px;
+            width: 90%;
+            border: 0.5px solid #e2e2e2;
+        }
+
+
+        /* 페이지네이션 */
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: white;
+            border-radius: 50%; 
+            color: #333;
+        }
+
+        .pagination button:hover {
+            background-color: #ddd;
+        }
+
+        .pagination .active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        .pagination .disabled {
+            color: #ccc;
+            cursor: not-allowed; 
+        }
+
+        .pagination .prev, .pagination .next {
+            border: none;
+            outline: none;
+            box-shadow: none;
+            background-color: transparent;
+        }
+
+        .pagination .prev:hover, .pagination .next:hover {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
