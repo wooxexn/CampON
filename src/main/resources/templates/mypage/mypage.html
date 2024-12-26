@@ -18,18 +18,16 @@
     <nav>
         <ul>
             <li><a href="/main" class="menu-link">HOME</a></li>
-            <li><a href="/detail" class="menu-link">CAMPING LIST</a></li>
+            <li><a href="/camplist" class="menu-link">CAMPING LIST</a></li>
             <li><a href="/reserve" class="menu-link">RESERVATION</a></li>
             <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
         </ul>
         <div class="auth-links">
-            <!-- 로그인 상태일 때만 로그아웃/마이페이지 표시 -->
-            <div th:if="${isLoggedIn}">
+            <div th:if="${#authentication != null}">
                 <a href="/logout">로그아웃</a>
                 <a href="/mypage">마이페이지</a>
             </div>
-            <!-- 로그인 상태가 아닐 때만 로그인/회원가입 표시 -->
-            <div th:unless="${isLoggedIn}">
+            <div th:if="${#authentication == null}">
                 <a href="/login">로그인</a>
                 <a href="/register">회원가입</a>
             </div>
@@ -40,21 +38,59 @@
 <!-- MyPage Section -->
 <section class="mypage-section">
     <div class="mypage-container">
-        <nav class="mypage-menu">
+        <!-- 왼쪽 메뉴 -->
+        <div class="mypage-menu">
             <ul>
                 <li><a href="/mypage/reservations" class="active">예약 조회</a></li>
-                <li><a href="/mypage/edit">정보 수정</a></li>
+                <li><a href="#" class="open-modal" onclick="openModal()">정보 수정</a></li>
             </ul>
-        </nav>
+        </div>
+
+        <!-- 오른쪽 내용 -->
         <div class="content-area">
-            <h3>예약 조회</h3>
+            <div class="user-info">
+                <!-- 사용자 이름을 동적으로 출력 -->
+                <h2 th:text="${user.name} + ' 님 안녕하세요.'">로그인을 해주세요.</h2>
+            </div>
+
             <div class="reservation-list">
-                <p>예약 내역이 없습니다.</p>
+                <h3>예약 조회</h3>
+
+                <!-- 예약 내역이 있을 때 -->
+                <div th:if="${reservations != null and not #lists.isEmpty(reservations)}">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>캠프장 이름</th>
+                            <th>예약 날짜</th>
+                            <th>가격</th>
+                            <th>예약 취소</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="reservation : ${reservations}">
+                            <td th:text="${reservation.campName}">Campground Name</td>
+                            <td th:text="${reservation.checkInDate} + ' - ' + ${reservation.checkOutDate}">Check-in - Check-out</td>
+                            <td th:text="${reservation.price}">Price</td>
+                            <td>
+                                <form th:action="@{/mypage/cancel}" method="post">
+                                    <input type="hidden" th:name="reservationId" th:value="${reservation.reservationId}">
+                                    <button type="submit">취소</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 예약 내역이 없을 때 -->
+                <div th:unless="${reservations != null and not #lists.isEmpty(reservations)}">
+                    <p>예약 내역이 없습니다.</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
-
 
 <!-- Main Section -->
 <section class="main-section">
@@ -69,6 +105,63 @@
     </div>
 </section>
 
+<!-- Information Edit Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>정보 수정</h3>
+        <form id="editForm">
+            <!-- 아이디 (읽기 전용) -->
+            <div class="input-group">
+                <label for="userId">아이디</label>
+                <input type="text" id="userId" th:value="${user.id}" readonly>
+            </div>
+
+            <!-- 기본 비밀번호 입력 -->
+            <div class="input-group">
+                <label for="password">기본 비밀번호 입력</label>
+                <input type="password" id="password" name="password" required autocomplete="off">
+                <span id="passwordError" style="color: red; display: none;">비밀번호를 입력해주세요.</span>
+            </div>
+
+            <!-- 새 비밀번호 -->
+            <div class="input-group">
+                <label for="newPassword">비밀번호 변경</label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="변경할 비밀번호를 입력하세요." autocomplete="off">
+            </div>
+
+            <!-- 비밀번호 확인 -->
+            <div class="input-group">
+                <label for="confirmPassword">비밀번호 확인</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="변경할 비밀번호를 다시 입력하세요." autocomplete="off">
+                <span id="confirmPasswordError" style="color: red; display: none;">비밀번호가 일치하지 않습니다.</span>
+            </div>
+
+            <!-- 이름 -->
+            <div class="input-group">
+                <label for="username">이름</label>
+                <input type="text" id="username" name="name" th:value="${user.name}" required placeholder="이름을 입력하세요.">
+            </div>
+
+            <!-- 이메일 -->
+            <div class="input-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" th:value="${user.email}" required placeholder="이메일 주소를 입력하세요.">
+            </div>
+
+            <!-- 전화번호 -->
+            <div class="input-group">
+                <label for="phone">전화번호</label>
+                <input type="text" id="phone" name="phone" th:value="${user.phone}" required placeholder="전화번호를 입력하세요.">
+            </div>
+
+            <!-- 수정 버튼 -->
+            <button type="button" id="submitEditForm">수정하기</button>
+        </form>
+    </div>
+</div>
+
+
 <!-- Footer -->
 <footer>
     <p class="footer-title">CAMPON</p>
@@ -78,5 +171,6 @@
 
 <!-- JavaScript 파일 연결 -->
 <script src="/js/main.js"></script>
+<script src="/js/mypage.js"></script>
 </body>
 </html>

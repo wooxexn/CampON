@@ -102,7 +102,8 @@ public class SecurityConfig {
                         ).permitAll()
                         // 로그인한 사용자만 접근 가능한 URL
                         .requestMatchers(
-                                "/mypage/edit",         // 내 정보 수정
+                                "/mypage",
+                                "/mypage/edit",
                                 "/mypage/reservations", // 예약 조회
                                 "/mypage/cancel",       // 예약 취소
                                 "/reserve",             // 예약 페이지

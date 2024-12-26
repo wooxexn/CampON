@@ -163,24 +163,68 @@ footer .footer-title {
     margin-bottom: 10px;
 }
 
+/* Main Section */
+.main-section {
+    position: relative;
+    height: 800px;
+}
+
+.main-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.main-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+}
+
+.main-text .title {
+    font-size: 35px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.main-text p {
+    font-size: 20px;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
 /* 마이페이지 섹션 */
 .mypage-section {
     display: flex;
     justify-content: center;
-    padding: 40px 0;
+    padding: 60px 0;
     background-color: #fff;
 }
 
 .mypage-container {
     display: flex;
-    width: 1000px;
+    max-width: 1200px;
+    width: 100%;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .mypage-menu {
-    width: 200px;
+    width: 250px;
     background: #f4f4f4;
     padding: 20px;
     border-right: 1px solid #ddd;
@@ -200,6 +244,7 @@ footer .footer-title {
     color: #333;
     padding: 10px;
     display: block;
+    font-size: 18px;
 }
 
 .mypage-menu a.active {
@@ -208,17 +253,144 @@ footer .footer-title {
     border-radius: 4px;
 }
 
-.content-area {
-    flex: 1;
-    padding: 20px;
+.mypage-menu a:hover {
+    background-color: #ddd;
+    color: #333;
 }
 
-.content-area h3 {
-    margin-bottom: 20px;
+.content-area {
+    flex: 3;
+    padding: 40px;
+    text-align: center;
+}
+
+.user-info {
+    margin-bottom: 40px;
+    font-size: 24px;
+}
+
+.user-info h2 {
+    font-size: 36px;
+    font-weight: bold;
 }
 
 .reservation-list {
     color: #777;
+    font-size: 1.2em;
     text-align: center;
-    font-size: 1.1em;
+}
+
+.reservation-list p {
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+/* Modal 스타일 */
+/* Modal 스타일 */
+.modal {
+    display: none; /* 초기 상태는 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 가운데로 정렬 */
+    background-color: #fefefe;
+    padding: 30px 20px; /* 내부 패딩 증가 */
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px; /* 최대 너비를 500px로 제한 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+.modal-content h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center; /* 제목 가운데 정렬 */
+}
+
+.input-group {
+    margin-bottom: 20px; /* 각 입력칸 간의 간격을 더 넓게 */
+}
+
+.input-group label {
+    font-size: 16px;
+    display: block;
+    margin-bottom: 5px;
+    color: #333; /* 레이블 색상 */
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px; /* 입력칸 패딩 증가 */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* 패딩과 테두리가 포함된 크기 계산 */
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%; /* 버튼을 입력 필드 너비에 맞추기 */
+    margin-top: 20px; /* 버튼과 마지막 입력칸 간격 */
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* 아이디 입력 필드 */
+#userId {
+    background-color: #f0f0f0; /* 회색 배경 */
+    color: #333; /* 텍스트 색상 */
+    font-size: 16px;
+    padding: 12px; /* 적절한 패딩 */
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box; /* 패딩과 테두리가 포함된 크기 계산 */
+    margin-bottom: 20px; /* 다른 필드와 간격 */
+    cursor: not-allowed; /* 수정 불가 표시 */
+}
+
+#userId:focus {
+    outline: none;
 }
