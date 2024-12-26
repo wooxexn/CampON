@@ -5,7 +5,7 @@
 <mapper namespace="d">
 
 
-    <select id="getReview" parameterType="Map" resultType="com.example.campTest.Review">
+    <select id="getReview" parameterType="Map" resultType="com.tz.campon.reservation.DTO.Review">
 
         select *
         from review
@@ -16,7 +16,7 @@
 
     </select>
     
-    <select id="selectAllPage" resultType="com.example.campTest.Review" parameterType="Map">
+    <select id="selectAllPage" resultType="com.tz.campon.reservation.DTO.Review" parameterType="Map">
         select * from review
         where review_id
         between #{start} and #{end};
@@ -30,7 +30,7 @@
         where cg.camp_id = #{camp_id};
     </select>
 
-    <select id="getReviewOnly3" parameterType="int" resultType="com.example.campTest.Review">
+    <select id="getReviewOnly3" parameterType="int" resultType="com.tz.campon.reservation.DTO.Review">
 
         select *
         from review
@@ -42,7 +42,7 @@
 
     </select>
 
-    <insert id="regReview" parameterType="Review">
+    <insert id="regReview" parameterType="com.tz.campon.reservation.DTO.Review">
         insert into review ( user_id, camp_id, rating, reply, created_at) values (#{user_id}, #{camp_id}, #{rating}, #{reply}, NOW());
     </insert>
 

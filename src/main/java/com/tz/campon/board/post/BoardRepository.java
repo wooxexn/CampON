@@ -117,4 +117,8 @@ public class BoardRepository {
         postMapper.deleteComment(commentId);
     }
 
+    public Comment findCommentById(int commentId) {
+        return postMapper.findCommentById(commentId);
+    }
+
 }
