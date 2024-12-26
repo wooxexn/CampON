@@ -5,7 +5,15 @@
 
   .checkDay{
 
+    margin-bottom: 20px;
+    padding : 10px;
     text-align: center;
+    border-bottom: 1px solid rgb(235 235 235);
+
+  }
+
+  #loadCampings{
+    margin-top: 20px;
   }
 
   input[type="date"] {
