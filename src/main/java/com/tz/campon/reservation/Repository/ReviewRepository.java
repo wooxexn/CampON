@@ -27,6 +27,26 @@ public class ReviewRepository {
 
     }
 
+    public List<Review> getReviewPage(int camp_id, int currentPage){
+
+
+        int pageSize = 5;
+        int offset = (currentPage - 1) * pageSize;
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("camp_id", camp_id);
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+
+        return session.selectList("d.getReview", params);
+
+    }
+
+    public int countAll(int camp_id){
+        return session.selectOne("d.selectCount", camp_id);
+    }
+
+
     public int regReview(Review review){
 
 

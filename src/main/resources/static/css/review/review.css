@@ -1,0 +1,68 @@
+.reviewWrap{
+    margin: 0 auto;
+    border-top: 1px solid rgb(235 235 235);
+    border-bottom: 1px solid rgb(235 235 235);
+    width: 1000px;
+    height:150%;
+    display: flex;
+
+}
+
+.reviewId{
+
+    padding-right: 50px;
+}
+
+.reviewInfo{
+
+    width: 800px;
+    padding-left: 40px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.reviewPage{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.reviewPage a {
+    color: #000; /* 링크 흰색 */
+    text-decoration: none; /* 밑줄 제거 */
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #fff; /* 흰색 테두리 */
+    border-radius: 5px; /* 둥근 모서리 */
+    transition: all 0.3s ease; /* 부드러운 전환 */
+}
+
+.reviewPage a:hover {
+    background-color: #fff; /* 흰색 배경 */
+    color: #gray; /* 검은색 텍스트 */
+}
+
+/* 리뷰 추가하기 버튼 */
+.addBtn {
+    width: 1000px;
+    margin: 50px auto;
+    text-align: center; /* 중앙 정렬 */
+}
+
+.addBtn a {
+    color: #fff; /* 링크 흰색 */
+    text-decoration: none; /* 밑줄 제거 */
+    background-color: #444; /* 회색 배경 */
+    padding: 10px 20px;
+    border: 2px solid #fff; /* 흰색 테두리 */
+    border-radius: 10px; /* 둥근 모서리 */
+    font-weight: bold;
+    transition: all 0.3s ease; /* 부드러운 전환 */
+}
+
+.addBtn a:hover {
+    background-color: #fff; /* 흰색 배경 */
+    color: #000; /* 검은색 텍스트 */
+    border-color: #000; /* 검은색 테두리 */
+}

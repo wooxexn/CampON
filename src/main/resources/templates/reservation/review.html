@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/review/review.css">
 </head>
 <body>
 
 <h3>리뷰</h3>
 
 
-<div th:each="review : ${reviewList}">
+<div th:each="review : ${reviewList}" class="reviewWrap">
 
-    <div th:text="${review.user_id}"></div>
-    <div th:text="${review.camp_id}"></div>
-    <div th:text="${review.reply}"></div>
-    <div th:text="${#dates.format(review.created_at, 'yyyy-MM-dd')}"></div>
+    <div class="reviewId">
+        <div th:text="${review.user_id}"></div>
+    </div>
+
+    <div class="reviewInfo">
+        <div th:text="${review.camp_id}"></div>
+        <div th:text="${review.reply}"></div>
+        <div th:text="${#dates.format(review.created_at, 'yyyy-MM-dd')}"></div>
+    </div>
 
 </div>
 
@@ -23,9 +29,29 @@
     등록된 리뷰가 없습니다.
 </div>
 
-<a th:href="@{regReview(camp_id=${camp_id})}">
-    리뷰 추가하기
-</a>
+<div class="reviewPage">
+
+    <span th:if="${pageHandler.grpStartPage > 1}">
+    <a th:href="@{/reviewAll(currentPage=${pageHandler.grpStartPage - 1}, camp_id=${camp_id})}">이전</a>
+</span>
+
+    <span th:each="page : ${#numbers.sequence(pageHandler.grpStartPage, pageHandler.grpEndPage)}">
+    <a th:href="@{/reviewAll(currentPage=${page}, camp_id=${camp_id})}" th:text="${page}"></a>
+</span>
+
+    <span th:if="${pageHandler.grpEndPage < pageHandler.totalPage}">
+    <a th:href="@{/reviewAll(currentPage=${pageHandler.grpEndPage + 1}, camp_id=${camp_id})}">다음</a>
+</span>
+
+
+</div>
+
+
+<div class="addBtn">
+    <a th:href="@{regReview(camp_id=${camp_id})}">
+        리뷰 추가하기
+    </a>
+</div>
 
 
 </body>

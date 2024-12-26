@@ -3,41 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <link rel="stylesheet" href="/css/review/reserve.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
 <h2>예약 추가</h2>
 
+<div class="reserveWrap">
+    <!-- 입실일 입력 -->
+    <label for="check_in_date">입실일:</label>
+    <input type="date" id="check_in_date" name="check_in_date" required /> <br>
 
-  <!-- 입실일 입력 -->
-  <label for="check_in_date">입실일:</label>
-  <input type="date" id="check_in_date" name="check_in_date" required /> <br>
+    <!-- 퇴실일 입력 -->
+    <label for="check_out_date">퇴실일:</label>
+    <input type="date" id="check_out_date" name="check_out_date" required /> <br>
 
-  <!-- 퇴실일 입력 -->
-  <label for="check_out_date">퇴실일:</label>
-  <input type="date" id="check_out_date" name="check_out_date" required /> <br>
-
-  <input type="hidden" id="camp_id" name="camp_id" th:value="${camp_id}" required>
-
-
-  <button id="loadCampings">확인</button>
+    <input type="hidden" id="camp_id" name="camp_id" th:value="${camp_id}" required>
 
 
-<form id="reserveForm" action="/reserve" method="GET">
-  <!-- 선택된 캠핑장 목록을 저장할 hidden input -->
-  <input type="hidden" id="selectedCampId" name="camp_id">
-  <input type="hidden" id="selectedDetailId" name="campdetail_id">
-  <input type="hidden" id="selectedCheckInDate" name="check_in_date">
-  <input type="hidden" id="selectedCheckOutDate" name="check_out_date">
-</form>
+    <button id="loadCampings">확인</button>
 
-  <form>
-    <ul id="campDetailList"></ul> <!-- 캠핑장 리스트 출력 영역 -->
-  </form>
 
-<button type="submit" id="reserveBtn" style="display:none;">예약하기</button>
+  <div class="detailView">
+    <form id="reserveForm" action="/reserve" method="GET">
+      <!-- 선택된 캠핑장 목록을 저장할 hidden input -->
+      <input type="hidden" id="selectedCampId" name="camp_id">
+      <input type="hidden" id="selectedDetailId" name="campdetail_id">
+      <input type="hidden" id="selectedCheckInDate" name="check_in_date">
+      <input type="hidden" id="selectedCheckOutDate" name="check_out_date">
+    </form>
 
+
+    <form class="campDetailWrap">
+      <ul id="campDetailList" style="display: inline-block; padding: 0; margin: 0;"></ul> <!-- 캠핑장 리스트 출력 영역 -->
+    </form>
+
+    <button type="submit" id="reserveBtn" style="display:none;">예약하기</button>
+  </div>
+</div>
 
   <script>
               $(document).ready(function() {
@@ -101,7 +105,12 @@
                               var disabled = reservedId.includes(campInfo.campdetail_id) ? 'disabled' : ''; // 예약된 캠핑장은 disabled 처리
                               console.log("disabled", disabled);
                               $('#campDetailList').append(
-                                  '<li><input type="checkbox" value="' + campInfo.campdetail_id + '" ' + disabled + ' /> ' + campInfo.detail_name + ' (' + campInfo.price + ')</li>'
+                                  '<li style="text-align: center;">' +
+                                      '<img src="' + campInfo.photo_url + '" alt="camp photo" style="display:block; margin:0 auto 10px; width:300px; height: 200px;" />' +
+                                      '<input type="checkbox" class="camp_checkbox" value="' + campInfo.campdetail_id + '" ' + disabled + ' />' +
+                                      '<span>' + campInfo.detail_name + '</span>' +
+                                      '<span style="display:block; margin-top:5px;">' + campInfo.price + '원</span>' +
+                                  '</li>'
                               );
                           });
                       },
