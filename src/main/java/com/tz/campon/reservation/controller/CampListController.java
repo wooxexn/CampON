@@ -1,7 +1,9 @@
 package com.tz.campon.reservation.controller;
 
 import com.tz.campon.reservation.DTO.CampList;
+import com.tz.campon.reservation.DTO.Review;
 import com.tz.campon.reservation.Repository.CampListRepository;
+import com.tz.campon.reservation.Repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +18,11 @@ public class CampListController {
     
     private final CampListRepository repository;
 
-    public CampListController(CampListRepository campListRepository) {
+    private final ReviewRepository reviewRepository;
+
+    public CampListController(CampListRepository campListRepository, ReviewRepository reviewRepository) {
         this.repository = campListRepository;
+        this.reviewRepository = reviewRepository;
     }
     
     @GetMapping("/camplist")
@@ -64,6 +69,10 @@ public class CampListController {
         CampList camplist = repository.getCampgroundById(camp_id);
 
         model.addAttribute("camplist2", camplist);
+
+        List<Review> reviewList = reviewRepository.getReviewOnly3(camp_id);
+
+        model.addAttribute("reviews", reviewList);
 
         return "reservation/campinfo";
     }

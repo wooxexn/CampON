@@ -13,11 +13,11 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Board {
         @JsonProperty("board_id")
-        public int boardId;
+        public String boardId;
         @JsonProperty("userId")
         public String userId;
         @JsonProperty("image_url")
-        public String imageUrl;
+        public List<String> imageUrls;
         @JsonProperty("caption")
         public String caption;
         @JsonProperty("like_count")

@@ -36,7 +36,7 @@ public class ReviewController {
     public String regReview2(){
 
 
-        return "/regReview";
+        return "reservation/regReview";
     }
 
     @GetMapping("/reviewAll")
@@ -47,7 +47,7 @@ public class ReviewController {
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("camp_id", camp_id);
 
-        return "/review";
+        return "reservation/review";
 
     }
 

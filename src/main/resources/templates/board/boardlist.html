@@ -47,50 +47,55 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const checkLoginAndRedirect = (callback) => {
+                fetch('/check-login-status') // 로그인 상태를 확인하는 API 호출
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.loggedIn) {
+                            callback(); // 로그인 상태라면 원래 동작 수행
+                        } else {
+                            alert('로그인이 필요합니다.');
+                            window.location.href = '/login'; // 로그인 페이지로 이동
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error checking login status:', error);
+                    });
+            };
+
             document.querySelectorAll('.like-button').forEach(button => {
                 button.addEventListener('click', function () {
                     const boardId = this.getAttribute('data-id');
-                    fetch(`/board/like/${boardId}`, { method: 'POST' })
-                        .then(response => response.json())
-                        .then(likeCount => {
-                            // 좋아요 개수 업데이트
-                            this.querySelector('span').textContent = likeCount;
-                        });
+                    checkLoginAndRedirect(() => {
+                        fetch(`/board/like/${boardId}`, { method: 'POST' })
+                            .then(response => response.json())
+                            .then(likeCount => {
+                                this.querySelector('span').textContent = likeCount;
+                            });
+                    });
                 });
             });
-        });
-        document.addEventListener('DOMContentLoaded', function () {
+
             document.querySelectorAll('.comment-submit').forEach(button => {
                 button.addEventListener('click', function () {
                     const boardId = this.getAttribute('data-id');
                     const content = document.querySelector(`.comment-input[data-id="${boardId}"]`).value;
-
-                    fetch(`/board/comment/${boardId}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `content=${encodeURIComponent(content)}`
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Failed to add comment');
-                            }
-                            return response.json(); // JSON 응답 파싱
+                    checkLoginAndRedirect(() => {
+                        fetch(`/board/comment/${boardId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `content=${encodeURIComponent(content)}`
                         })
-                        .then(comments => {
-                            const commentList = document.querySelector(`ul[data-id="${boardId}"]`);
-                            if (!commentList) {
-                                console.error('Comment list element not found for boardId:', boardId);
-                                return;
-                            }
-                            // 댓글 목록 업데이트
-                            commentList.innerHTML = comments.map(comment =>
-                                `<li>${comment.user_id}: ${comment.content}</li>`).join('');
-                        })
-                        .catch(error => {
-                            console.error('Error:', error.message);
-                        });
+                            .then(response => response.json())
+                            .then(comments => {
+                                const commentList = document.querySelector(`ul[data-id="${boardId}"]`);
+                                commentList.innerHTML = comments.map(comment =>
+                                    `<li>${comment.userId}: ${comment.content}</li>`).join('');
+                            })
+                            .catch(error => console.error('Error:', error.message));
+                    });
                 });
             });
         });
@@ -114,7 +119,9 @@
     <tr th:each="member : ${members}">
         <td th:text="${member.userId}"></td>
         <td>
-            <img th:src="@{/images/{filePath}(filePath=${member.imageUrl})}" alt="Image" style="width: 100px; height: auto;">
+            <div th:each="image : ${images}" th:if="${member.boardId == image.boardId}">
+                <img th:src="@{/images/{filePath}(filePath=${image.imageUrl})}" alt="Image" style="width: 100px; height: auto;">
+            </div>
         </td>
         <td th:text="${member.caption}"></td>
         <td>

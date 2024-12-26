@@ -17,6 +17,7 @@
             border: 1px solid black;
             padding: 10px;
         }
+    </style>
 </head>
 <body>
 
@@ -49,11 +50,11 @@
         <div th:text="${#dates.format(review.created_at, 'yyyy-MM-dd')}" class="review-item"></div>
 
     </div>
-    <a th:href="@{/reviewAll(camp_id=${camplist2.camp_id})}">더보기</a> <br>
+    <a th:href="@{/reviewAll(camp_id=${camplist2.campId})}">더보기</a> <br>
 </div>
 
 
-<a th:href="@{/campdetailView(camp_id=${camplist2.camp_id})}">버튼</a>
+<a th:href="@{/campdetailView(camp_id=${camplist2.campId})}">버튼</a>
 
 </body>
 </html>

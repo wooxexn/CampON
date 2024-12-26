@@ -96,7 +96,9 @@ public class SecurityConfig {
                                 "/board",       // 게시판 메인
                                 "/camplist",
                                 "/campinfo/**",
-                                "/campdetail/**"
+                                "/campdetail/**",
+                                "/check-login-status",
+                                "/reviewAll/**"
                         ).permitAll()
                         // 로그인한 사용자만 접근 가능한 URL
                         .requestMatchers(
@@ -104,7 +106,7 @@ public class SecurityConfig {
                                 "/mypage/reservations", // 예약 조회
                                 "/mypage/cancel",       // 예약 취소
                                 "/reserve",             // 예약 페이지
-                                "/board/add",           // 게시판 글 작성
+                                "/board/add/**",           // 게시판 글 작성
                                 "/board/edit/**",       // 게시판 글 수정
                                 "/board/delete/**",     // 게시판 글 삭제
                                 "/board/like/**",       // 게시판 좋아요

@@ -81,4 +81,15 @@ public class KakaoLoginController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/check-login-status")
+    public ResponseEntity<Map<String, Boolean>> checkLoginStatus() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !"anonymousUser".equals(authentication.getPrincipal());
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("loggedIn", isLoggedIn);
+        return ResponseEntity.ok(response);
+    }
+
 }
