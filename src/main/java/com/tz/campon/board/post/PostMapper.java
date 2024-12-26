@@ -14,7 +14,7 @@ public interface PostMapper {
      게시글 저장
      @param params - 게시글 정보
      */
-    @Insert("insert into board (board_id ,user_id, caption, create_at) values (#{boardId},#{userId}, #{caption}, NOW())")
+    @Insert("insert into board (board_id ,user_id, caption, created_at) values (#{boardId},#{userId}, #{caption}, NOW())")
     void save(Board board);
 
     @Insert("insert into board_images (board_id, image_url) values (#{boardId}, #{imageUrl})")
@@ -93,14 +93,17 @@ public interface PostMapper {
     int getLikeCount(@Param("boardId") String boardId);
 
     // 댓글 추가
-    @Insert("INSERT INTO comments (board_id, user_id, content, create_at) VALUES (#{boardId}, #{userId}, #{content}, NOW())")
+    @Insert("INSERT INTO comments (board_id, user_id, content, created_at) VALUES (#{boardId}, #{userId}, #{content}, NOW())")
     void addComment(@Param("boardId") String boardId, @Param("userId") String userId, @Param("content") String content);
 
     // 특정 게시글의 댓글 조회
-    @Select("SELECT comment_id, board_id, user_id, content, create_at FROM comments WHERE board_id = #{boardId} ORDER BY create_at ASC")
+    @Select("SELECT comment_id, board_id, user_id, content, created_at FROM comments WHERE board_id = #{boardId} ORDER BY created_at ASC")
     List<Comment> findCommentsByBoardId(@Param("boardId") String boardId);
 
     // 댓글 삭제
     @Delete("DELETE FROM comments WHERE comment_id = #{commentId}")
     void deleteComment(@Param("commentId") int commentId);
+
+    @Select("SELECT * from comments where comment_id = #{commentId}")
+    Comment findCommentById(@Param("commentId") int commentId);
 }

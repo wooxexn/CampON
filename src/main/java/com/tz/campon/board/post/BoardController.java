@@ -123,8 +123,9 @@ public class BoardController {
         if (!post.getUserId().equals(authentication.getName())) {
             throw new RuntimeException("You are not authorized to delete this post");
         }
+        boardService.deleteBoardImage(id);
         boardService.deletePostById(id);
-        return "redirect:/list";
+        return "redirect:/board";
     }
 
     @PostMapping("/board/like/{id}")
@@ -146,6 +147,18 @@ public class BoardController {
     @ResponseBody
     public List<Comment> getComments(@PathVariable("id") String id) {
         return boardService.getComments(id);
+    }
+
+    @PostMapping("/board/comment/delete")
+    @ResponseBody
+    public String deleteComment(@RequestParam("commentId") int commentId, Authentication authentication) {
+        String userId = authentication.getName();
+        Comment comment = boardService.findCommentById(commentId);
+        if (comment == null || !comment.getUserId().equals(userId)) {
+            throw new RuntimeException("댓글 삭제 권한이 없습니다.");
+        }
+        boardService.deleteComment(commentId);
+        return "댓글이 삭제되었습니다.";
     }
 
 
