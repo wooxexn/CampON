@@ -3,6 +3,8 @@ package com.tz.campon.reservation.controller;
 import com.tz.campon.reservation.DTO.Review;
 import com.tz.campon.reservation.Repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,8 +37,11 @@ public class ReviewController {
     @GetMapping("/regReview")
     public String regReview2(@RequestParam(name = "camp_id") int camp_id,  Model model){
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+
         model.addAttribute("camp_id", camp_id);
-        model.addAttribute("user_id", "rlaanrnd");
+        model.addAttribute("user_id", userId);
 
         System.out.println(camp_id);
 

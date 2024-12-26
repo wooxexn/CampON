@@ -11,18 +11,21 @@
 <h2>예약 추가</h2>
 
 <div class="reserveWrap">
-    <!-- 입실일 입력 -->
-    <label for="check_in_date">입실일:</label>
-    <input type="date" id="check_in_date" name="check_in_date" required /> <br>
 
-    <!-- 퇴실일 입력 -->
-    <label for="check_out_date">퇴실일:</label>
-    <input type="date" id="check_out_date" name="check_out_date" required /> <br>
+    <div class="checkDay">
+        <!-- 입실일 입력 -->
+        <label for="check_in_date">입실일:</label>
+        <input type="date" id="check_in_date" name="check_in_date" required /> <br>
 
-    <input type="hidden" id="camp_id" name="camp_id" th:value="${camp_id}" required>
+        <!-- 퇴실일 입력 -->
+        <label for="check_out_date">퇴실일:</label>
+        <input type="date" id="check_out_date" name="check_out_date" required /> <br>
+
+        <input type="hidden" id="camp_id" name="camp_id" th:value ="${camp_id}" required>
 
 
-    <button id="loadCampings">확인</button>
+        <button id="loadCampings">확인</button>
+    </div>
 
 
   <div class="detailView">
