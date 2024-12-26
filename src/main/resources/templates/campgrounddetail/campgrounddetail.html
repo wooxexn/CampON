@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>캠핑장 상세 페이지</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=da61be973f2dec7ef4fce7a4678d40df"></script>
-    <script type="text/javascript" th:src="@{/js/campdetail.js}"></script>
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">-->
+<!--    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=da61be973f2dec7ef4fce7a4678d40df"></script>-->
+<!--    <script type="text/javascript" th:src="@{/js/campdetail.js}"></script>-->
 </head>
 <body>
 
@@ -48,7 +48,7 @@
         <!-- 캠핑장 정보 -->
         <div class="camping-info">
             <!-- 캠핑장이미지 -->
-            <div class="image-section" ><img th:src="${camplist2.photo_url}" alt="Camping Image"></div>
+            <div class="image-section" ><img th:src="${camplist2.photoUrl}" alt="Camping Image"></div>
 
             <div class="info-section" >
                 <!-- 캠핑장이름 -->
@@ -125,4 +125,8 @@
 
 </body>
 </html>
+
+
+
+
 

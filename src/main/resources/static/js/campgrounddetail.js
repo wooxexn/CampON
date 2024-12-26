@@ -2,15 +2,19 @@
 
 function initKakaoMap() {
             const mapContainer = document.getElementById('kakao-map');
+
+                    const latitude = [[${camplist2.mapX}]]; // 경도
+                    const longitude = [[${camplist2.mapY}]]; //위도
+
             const mapOption = {
-                center: new kakao.maps.LatLng(37.727872, 127.511138),
+                center: new kakao.maps.LatLng(mapX, mapY),
                 level: 3 // 확대 레벨
             };
             const map = new kakao.maps.Map(mapContainer, mapOption);
 
             // 마커생성
             const marker = new kakao.maps.Marker({
-                position: new kakao.maps.LatLng(37.727872, 127.511138)
+                position: new kakao.maps.LatLng((mapX, mapY)
             });
             marker.setMap(map);
         }
@@ -56,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     descriptionText.innerText = initialText + '...';
     toggleButton.innerText = '더보기';
 
-    toggleButton.addEventListener('click', function() {
+    toggleButton.addEventListener('click', function() {2
         // 더보기 버튼 클릭 시, 텍스트 변경
         if (descriptionText.innerText === initialText + '...') {
             descriptionText.innerText = fullText;
@@ -67,4 +71,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// 리뷰글자수 제한
+document.addEventListener('DOMContentLoaded', function () {
+    const reviewContents = document.querySelectorAll('.review-content');
+    const maxLength = 50;  // 최대 글자 수 설정
+
+    reviewContents.forEach((content) => {
+        const fullText = content.innerText;
+
+        // 글자 수가 초과할 경우
+        if (fullText.length > maxLength) {
+            content.innerText = fullText.substring(0, maxLength) + '...';
+        }
+    });
+});
+
+
+
 

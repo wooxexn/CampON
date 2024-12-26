@@ -143,7 +143,7 @@
         /* 예약버튼 */
         .reserve-button {
             width: 100%;
-            padding: 20px 0;
+            height : 45px;
             background-color: #008A1E;
             color: white;
             border: none;
@@ -151,7 +151,7 @@
             border-radius: 5px;
             text-align: center;
             font-weight: bold;
-            margin-top: 10px;
+            font-size: 18px ;
         }
 
         .reserve-button:hover{
@@ -169,7 +169,7 @@
         }
 
         .icon-star{
-            color : #ffd400;
+            color : black;
         }
 
         /* 지도 */
@@ -182,7 +182,7 @@
 
         /* 시설정보 */
          .facility-info {
-            background-color: #F8F8F8;
+            background-color: #f7f8fb;
             padding: 20px;
             margin: 10px 0;
         }
@@ -194,7 +194,7 @@
 
         /* 캠핑장 소개글 */
         .description{
-            background-color: #F8F8F8;
+            background-color: #f7f8fb;
             padding: 20px;
             margin: 10px 0;
             position: relative;
@@ -206,95 +206,113 @@
         }
 
         /* 리뷰 */
-        .review-section {
-            background-color: #F8F8F8;
-            padding: 20px;
-            margin: 10px 0;
+        .review-all {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .review-all a{
+            text-decoration: none;
+            font-weight: bold;
+            font-size : 14px;
+            color : black;
 
         }
-        .review-section h3 {
-            padding: 0px 0px 20px 0px;
-            font-size: 20px;
-            font-weight: bold;
-            text-align: left;
+
+        .review {
+            padding : 10px;
+            border: 2px solid #f7f8fb;
+            border-radius: 10px;
+            box-shadow: 1px rgba(0, 0, 0, 0.5);
+            height: 180px;
+            background-color: #f7f8fb;
         }
+
+        .review-section {
+            display: flex;
+            justify-content: space-between;
+
+        }
+
         .review-box {
-            border: 1px solid black;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 00px;
+            margin: 10px;
+            border-radius: 10px;
+            width: 30%;
+            height : 100px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
             background-color: white;
-            text-align: left;
         }
+
         .review-user {
             display: flex;
-            gap: 10px;
-            font-size: 14px;
-            color: #777;
-            margin-bottom: 5px;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
+
         .user-name {
             font-weight: bold;
             color: #333;
-            padding-bottom: 10px;
         }
-        .review-content {
-            font-size: 16px;
-            color: #444;
-            line-height: 1.5;
+
+        .user-info {
+            color: #777;
+            font-size: 12px;
         }
-        .review-input-box {
-            position: relative;
+
+        .review-star {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .review-input-box h4 {
-            text-align: left;
+            gap: 1px;
+            font-size: 13px;
         }
 
-        .review-input-box textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: none;
+        .review-content {
+            font-size: 14px;
+            font-weight: bold;
+            color: #6d6d6d;
+            line-height: 1.2;
+            margin-bottom: 5px;
         }
-
 
         /* 주소 */
-        .address-container {
-            display: flex;
-            align-items: center;
-        }
+       .address-container {
+           display: flex;
+           align-items: center;
+           gap: 10px;
+       }
 
-        #camping-address {
-            font-size: 15px;
-        }
+       #camping-address {
+           font-size: 15px;
+           margin: 0;
+       }
 
-        .copy-button {
-            background-color : white;
-            color: #246BEB;
-            border: none;
-            padding : 5px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+       .copy-button {
+           background-color: white;
+           color: #246BEB;
+           border: none;
+           padding: 5px;
+           cursor: pointer;
+           font-size: 15px;
+           font-weight: bold;
+           display: inline-flex;
+           align-items: center;
+           gap: 5px;
+       }
+
+       .copy-button:hover {
+           color: #33A14B;
+       }
 
 
-        .copy-button:hover {
-            color: #33A14B;
-        }
 
 
         /* 더보기 CSS */
         .more-btn {
-            background-color: #F8F8F8;
+            background-color: #f7f8fb;
             color: black;
             border: none;
             padding: 10px 0;
@@ -309,5 +327,4 @@
             left: 0;
             margin-top: 20px;
         }
-
 
