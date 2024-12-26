@@ -1,3 +1,4 @@
+
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
     <head>
@@ -10,6 +11,7 @@
         <title>CampOn || info</title>
     </head>
     <body>
+
 
     <!-- 헤더영역 -->
     <header>
@@ -46,6 +48,7 @@
 
     <main>
     <div class="container">
+
 
         <!-- 캠핑장 정보 -->
         <div class="camping-info">
@@ -99,6 +102,11 @@
                         <p class="review-content" id="review-content-1" ></p>
 
                     </div>
+
+    </div>
+    <a th:href="@{/reviewAll(camp_id=${camplist2.campId})}">더보기</a> <br>
+</div>
+
 
                     <div class="review-box">
                         <div class="review-user">
@@ -165,6 +173,10 @@
 <!--        </div>-->
     </div>
     </main>
+
+
+
+<a th:href="@{/campdetailView(camp_id=${camplist2.campId})}">버튼</a>
 
 
     <footer>

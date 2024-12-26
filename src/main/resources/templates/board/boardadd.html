@@ -7,15 +7,15 @@
 <body>
 
 <form th:action="@{/board/add}" method="post" enctype="multipart/form-data">
-  <input type="text" id="userId" name="userId" th:value="${userId}" hidden>
+    <input type="text" id="userId" name="userId" th:value="${userId}" hidden>
 
-  <label for="image">Image:</label>
-  <input type="file" id="image" name="image" required>
+    <label for="images">Images:</label>
+    <input type="file" id="images" name="images" multiple required> <!-- 다중 파일 업로드 -->
 
-  <label for="caption">Caption:</label>
-  <textarea id="caption" name="caption" required></textarea>
+    <label for="caption">Caption:</label>
+    <textarea id="caption" name="caption" required></textarea>
 
-  <button type="submit">Submit</button>
+    <button type="submit">Submit</button>
 </form>
 
 

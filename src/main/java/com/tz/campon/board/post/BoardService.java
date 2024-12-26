@@ -28,6 +28,10 @@ public class BoardService {
         return boardRepository.selectAllPage((currentPage) * size, size);
     }
 
+    public List<BoardImage> getBoardImage(){
+        return boardRepository.selectAllPageImage();
+    }
+
     public int getTotal(){
         return boardRepository.countAll();
     }
@@ -48,19 +52,35 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public Board getPostById(int id) {
+    public void saveBoardImage(String id,String image) {
+        boardRepository.saveImage(id,image);
+    }
+
+    public Board getPostById(String id) {
         return boardRepository.findById(id);
     }
 
-    public void updateBoard(String image_url, String caption, int board_id) {
-        boardRepository.update(image_url, caption, board_id);
+    public List<String> getImageById(String id){
+        return boardRepository.findImageById(id);
     }
 
-    public void deletePostById(int id) {
+    public void updateBoard(String image_url, String board_id) {
+        boardRepository.update(image_url, board_id);
+    }
+
+    public void updateBoardImage(int id,String image_url) {
+        boardRepository.updateImage(id, image_url);
+    }
+
+    public void deletePostById(String id) {
         boardRepository.delete(id);
     }
 
-    public int toggleLike(int boardId, String userId) {
+    public void deleteBoardImage(String id) {
+        boardRepository.deleteImage(id);
+    }
+
+    public int toggleLike(String boardId, String userId) {
         boolean isLiked = boardRepository.isLikedByUser(boardId, userId);
         if (isLiked) {
             boardRepository.removeLike(boardId, userId);
@@ -72,11 +92,11 @@ public class BoardService {
         return boardRepository.getLikeCount(boardId);
     }
 
-    public void addComment(int boardId, String userId, String content) {
+    public void addComment(String boardId, String userId, String content) {
         boardRepository.addComment(boardId, userId, content);
     }
 
-    public List<Comment> getComments(int boardId) {
+    public List<Comment> getComments(String boardId) {
         return boardRepository.findCommentsByBoardId(boardId);
     }
 

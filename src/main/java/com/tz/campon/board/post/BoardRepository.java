@@ -32,6 +32,10 @@ public class BoardRepository {
 
     }
 
+    public List<BoardImage> selectAllPageImage(){
+        return postMapper.findAllImages();
+    }
+
     public int countAll(){
         return postMapper.count();
     }
@@ -40,55 +44,71 @@ public class BoardRepository {
         postMapper.save(board);
     }
 
-    public Board findById(int id){
+    public void saveImage(String id,String image){
+        postMapper.saveImage(id,image);
+    }
+
+    public Board findById(String id){
         return postMapper.findById(id);
     }
 
-    public void update(String image_url, String caption, int board_id){
-        postMapper.update(image_url, caption, board_id);
+    public List<String> findImageById(String id){
+        return postMapper.findImageUrlByBoardId(id);
     }
 
-    public void delete(int id){
+    public void update(String image_url, String board_id){
+        postMapper.update(image_url, board_id);
+    }
+
+    public void updateImage(int id,String image_url){
+        postMapper.updateImage(image_url,id);
+    }
+
+    public void delete(String id){
         postMapper.deleteById(id);
     }
 
+    public void deleteImage(String id){
+        postMapper.deleteImageByBoardId(id);
+    }
+
     // 좋아요 추가
-    public void addLike(int boardId, String userId) {
+    public void addLike(String boardId, String userId) {
         postMapper.addLike(boardId, userId);
     }
 
     // 좋아요 제거
-    public void removeLike(int boardId, String userId) {
+    public void removeLike(String boardId, String userId) {
         postMapper.removeLike(boardId, userId);
     }
 
     // 특정 사용자가 게시글에 좋아요를 눌렀는지 확인
-    public boolean isLikedByUser(int boardId, String userId) {
+    public boolean isLikedByUser(String boardId, String userId) {
         return postMapper.isLikedByUser(boardId, userId);
     }
 
     // 좋아요 개수 증가
-    public void incrementLikeCount(int boardId) {
+    public void incrementLikeCount(String boardId) {
         postMapper.incrementLikeCount(boardId);
     }
 
     // 좋아요 개수 감소
-    public void decrementLikeCount(int boardId) {
+    public void decrementLikeCount(String boardId) {
         postMapper.decrementLikeCount(boardId);
     }
 
     // 현재 좋아요 개수 가져오기
-    public int getLikeCount(int boardId) {
+    public int getLikeCount(String boardId) {
         return postMapper.getLikeCount(boardId);
     }
 
     // 댓글 추가
-    public void addComment(int boardId, String userId, String content) {
+    public void addComment(String boardId, String userId, String content) {
         postMapper.addComment(boardId, userId, content);
     }
 
     // 특정 게시글의 댓글 조회
-    public List<Comment> findCommentsByBoardId(int boardId) {
+    public List<Comment> findCommentsByBoardId(String boardId) {
         return postMapper.findCommentsByBoardId(boardId);
     }
 

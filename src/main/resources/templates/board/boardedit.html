@@ -9,8 +9,8 @@
 <form th:action="@{/board/edit}" method="post" enctype="multipart/form-data">
     <input type="text" id="boardId" name="boardId" th:value="${board.boardId}" hidden>
 
-    <label for="image">Image:</label>
-    <input type="file" id="image" name="image" required>
+    <label for="images">Images:</label>
+    <input type="file" id="images" name="images" multiple> <!-- 다중 파일 업로드 -->
 
     <label for="caption">Caption:</label>
     <textarea id="caption" name="caption" required th:text="${board.caption}"></textarea>

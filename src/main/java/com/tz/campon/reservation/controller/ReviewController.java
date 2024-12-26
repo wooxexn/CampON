@@ -33,21 +33,40 @@ public class ReviewController {
     }
 
     @GetMapping("/regReview")
-    public String regReview2(){
+    public String regReview2(@RequestParam(name = "camp_id") int camp_id,  Model model){
 
+        model.addAttribute("camp_id", camp_id);
+        model.addAttribute("user_id", "rlaanrnd");
 
-        return "/regReview";
+        System.out.println(camp_id);
+
+        return "reservation/regReview";
     }
 
     @GetMapping("/reviewAll")
-    public String getAllReview(@RequestParam (name = "camp_id") int camp_id, Model model){
+    public String getAllReview(@RequestParam (name = "camp_id") int camp_id,
+                               @RequestParam ( required = false , defaultValue = "1" , name="currentPage") Integer currentPage,
+                               Model model){
 
-        List<Review> reviewList = reviewRepository.getReviewAll(camp_id);
+
+        int pageSize = 5; // 한 페이지에 보여줄 데이터 수
+        int grpSize = 2; // 페이지 그룹 크기
+
+        // 총 레코드 수 조회
+        int totalCount = reviewRepository.countAll(camp_id);
+        totalCount = Math.max(1, totalCount); // 최소 1 보장
+
+        List<Review> reviewList = reviewRepository.getReviewPage(camp_id ,currentPage);
+
+
+        PageHandler pageHandler = new PageHandler(currentPage, totalCount, pageSize, grpSize);
+
 
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("camp_id", camp_id);
+        model.addAttribute("pageHandler", pageHandler);
 
-        return "/review";
+        return "reservation/review";
 
     }
 

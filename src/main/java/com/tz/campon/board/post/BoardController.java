@@ -1,5 +1,6 @@
 package com.tz.campon.board.post;
 
+import com.tz.campon.common.generator.CustomUUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,8 +17,11 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    public BoardController(BoardService boardService) {
+    private final CustomUUIDGenerator customUUIDGenerator;
+
+    public BoardController(BoardService boardService, CustomUUIDGenerator customUUIDGenerator) {
         this.boardService = boardService;
+        this.customUUIDGenerator = customUUIDGenerator;
     }
 
     @GetMapping("/board")
@@ -27,6 +31,7 @@ public class BoardController {
         int totalCount = 0;
 
         List<Board> list = boardService.getBoard(currentPage, size);
+        List<BoardImage> imageList = boardService.getBoardImage();
         totalCount = boardService.getTotal();
 
         for (Board board : list) {
@@ -38,6 +43,7 @@ public class BoardController {
         PageHandler handler = new PageHandler(currentPage, totalCount, size, grpSize);
 
         model.addAttribute("members", list);
+        model.addAttribute("images", imageList);
         model.addAttribute("pageHandler", handler);
 
         return "board/boardlist";
@@ -57,22 +63,30 @@ public class BoardController {
     @PostMapping("/board/add")
     public String saveBoard(
             @RequestParam("userId") String userId,
-            @RequestParam("image") MultipartFile image,
+            @RequestParam("images") List<MultipartFile> images,
             @RequestParam("caption") String caption,
             Model model
     ) {
-        String imageUrl = boardService.saveImage(image); // 이미지 저장
+        List<String> imageUrls = new ArrayList<>();
+        for (MultipartFile image : images) {
+            String imageUrl = boardService.saveImage(image); // 개별 이미지 저장
+            imageUrls.add(imageUrl);
+        }
         Board board = new Board();
+        String board_id = customUUIDGenerator.generateUniqueUUID();
+        board.setBoardId(board_id);
         board.setUserId(userId);
-        board.setImageUrl(imageUrl);
         board.setCaption(caption);
 
         boardService.saveBoard(board); // 데이터 저장
+        for (String imageUrl : imageUrls) {
+            boardService.saveBoardImage(board_id, imageUrl);
+        }
         return "redirect:/board";
     }
 
     @GetMapping("/board/edit/{id}")
-    public String editPost(@PathVariable("id") int id, Model model) {
+    public String editPost(@PathVariable("id") String id, Model model) {
         Board board = boardService.getPostById(id);
         model.addAttribute("board", board);
         return "board/boardedit";
@@ -80,19 +94,26 @@ public class BoardController {
 
     @PostMapping("/board/edit")
     public String editBoard(
-            @RequestParam("boardId") int boardId,
-            @RequestParam("image") MultipartFile image,
+            @RequestParam("boardId") String boardId,
+            @RequestParam("images") List<MultipartFile> images,
             @RequestParam("caption") String caption,
             Model model
     ) {
-        String imageUrl = boardService.saveImage(image); // 이미지 저장
-
-        boardService.updateBoard(imageUrl, caption, boardId); // 데이터 저장
+        List<String> imageUrls = new ArrayList<>();
+        for (MultipartFile image : images) {
+            String imageUrl = boardService.saveImage(image); // 개별 이미지 저장
+            imageUrls.add(imageUrl);
+        }
+        boardService.deleteBoardImage(boardId);
+        boardService.updateBoard(caption, boardId); // 데이터 저장
+        for (String imageUrl : imageUrls) {
+            boardService.saveBoardImage(boardId, imageUrl);
+        }
         return "redirect:/board";
     }
 
     @GetMapping("/board/delete/{id}")
-    public String deletePost(@PathVariable("id") int id) {
+    public String deletePost(@PathVariable("id") String id) {
         Board post = boardService.getPostById(id);
         if (post == null) {
             throw new RuntimeException("Post not found");
@@ -108,14 +129,14 @@ public class BoardController {
 
     @PostMapping("/board/like/{id}")
     @ResponseBody
-    public int likePost(@PathVariable("id") int id, Authentication authentication) {
+    public int likePost(@PathVariable("id") String id, Authentication authentication) {
         String userId = authentication.getName();
         return boardService.toggleLike(id, userId);
     }
 
     @PostMapping("/board/comment/{id}")
     @ResponseBody
-    public List<Comment> addComment(@PathVariable("id") int id, @RequestParam("content") String content, Authentication authentication) {
+    public List<Comment> addComment(@PathVariable("id") String id, @RequestParam("content") String content, Authentication authentication) {
         String userId = authentication.getName();
         boardService.addComment(id, userId, content);
         return boardService.getComments(id);
@@ -123,7 +144,7 @@ public class BoardController {
 
     @GetMapping("/board/comments/{id}")
     @ResponseBody
-    public List<Comment> getComments(@PathVariable("id") int id) {
+    public List<Comment> getComments(@PathVariable("id") String id) {
         return boardService.getComments(id);
     }
 
