@@ -24,12 +24,12 @@
     </ul>
     <div class="auth-links">
       <!-- 로그인 상태일 때만 로그아웃/마이페이지 표시 -->
-      <div th:if="${#authentication != null}">
+      <div th:if="${isLoggedIn}">
         <a href="/logout">로그아웃</a>
-        <a href="/mypage/edit">마이페이지</a>
+        <a href="/mypage">마이페이지</a>
       </div>
       <!-- 로그인 상태가 아닐 때만 로그인/회원가입 표시 -->
-      <div th:if="${#authentication == null}">
+      <div th:unless="${isLoggedIn}">
         <a href="/login">로그인</a>
         <a href="/register">회원가입</a>
       </div>
