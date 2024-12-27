@@ -2,58 +2,74 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .rating {
-          display: flex;
-          direction: row-reverse;
-          /*justify-content: center;*/
-        }
-
-        .rating input {
-          display: none;
-        }
-
-        .rating label {
-          font-size: 2rem;
-          color: lightgray;
-          cursor: pointer;
-          transition: color 0.2s;
-        }
-
-        .rating input:checked ~ label,
-        .rating label:hover,
-        .rating label:hover ~ label {
-          color: gold;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/review/regreview.css}">
+    <title> CampOn || 리뷰작성 </title>
 </head>
 <body>
-
-<form th:action="@{/regReview}" method="post">
-
-
-    <label for="reply">리뷰: </label>
-    <input type="text" id="reply" name="comment" required> <br>
-    <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5" />
-        <label for="star5">★</label>
-        <input type="radio" id="star4" name="rating" value="4" />
-        <label for="star4">★</label>
-        <input type="radio" id="star3" name="rating" value="3" />
-        <label for="star3">★</label>
-        <input type="radio" id="star2" name="rating" value="2" />
-        <label for="star2">★</label>
-        <input type="radio" id="star1" name="rating" value="1" />
-        <label for="star1">★</label>
+<!-- Header -->
+<header>
+    <div class="logo">
+        <a href="/main" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="/images/campon-logo.png" alt="CampON Logo">
+            <span style="font-size: 24px; font-weight: bold; margin-left: 10px; color: inherit;">CAMPON</span>
+        </a>
     </div>
+    <nav>
+        <ul>
+            <li><a href="/main" class="menu-link">HOME</a></li>
+            <li><a href="/camplist" class="menu-link">CAMPING LIST</a></li>
+            <li><a href="/reserve" class="menu-link">RESERVATION</a></li>
+            <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
+        </ul>
+        <div class="auth-links">
+            <!-- 로그인 상태일 때만 로그아웃/마이페이지 표시 -->
+            <div th:if="${isLoggedIn}">
+                <a href="/logout">로그아웃</a>
+                <a href="/mypage">마이페이지</a>
+            </div>
+            <!-- 로그인 상태가 아닐 때만 로그인/회원가입 표시 -->
+            <div th:unless="${isLoggedIn}">
+                <a href="/login">로그인</a>
+                <a href="/register">회원가입</a>
+            </div>
+        </div>
+    </nav>
+</header>
 
-    <input type="hidden" id="camp_id" name="campId" th:value="${camp_id}" required> <br>
-    <input type="hidden" id="user_id" name="userId" th:value="${user_id}" required> <br>
+<div class="review-box">
 
-    <button type="submit" id="regBtn">등록하기</button>
+    <h2>리뷰 작성하기</h2>
 
-</form>
+    <!-- 별점 -->
+    <form th:action="@{/regReview}" method="post" class="regReview">
+        <div class="rating">
+            <input type="radio" id="star5" name="rating" value="5" />
+            <label for="star5">★</label>
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label for="star4">★</label>
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label for="star3">★</label>
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label for="star2">★</label>
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label for="star1">★</label>
+        </div>
 
+        <label for="reply"></label>
+        <textarea id="reply" name="comment" required placeholder="리뷰를 작성해주세요!" class="review-input"></textarea> <br>
+
+        <input type="hidden" id="camp_id" name="campId" th:value="${camp_id}" required> <br>
+        <input type="hidden" id="user_id" name="userId" th:value="${user_id}" required> <br>
+
+        <button type="submit" class="add-button">등록</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p class="footer-title">CAMPON</p>
+    <p>캠프온(CAMP ON) Address: 에이콘 아카데미 Tel: 010-1234-5678</p>
+    <p>Designer: 전우선 Business: 563-12-02365 E-commerce: 2024 서울홍대 0962</p>
+</footer>
 </body>
 </html>
