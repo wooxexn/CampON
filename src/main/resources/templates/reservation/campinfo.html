@@ -90,7 +90,7 @@
 
                     <div class="review-box">
                         <div class="review-user">
-                            <div class="review-star">
+                            <div class="stars">
                                 <i class="fas fa-star" th:each="star : ${#numbers.sequence(1, 5)}"
                                    th:classappend="${star <= review.rating} ? '' : 'empty-stars'"></i>
                             </div>
