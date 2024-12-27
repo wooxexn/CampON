@@ -51,4 +51,8 @@ public class CampListRepository {
         return getCampListByRegion(region);
     }
 
+    public void updateCampRating(int camp_id, int rating) {
+        campListMapper.updateCampRating(camp_id, rating);
+    }
+
 }

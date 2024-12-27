@@ -1,6 +1,7 @@
 package com.tz.campon.reservation.controller;
 
 import com.tz.campon.reservation.DTO.Review;
+import com.tz.campon.reservation.Repository.CampListRepository;
 import com.tz.campon.reservation.Repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,10 +20,17 @@ public class ReviewController {
     @Autowired
     ReviewRepository reviewRepository;
 
+    @Autowired
+    CampListRepository campListRepository;
+
     @PostMapping("/regReview")
     public String regReview(Review review, Model model){
 
             reviewRepository.regReview(review);
+            Integer averageRating = reviewRepository.calculateAverageRating(review.getCampId());
+            if (averageRating != null) {
+                campListRepository.updateCampRating(review.getCampId(), averageRating);
+            }
             model.addAttribute("message", "리뷰가 등록 되었습니다.");
             return "redirect:/reviewAll?camp_id="+review.getCampId();
 
