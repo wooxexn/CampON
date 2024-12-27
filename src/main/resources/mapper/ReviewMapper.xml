@@ -7,7 +7,7 @@
 
     <select id="getReview" parameterType="Map" resultType="com.tz.campon.reservation.DTO.Review">
 
-        select *
+        select review.review_id, review.user_id, review.camp_id, review.rating, review.comment, review.created_at
         from review
         join campground cg
         on review.camp_id = cg.camp_id
@@ -43,7 +43,7 @@
     </select>
 
     <insert id="regReview" parameterType="com.tz.campon.reservation.DTO.Review">
-        insert into review ( user_id, camp_id, rating, reply, created_at) values (#{user_id}, #{camp_id}, #{rating}, #{reply}, NOW());
+        insert into review ( user_id, camp_id, rating, comment, created_at) values (#{userId}, #{campId}, #{rating}, #{comment}, NOW());
     </insert>
 
 

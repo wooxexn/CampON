@@ -2,6 +2,7 @@ package com.tz.campon.login.handler;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -29,4 +30,9 @@ public class GlobalExceptionHandler {
         }
     }
 
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public String handleMissingParams(MissingServletRequestParameterException ex, Model model) {
+        model.addAttribute("error", "필수 요청 파라미터가 누락되었습니다: " + ex.getParameterName());
+        return "error"; // 에러 페이지로 리다이렉트
+    }
 }

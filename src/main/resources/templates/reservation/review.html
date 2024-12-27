@@ -13,13 +13,18 @@
 <div th:each="review : ${reviewList}" class="reviewWrap">
 
     <div class="reviewId">
-        <div th:text="${review.user_id}"></div>
+        <div th:text="${review.userId}"></div>
     </div>
 
     <div class="reviewInfo">
-        <div th:text="${review.camp_id}"></div>
-        <div th:text="${review.reply}"></div>
-        <div th:text="${#dates.format(review.created_at, 'yyyy-MM-dd')}"></div>
+        <div th:text="${review.campId}"></div>
+        <div th:text="${review.comment}"></div>
+        <div th:text="${#dates.format(review.createdAt, 'yyyy-MM-dd')}"></div>
+    </div>
+
+    <div class="stars">
+            <span th:each="star : ${#numbers.sequence(1, 5)}"
+                  th:classappend="${star <= review.rating} ? '' : 'empty-stars'">★</span>
     </div>
 
 </div>

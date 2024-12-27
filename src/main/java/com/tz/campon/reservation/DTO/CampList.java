@@ -37,7 +37,8 @@ public class CampList {
     double mapX;
     @JsonProperty("mapY")
     double mapY;
-
+    @JsonProperty("phone")
+    String phone;
 
 
 }

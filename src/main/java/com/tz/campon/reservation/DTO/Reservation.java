@@ -13,9 +13,9 @@ import java.time.LocalDate;
 public class Reservation {
     @JsonProperty("reservation_id")
     int reservationId;
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     String userId;
-    @JsonProperty("camp_id")
+    @JsonProperty("campId")
     int campId;
     @JsonProperty("campdetail_id")
     int campdetailId;
@@ -33,7 +33,7 @@ public class Reservation {
     int totalPrice;
     @JsonProperty("status")
     String status;
-    @JsonProperty("created_at")
+    @JsonProperty("createdAt")
     Timestamp createdAt;
 
 }

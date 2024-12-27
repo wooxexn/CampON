@@ -34,7 +34,7 @@
 
 
     <label for="reply">리뷰: </label>
-    <input type="text" id="reply" name="reply" required> <br>
+    <input type="text" id="reply" name="comment" required> <br>
     <div class="rating">
         <input type="radio" id="star5" name="rating" value="5" />
         <label for="star5">★</label>
@@ -48,11 +48,10 @@
         <label for="star1">★</label>
     </div>
 
+    <input type="hidden" id="camp_id" name="campId" th:value="${camp_id}" required> <br>
+    <input type="hidden" id="user_id" name="userId" th:value="${user_id}" required> <br>
+
     <button type="submit" id="regBtn">등록하기</button>
-
-    <input type="hidden" id="camp_id" name="camp_id" th:value="${camp_id}" required> <br>
-    <input type="hidden" id="user_id" name="user_id" th:value="${user_id}" required> <br>
-
 
 </form>
 

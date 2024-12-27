@@ -26,7 +26,7 @@
                 <li><a href="/main" class="menu-link">HOME</a></li>
                 <li><a href="/camplist" class="menu-link">CAMPING LIST</a></li>
                 <li><a href="/reserve" class="menu-link">RESERVATION</a></li>
-                <li><a href="/list" class="menu-link">CAMPING LOG</a></li>
+                <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
             </ul>
             <div class="auth-links">
                 <!-- 로그인 상태일 때만 로그아웃/마이페이지 표시 -->
@@ -67,17 +67,17 @@
                 </div>
 
                 <!-- 전화번호 -->
-                <p><i class="fas fa-phone" style="color: green; font-size: 20px;"></i> 010-1234-5678</p>
+                <p><i class="fas fa-phone" style="color: green; font-size: 20px;"></i><span th:text="${camplist2.phone}"></span></p>
 
                 <!-- 별점 -->
                 <p class="star-point">
                     <i class="fas fa-star" style="color:gold; font-size: 20px;"></i>
-                    <span th:text="${camplist2.Rating}"></span>
+                    <span th:text="${camplist2.rating}"></span>
                 </p>
 
                 <!-- 가격 -->
                 <h1 class="detail-price" th:text="${camplist2.price + '원~'}"></h1>
-                <button class="reserve-button">예약 하기</button>
+                <button class="reserve-button" th:onclick="'location.href=\'' + @{/campdetailView(camp_id=${camplist2.campId})} + '\''">예약 하기</button>
             </div>
         </div>
 
@@ -86,59 +86,24 @@
             <div class="review-all" >
                 <h3>리뷰</h3><a th:href="@{/reviewAll(camp_id=${camplist2.campId})}">전체보기 <i class="fas fa-chevron-right"></i></a>
             </div>
-                <div class="review-section">
+                <div class="review-section" th:each="review : ${reviews}">
 
                     <div class="review-box">
                         <div class="review-user">
                             <div class="review-star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
+                                <i class="fas fa-star" th:each="star : ${#numbers.sequence(1, 5)}"
+                                   th:classappend="${star <= review.rating} ? '' : 'empty-stars'"></i>
                             </div>
-                            <p class="user-info" >2024.12.04</p>
+                            <p class="user-info" th:text="${#dates.format(review.createdAt, 'yyyy-MM-dd')}"></p>
                         </div>
-                        <p class="review-content" id="review-content-1" ></p>
+                        <p class="review-content" id="review-content-1" th:text="${review.comment}"></p>
 
                     </div>
 
     </div>
 
     <a th:href="@{/reviewAll(camp_id=${camplist2.campId})}">더보기</a> <br>
-</div>
 
-
-                    <div class="review-box">
-                        <div class="review-user">
-
-                            <div class="review-star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <p class="user-info">2024.12.04</p>
-                        </div>
-                        <p class="review-content" id="review-content-2">날짜에 따라 가격이 다르지만 20만원 이하에 이용하기에는 가성비 최고의 호텔이라</p>
-                    </div>
-
-                    <div class="review-box">
-                        <div class="review-user">
-                            <div class="review-star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span class="user-info" >2024.12.04</span>
-                        </div>
-                        <p class="review-content" id="review-content-3">중심에 위치하고 있고 역에서도 가까워서 편리했어요. 기차소음조금있고</p>
-                    </div>
-                </div>
-        </div>
             <!-- 캠핑장 소개글 -->
         <div class="description">
             <h3>캠핑장 소개글</h3>
@@ -154,30 +119,32 @@
 
         <!-- 지도정보 -->
         <h4>위치</h4>
-        <div class="map" id="kakao-map"></div>
+        <div class="map" id="kakao-map" style="width:500px;height:400px;">
+            <script type="text/javascript">
+                const latitude = [[${camplist2.mapY}]];
+                const longitude = [[${camplist2.mapX}]];
+            </script>
+        </div>
 
 
 <!--        <div th:if="${camplist2 == null}">-->
 <!--            <p>캠핑장 상세정보를 찾을 수 없습니다.</p>-->
 <!--        </div>-->
 
-<!--        <a th:href="@{/campdetailView(camp_id=${camplist2.campId})}">버튼</a>-->
+<!--        <a th:href="@{/campdetailView(campId=${camplist2.campId})}">버튼</a>-->
 
 <!--        <div class="reviewWrap">-->
 <!--            <div th:each="review : ${reviews}" class="review">-->
 
-<!--                <div th:text="${review.user_id}" class="review-item"></div>-->
-<!--                <div th:text="${review.reply}" class="review-item"></div>-->
-<!--                <div th:text="${#dates.format(review.created_at, 'yyyy-MM-dd')}" class="review-item"></div>-->
+<!--                <div th:text="${review.userId}" class="review-item"></div>-->
+<!--                <div th:text="${review.comment}" class="review-item"></div>-->
+<!--                <div th:text="${#dates.format(review.createdAt, 'yyyy-MM-dd')}" class="review-item"></div>-->
 
 <!--            </div>-->
 <!--        </div>-->
     </div>
     </main>
 
-
-
-<a th:href="@{/campdetailView(camp_id=${camplist2.campId})}">버튼</a>
 
 
     <footer>

@@ -10,7 +10,7 @@ public class CampDetail {
 
     @JsonProperty("campdetail_id")
     int campdetailId;
-    @JsonProperty("camp_id")
+    @JsonProperty("campId")
     int campId;
     @JsonProperty("detail_name")
     String detailName;
