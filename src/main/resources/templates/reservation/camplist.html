@@ -2,9 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/list/camplist.css}">
+    <title>CampOn || List</title>
+
+
 </head>
 <body>
+
 <!-- Header -->
 <header>
     <div class="logo">
@@ -35,65 +41,156 @@
     </nav>
 </header>
 
-<h2>캠핑장 리스트</h2>
+<div class="container">
+    <div class="select-container">
+        <!-- 지역선택 -->
+        <form method="get" action="/camplist/region" class="region">
+            <label for="region">지역 선택:</label>
+            <select name="region" id="region" onchange="this.form.submit()">
+                <option value="">지역선택</option>
+                <option value="서울"      th:selected="${selectedRegion == '서울'}">서울</option>
+                <option value="부산"      th:selected="${selectedRegion == '부산'}">부산</option>
+                <option value="대구"      th:selected="${selectedRegion == '대구'}">대구</option>
+                <option value="인천"      th:selected="${selectedRegion == '인천'}">인천</option>
+                <option value="광주"      th:selected="${selectedRegion == '광주'}">광주</option>
+                <option value="대전"      th:selected="${selectedRegion == '대전'}">대전</option>
+                <option value="울산"      th:selected="${selectedRegion == '울산'}">울산</option>
+                <option value="세종"      th:selected="${selectedRegion == '세종'}">세종</option>
+                <option value="경기도"    th:selected="${selectedRegion == '경기도'}">경기도</option>
+                <option value="충청북도"  th:selected="${selectedRegion == '충청북도'}">충청북도</option>
+                <option value="충청남도"  th:selected="${selectedRegion == '충청남도'}">충청남도</option>
+                <option value="전라남도"  th:selected="${selectedRegion == '전라남도'}">전라남도</option>
+                <option value="경상북도"  th:selected="${selectedRegion == '경상북도'}">경상북도</option>
+                <option value="경상남도"  th:selected="${selectedRegion == '경상남도'}">경상남도</option>
+                <option value="강원도"    th:selected="${selectedRegion == '강원도'}">강원도</option>
+                <option value="전북"      th:selected="${selectedRegion == '전북'}">전북</option>
+                <option value="제주"      th:selected="${selectedRegion == '제주'}">제주</option>
+            </select>
+        </form>
 
-<div>
-    <a th:href="@{/camplist(region=${selectedRegion}, sort='price')}">가격순 정렬</a> |
-    <a th:href="@{/camplist(region=${selectedRegion}, sort='rating')}">평점순 정렬</a> |
-    <a th:href="@{/camplist}">기본 정렬</a>
+        <!-- 정렬 -->
+        <form method="get" action="/camplist/sort" class="sort-form">
+            <label for="sort"></label>
+            <select name="sort" id="sort" onchange="this.form.submit()">
+                <option value="price"><a th:href="@{/camplist(region=${selectedRegion}, sort='price')}">가격순 정렬</a></option>
+                <option value="rating"><a th:href="@{/camplist(region=${selectedRegion}, sort='rating')}">평점순 정렬</a></option>
+
+
+            </select>
+        </form>
+    </div>
+
+
+    <!-- 캠핑장 목록 -->
+
+    <div class="camp-list" th:each="camplist : ${camplist1}">
+        <a th:href="@{/campinfo(camp_id=${camplist.campId})}">
+        <div class="camp-item">
+            <div class="camp-image">
+                <img th:src="${camplist.photoUrl}" alt="캠핑장 이미지" class="image-placeholder">
+            </div>
+            <div class="camp-info">
+                <h3 th:text="${camplist.name}">(주)아웃오브파크</h3>
+
+                <!-- 평점 -->
+                <p class="star-point">
+                    <i class="fas fa-star" style="color:gold; font-size: 20px;"></i>
+                    <span th:text="${camplist.rating}"></span>
+                </p>
+                <!-- 주소 -->
+                <p class="location" th:text="${camplist.location}"> 주소 : 강원도 춘천시 남면가옹개길 52-9</p>
+
+                <!-- 가격 -->
+                <h2 class="detail-price" th:text="${camplist.price + '원~'}"></h2>
+            </div>
+
+            <div class="facilities-info" >
+                <p th:text="${camplist.facilities}"></p>
+            </div>
+        </div>
+        </a>
+        <!-- 경계선 -->
+        <div class="camp-info-line"></div>
+    </div>
 </div>
 
-<form method="get" action="/camplist/region">
-    <label for="region">지역 선택:</label>
-    <select name="region" id="region">
-        <option value="서울" th:selected="${selectedRegion == '서울'}">서울</option>
-        <option value="부산" th:selected="${selectedRegion == '부산'}">부산</option>
-        <option value="대구" th:selected="${selectedRegion == '대구'}">대구</option>
-        <option value="인천" th:selected="${selectedRegion == '인천'}">인천</option>
-        <option value="광주" th:selected="${selectedRegion == '광주'}">광주</option>
-        <option value="대전" th:selected="${selectedRegion == '대전'}">대전</option>
-        <option value="울산" th:selected="${selectedRegion == '울산'}">울산</option>
-        <option value="세종" th:selected="${selectedRegion == '세종'}">세종</option>
-        <option value="경기도" th:selected="${selectedRegion == '경기도'}">경기도</option>
-        <option value="충청북도" th:selected="${selectedRegion == '충청북도'}">충청북도</option>
-        <option value="충청남도" th:selected="${selectedRegion == '충청남도'}">충청남도</option>
-        <option value="전라남도" th:selected="${selectedRegion == '전라남도'}">전라남도</option>
-        <option value="경상북도" th:selected="${selectedRegion == '경상북도'}">경상북도</option>
-        <option value="경상남도" th:selected="${selectedRegion == '경상남도'}">경상남도</option>
-        <option value="강원도" th:selected="${selectedRegion == '강원도'}">강원도</option>
-        <option value="전북" th:selected="${selectedRegion == '전북'}">전북</option>
-        <option value="제주" th:selected="${selectedRegion == '제주'}">제주</option>
-    </select>
-    <button type="submit">검색</button>
-</form>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Location</th>
-        <th>Price</th>
-        <th>Capacity</th>
-        <th>Facilities</th>
-        <th>Photo URL</th>
-        <th>Rating</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="item : ${camplist1}">
-        <td th:text="${item.getName()}"></td>
-        <td th:text="${item.getDescription()}"></td>
-        <td th:text="${item.getLocation()}"></td>
-        <td th:text="${item.getPrice()}"></td>
-        <td th:text="${item.getCapacity()}"></td>
-        <td th:text="${item.getFacilities()}"></td>
-        <td><img th:src="${item.getPhotoUrl()}" alt="Camping Image"></td>
-        <td th:text="${item.getRating()}"></td>
-        <td><a th:href="@{/campinfo(camp_id=${item.campId})}">버튼</a></td>
-    </tr>
-    </tbody>
-</table>
+<!--    &lt;!&ndash; 페이징 &ndash;&gt;-->
+<!--    <div class="pagination">-->
+<!--        <button class="prev">&lt;</button> &lt;!&ndash; 이전 &ndash;&gt;-->
+<!--        <button class="active">1</button>-->
+<!--        <button>2</button>-->
+<!--        <button>3</button>-->
+<!--        <button>4</button>-->
+<!--        <button>5</button>-->
+<!--        <button class="next">&gt;</button> &lt;!&ndash; 다음 &ndash;&gt;-->
+<!--    </div>-->
 
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-title">CAMPON</p>
+        <p>캠프온(CAMP ON) Address: 에이콘 아카데미 Tel: 010-1234-5678</p>
+        <p>Designer: 전우선 Business: 563-12-02365 E-commerce: 2024 서울홍대 0962</p>
+    </footer>
 </body>
 </html>
+
+<!--<h2>캠핑장 리스트</h2>-->
+
+<!--<div>-->
+<!--    <a th:href="@{/camplist(region=${selectedRegion}, sort='price')}">가격순 정렬</a> |-->
+<!--    <a th:href="@{/camplist(region=${selectedRegion}, sort='rating')}">평점순 정렬</a> |-->
+<!--    <a th:href="@{/camplist}">기본 정렬</a>-->
+<!--</div>-->
+<!--<form method="get" action="/camplist/region">-->
+<!--    <label for="region">지역 선택:</label>-->
+<!--    <select name="region" id="region">-->
+<!--        <option value="서울" th:selected="${selectedRegion == '서울'}">서울</option>-->
+<!--        <option value="부산" th:selected="${selectedRegion == '부산'}">부산</option>-->
+<!--        <option value="대구" th:selected="${selectedRegion == '대구'}">대구</option>-->
+<!--        <option value="인천" th:selected="${selectedRegion == '인천'}">인천</option>-->
+<!--        <option value="광주" th:selected="${selectedRegion == '광주'}">광주</option>-->
+<!--        <option value="대전" th:selected="${selectedRegion == '대전'}">대전</option>-->
+<!--        <option value="울산" th:selected="${selectedRegion == '울산'}">울산</option>-->
+<!--        <option value="세종" th:selected="${selectedRegion == '세종'}">세종</option>-->
+<!--        <option value="경기도" th:selected="${selectedRegion == '경기도'}">경기도</option>-->
+<!--        <option value="충청북도" th:selected="${selectedRegion == '충청북도'}">충청북도</option>-->
+<!--        <option value="충청남도" th:selected="${selectedRegion == '충청남도'}">충청남도</option>-->
+<!--        <option value="전라남도" th:selected="${selectedRegion == '전라남도'}">전라남도</option>-->
+<!--        <option value="경상북도" th:selected="${selectedRegion == '경상북도'}">경상북도</option>-->
+<!--        <option value="경상남도" th:selected="${selectedRegion == '경상남도'}">경상남도</option>-->
+<!--        <option value="강원도" th:selected="${selectedRegion == '강원도'}">강원도</option>-->
+<!--        <option value="전북" th:selected="${selectedRegion == '전북'}">전북</option>-->
+<!--        <option value="제주" th:selected="${selectedRegion == '제주'}">제주</option>-->
+<!--    </select>-->
+<!--    <button type="submit">검색</button>-->
+<!--</form>-->
+
+<!--<table border="1">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Name</th>-->
+<!--        <th>Description</th>-->
+<!--        <th>Location</th>-->
+<!--        <th>Price</th>-->
+<!--        <th>Capacity</th>-->
+<!--        <th>Facilities</th>-->
+<!--        <th>Photo URL</th>-->
+<!--        <th>Rating</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="item : ${camplist1}">-->
+<!--        <td th:text="${item.getName()}"></td>-->
+<!--        <td th:text="${item.getDescription()}"></td>-->
+<!--        <td th:text="${item.getLocation()}"></td>-->
+<!--        <td th:text="${item.getPrice()}"></td>-->
+<!--        <td th:text="${item.getCapacity()}"></td>-->
+<!--        <td th:text="${item.getFacilities()}"></td>-->
+<!--        <td><img th:src="${item.getPhotoUrl()}" alt="Camping Image"></td>-->
+<!--        <td th:text="${item.getRating()}"></td>-->
+<!--        <td><a th:href="@{/campinfo(camp_id=${item.campId})}">버튼</a></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->

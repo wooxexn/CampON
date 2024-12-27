@@ -113,6 +113,7 @@
         }
 
         .info-section h3 {
+            font-size: 20px;
             padding-bottom: 12px;
             font-weight : bold;
 
@@ -201,8 +202,27 @@
             padding-bottom: 50px;
         }
 
+
         .description h3{
             padding-bottom: 10px;
+        }
+
+        /* 더보기 CSS */
+        .more-btn {
+            background-color: #f7f8fb;
+            color: black;
+            border: none;
+            padding: 10px 0;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            margin-top: 20px;
         }
 
         /* 리뷰 */
@@ -312,21 +332,5 @@
 
 
 
-        /* 더보기 CSS */
-        .more-btn {
-            background-color: #f7f8fb;
-            color: black;
-            border: none;
-            padding: 10px 0;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 0;
-            width: 100%;
-            text-align: center;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            margin-top: 20px;
-        }
+
 

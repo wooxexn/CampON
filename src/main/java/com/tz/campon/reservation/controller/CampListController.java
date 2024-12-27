@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 public class CampListController {
-    
+
     private final CampListRepository repository;
 
     private final ReviewRepository reviewRepository;
@@ -24,7 +24,7 @@ public class CampListController {
         this.repository = campListRepository;
         this.reviewRepository = reviewRepository;
     }
-    
+
     @GetMapping("/camplist")
     public String getCampList(@RequestParam(name = "region", required = false) String region, @RequestParam(name = "sort", required = false) String sort, Model model){
 
@@ -46,11 +46,13 @@ public class CampListController {
                 list = repository.getAllCamp();
             }
         }
-      
+
+        System.out.println(list);
+
         model.addAttribute("camplist1", list);
         model.addAttribute("selectedRegion", region);
         model.addAttribute("selectedSort", sort);
-        
+
         return "reservation/camplist";
     }
 

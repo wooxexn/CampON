@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>캠핑장 상세 페이지</title>
-<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}">-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/info.css}">-->
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">-->
 <!--    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=da61be973f2dec7ef4fce7a4678d40df"></script>-->
 <!--    <script type="text/javascript" th:src="@{/js/campdetail.js}"></script>-->
@@ -68,7 +68,7 @@
                 <p><i class="fas fa-phone" style="color: green;"></i> 010-1234-5678</p>
 
                 <!-- 별점 -->
-                <p class="star-point"> <i class="fas fa-star icon-star"></i> 4.7</p>
+                <p class="star-point" th:text="${camplist2.rating}"> <i class="fas fa-star icon-star"></i> 4.7</p>
 
                 <!-- 가격 -->
                 <h1 class="detail-price" th:text="${camplist2.price + '원~'}"></h1>

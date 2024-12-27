@@ -1,30 +1,20 @@
 
 
 function initKakaoMap() {
-    const mapContainer = document.getElementById('kakao-map');
-    if (!mapContainer) {
-        console.error("Map container not found");
-        return;
-    }
+            const mapContainer = document.getElementById('kakao-map');
+            const mapOption = {
+                center: new kakao.maps.LatLng(37.727872, 127.511138),
+                level: 3 // 확대 레벨
+            };
+            const map = new kakao.maps.Map(mapContainer, mapOption);
 
-    // 지도 생성 옵션
-    const mapOption = {
-        center: new kakao.maps.LatLng(latitude, longitude), // 중심 좌표
-        level: 3 // 확대 레벨
-    };
-
-    // 지도 생성
-    const map = new kakao.maps.Map(mapContainer, mapOption);
-
-    // 마커 생성
-    const markerPosition = new kakao.maps.LatLng(latitude, longitude);
-    const marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
-    marker.setMap(map); // 마커 지도에 추가
-}
-
-window.onload = initKakaoMap;
+            // 마커생성
+            const marker = new kakao.maps.Marker({
+                position: new kakao.maps.LatLng(37.727872, 127.511138)
+            });
+            marker.setMap(map);
+        }
+        window.onload = initKakaoMap;
 
 // 주소복사
     document.addEventListener('DOMContentLoaded', function () {
@@ -54,28 +44,29 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 // 더보기 기능
 // 캠핑장 소개글 더보기/간략히 보기 토글
 document.addEventListener('DOMContentLoaded', function() {
-    const descriptionText = document.getElementById('camping-description');
-    const toggleButton = document.getElementById('toggle-description');
-    const initialText = descriptionText.innerText.substring(0, 130); // 첫 100자만 보여줍니다.
-    const fullText = descriptionText.innerText; // 전체 텍스트
+const descriptionText = document.getElementById('camping-description');
+const toggleButton = document.getElementById('toggle-description');
+const initialText = descriptionText.innerText.substring(0, 130); // 첫 100자만 보여줍니다.
+const fullText = descriptionText.innerText; // 전체 텍스트
 
-    // 처음에는 100자까지만 보여주고, 버튼을 "더보기"로 설정
+// 처음에는 100자까지만 보여주고, 버튼을 "더보기"로 설정
+descriptionText.innerText = initialText + '...';
+toggleButton.innerText = '더보기';
+
+toggleButton.addEventListener('click', function() {
+// 더보기 버튼 클릭 시, 텍스트 변경
+if (descriptionText.innerText === initialText + '...') {
+    descriptionText.innerText = fullText;
+    toggleButton.innerText = '접기';
+} else {
     descriptionText.innerText = initialText + '...';
     toggleButton.innerText = '더보기';
-
-    toggleButton.addEventListener('click', function() {2
-        // 더보기 버튼 클릭 시, 텍스트 변경
-        if (descriptionText.innerText === initialText + '...') {
-            descriptionText.innerText = fullText;
-            toggleButton.innerText = '접기';
-        } else {
-            descriptionText.innerText = initialText + '...';
-            toggleButton.innerText = '더보기';
-        }
-    });
+}
+});
 });
 
 // 리뷰글자수 제한
