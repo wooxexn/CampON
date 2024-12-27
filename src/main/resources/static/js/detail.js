@@ -1,20 +1,30 @@
 
 
 function initKakaoMap() {
-            const mapContainer = document.getElementById('kakao-map');
-            const mapOption = {
-                center: new kakao.maps.LatLng(37.727872, 127.511138),
-                level: 3 // 확대 레벨
-            };
-            const map = new kakao.maps.Map(mapContainer, mapOption);
+    const mapContainer = document.getElementById('kakao-map');
+    if (!mapContainer) {
+        console.error("Map container not found");
+        return;
+    }
 
-            // 마커생성
-            const marker = new kakao.maps.Marker({
-                position: new kakao.maps.LatLng(37.727872, 127.511138)
-            });
-            marker.setMap(map);
-        }
-        window.onload = initKakaoMap;
+    // 지도 생성 옵션
+    const mapOption = {
+        center: new kakao.maps.LatLng(latitude, longitude), // 중심 좌표
+        level: 3 // 확대 레벨
+    };
+
+    // 지도 생성
+    const map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 마커 생성
+    const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+    const marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+    marker.setMap(map); // 마커 지도에 추가
+}
+
+window.onload = initKakaoMap;
 
 // 주소복사
     document.addEventListener('DOMContentLoaded', function () {
