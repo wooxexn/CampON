@@ -25,7 +25,7 @@ public class ReservationDTO {
     int price;
     @JsonProperty("photo_url")
     String photoUrl;
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     String userId;
     @JsonProperty("campdetail_id")
     int campdetailId;

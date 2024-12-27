@@ -284,10 +284,12 @@
             font-size: 12px;
         }
 
-        .review-star {
-            display: flex;
-            gap: 1px;
-            font-size: 13px;
+        .stars {
+            display: inline-block;
+            color: gold;
+        }
+        .empty-stars {
+            color: lightgray;
         }
 
         .review-content {

@@ -1,5 +1,6 @@
 package com.tz.campon.reservation.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -7,13 +8,18 @@ import java.util.Date;
 @Data
 public class Review {
 
-
-    int review_id;
-    String user_id;
-    int camp_id;
+    @JsonProperty("review_id")
+    int reviewId;
+    @JsonProperty("user_id")
+    String userId;
+    @JsonProperty("camp_id")
+    int campId;
+    @JsonProperty("rating")
     int rating;
-    String reply;
-    Date created_at;
+    @JsonProperty("comment")
+    String comment;
+    @JsonProperty("created_at")
+    Date createdAt;
 
 
 }

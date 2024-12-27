@@ -22,16 +22,10 @@ public class ReviewController {
     @PostMapping("/regReview")
     public String regReview(Review review, Model model){
 
-
-        try {
             reviewRepository.regReview(review);
             model.addAttribute("message", "리뷰가 등록 되었습니다.");
-            return "redirect:/reviewAll?camp_id="+review.getCamp_id();
+            return "redirect:/reviewAll?camp_id="+review.getCampId();
 
-        }catch (Exception e){
-            model.addAttribute("message", "리뷰 등록이 완료되지 않았습니다.");
-            return "redirect:/reviewAll";
-        }
     }
 
     @GetMapping("/regReview")
@@ -65,7 +59,7 @@ public class ReviewController {
 
 
         PageHandler pageHandler = new PageHandler(currentPage, totalCount, pageSize, grpSize);
-
+        System.out.println(reviewList);
 
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("camp_id", camp_id);
