@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/detail/info.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=da61be973f2dec7ef4fce7a4678d40df"></script>
-    <script type="text/javascript" th:src="@{/js/detail.js}"></script>
-    <title>CampOn || info</title>
+
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/detail/detail.css}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=da61be973f2dec7ef4fce7a4678d40df"></script>
+        <script type="text/javascript" th:src="@{/js/campgrounddetail.js}"></script>
+        <title>CampOn || info</title>
     </head>
     <body>
+
 
     <!-- 헤더영역 -->
     <header>
@@ -45,47 +47,45 @@
     <!-- 메인 -->
 
     <main>
-        <div class="container">
+    <div class="container">
 
-            <!-- 캠핑장 정보 -->
-            <div class="camping-info">
 
-                <!-- 캠핑장이미지 -->
-                <div class="image-section" ><img th:src="${camplist2.photoUrl}" alt="Camping Image"></div>
-                <div class="info-section" >
+        <!-- 캠핑장 정보 -->
+        <div class="camping-info">
 
-                    <!-- 캠핑장이름 -->
-                    <h3 th:text="${camplist2.name}"></h3>
+            <!-- 캠핑장이미지 -->
+            <div class="image-section" ><img th:src="${camplist2.photoUrl}" alt="Camping Image"></div>
+            <div class="info-section" >
 
-                    <!-- 주소 -->
-                    <div class="address-container">
-                        <span id="camping-address" style="font-size: 18px;" th:text="${ '주소: ' + camplist2.location}"></span>
-                        <span id="copy-address" class="copy-button">복사</span>
-                    </div>
+                <!-- 캠핑장이름 -->
+                <h3 th:text="${camplist2.name}"></h3>
 
-                    <!-- 전화번호 -->
-                    <p>
-                        <i class="fas fa-phone" style="color: green; font-size: 20px;"></i>
-                        <span th:text="${camplist2.phone}"></span>
-                    </p>
-
-                    <!-- 별점 -->
-                    <p class="star-point">
-                        <i class="fas fa-star" style="color:gold; font-size: 20px;"></i>
-                        <span th:text="${camplist2.Rating}"></span>
-                    </p>
-
-                    <!-- 가격 -->
-                    <h1 class="detail-price" th:text="${camplist2.price + '원~'}"></h1>
-                    <button class="reserve-button">예약 하기</button>
+                <!-- 주소 -->
+                <div class="address-container">
+                    <span id="camping-address" th:text="${ '주소: ' + camplist2.location}"></span>
+                    <span id="copy-address" class="copy-button">복사</span>
                 </div>
+
+                <!-- 전화번호 -->
+                <p><i class="fas fa-phone" style="color: green; font-size: 20px;"></i> 010-1234-5678</p>
+
+                <!-- 별점 -->
+                <p class="star-point">
+                    <i class="fas fa-star" style="color:gold; font-size: 20px;"></i>
+                    <span th:text="${camplist2.Rating}"></span>
+                </p>
+
+                <!-- 가격 -->
+                <h1 class="detail-price" th:text="${camplist2.price + '원~'}"></h1>
+                <button class="reserve-button">예약 하기</button>
             </div>
+        </div>
 
-            <!-- 리뷰정보 -->
-            <div class="review">
-                <div class="review-all" >
-                    <h3>리뷰</h3><a th:href="@{/reviewAll(camp_id=${camplist2.campId})}">전체보기 <i class="fas fa-chevron-right"></i></a>
-                </div>
+        <!-- 리뷰정보 -->
+        <div class="review">
+            <div class="review-all" >
+                <h3>리뷰</h3><a th:href="@{/reviewAll(camp_id=${camplist2.campId})}">전체보기 <i class="fas fa-chevron-right"></i></a>
+            </div>
                 <div class="review-section">
 
                     <div class="review-box">
@@ -102,6 +102,11 @@
                         <p class="review-content" id="review-content-1" ></p>
 
                     </div>
+
+    </div>
+    <a th:href="@{/reviewAll(camp_id=${camplist2.campId})}">더보기</a> <br>
+</div>
+
 
                     <div class="review-box">
                         <div class="review-user">
@@ -132,42 +137,46 @@
                         <p class="review-content" id="review-content-3">중심에 위치하고 있고 역에서도 가까워서 편리했어요. 기차소음조금있고</p>
                     </div>
                 </div>
-            </div>
-            <!-- 캠핑장 소개글 -->
-            <div class="description">
-                <h3>캠핑장 소개글</h3>
-                <p id="camping-description" th:text="${camplist2.getDescription()}">
-                </p>
-                <button id="toggle-description" class="more-btn">더보기</button>
-            </div>
-
-            <!-- 시설정보 -->
-            <div class="facility-info"><h3>캠핑장 시설정보</h3>
-                <p th:text="${camplist2.getFacilities()}"></p>
-            </div>
-
-            <!-- 지도정보 -->
-            <h4>위치</h4>
-            <div class="map" id="kakao-map"></div>
-
-
-            <!--        <div th:if="${camplist2 == null}">-->
-            <!--            <p>캠핑장 상세정보를 찾을 수 없습니다.</p>-->
-            <!--        </div>-->
-
-            <!--        <a th:href="@{/campdetailView(camp_id=${camplist2.campId})}">버튼</a>-->
-
-            <!--        <div class="reviewWrap">-->
-            <!--            <div th:each="review : ${reviews}" class="review">-->
-
-            <!--                <div th:text="${review.user_id}" class="review-item"></div>-->
-            <!--                <div th:text="${review.reply}" class="review-item"></div>-->
-            <!--                <div th:text="${#dates.format(review.created_at, 'yyyy-MM-dd')}" class="review-item"></div>-->
-
-            <!--            </div>-->
-            <!--        </div>-->
         </div>
+            <!-- 캠핑장 소개글 -->
+        <div class="description">
+            <h3>캠핑장 소개글</h3>
+            <p id="camping-description" th:text="${camplist2.getDescription()}">
+            </p>
+            <button id="toggle-description" class="more-btn">더보기</button>
+        </div>
+
+        <!-- 시설정보 -->
+        <div class="facility-info"><h3>캠핑장 시설정보</h3>
+            <p th:text="${camplist2.getFacilities()}"></p>
+        </div>
+
+        <!-- 지도정보 -->
+        <h4>위치</h4>
+        <div class="map" id="kakao-map"></div>
+
+
+<!--        <div th:if="${camplist2 == null}">-->
+<!--            <p>캠핑장 상세정보를 찾을 수 없습니다.</p>-->
+<!--        </div>-->
+
+<!--        <a th:href="@{/campdetailView(camp_id=${camplist2.campId})}">버튼</a>-->
+
+<!--        <div class="reviewWrap">-->
+<!--            <div th:each="review : ${reviews}" class="review">-->
+
+<!--                <div th:text="${review.user_id}" class="review-item"></div>-->
+<!--                <div th:text="${review.reply}" class="review-item"></div>-->
+<!--                <div th:text="${#dates.format(review.created_at, 'yyyy-MM-dd')}" class="review-item"></div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+    </div>
     </main>
+
+
+
+<a th:href="@{/campdetailView(camp_id=${camplist2.campId})}">버튼</a>
 
 
     <footer>

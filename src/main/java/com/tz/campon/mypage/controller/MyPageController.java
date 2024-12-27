@@ -5,6 +5,11 @@ import com.tz.campon.mypage.dto.ReservationDTO;
 import com.tz.campon.mypage.exception.ReservationNotFoundException;
 import com.tz.campon.mypage.exception.UserNotFoundException;
 import com.tz.campon.mypage.service.MyPageService;
+import com.tz.campon.reservation.DTO.CampList;
+import com.tz.campon.reservation.DTO.Reservation;
+import com.tz.campon.reservation.Repository.CampDetailRepository;
+import com.tz.campon.reservation.Repository.CampListRepository;
+import com.tz.campon.reservation.Repository.ReservationRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +31,15 @@ public class MyPageController {
 
     @Autowired
     private MyPageService myPageService;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
+
+    @Autowired
+    private CampListRepository campListRepository;
+
+    @Autowired
+    private CampDetailRepository campDetailRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -49,9 +64,18 @@ public class MyPageController {
             model.addAttribute("user", user);
             model.addAttribute("username", user.getName()); // 사용자 이름
 
-            // 예약 내역 가져오기
-            List<ReservationDTO> reservations = myPageService.getUserReservations(userId);
-            model.addAttribute("reservations", reservations);
+            List<Reservation> reservations = reservationRepository.getReservationById(userId);
+            ArrayList<CampList> campLists = campListRepository.getAllCamp();
+            ArrayList<ReservationDTO> reservationDTOs = new ArrayList<>();
+            reservations.forEach(reservation -> {
+                campLists.forEach(campList -> {
+                    if (reservation.getCampId() == campList.getCampId()) {
+                        ReservationDTO reservationDTO = new ReservationDTO(reservation.getReservationId(),reservation.getCampId(),campList.getName(),campList.getLocation(),campDetailRepository.selectCampDetailOne(reservation.getCampId(),reservation.getCampdetailId()).getPrice(),campList.getPhotoUrl(),userId,reservation.getCampdetailId(),reservation.getCheckInDate(),reservation.getCheckOutDate(),reservation.getNumberOfGuest(),reservation.getTotalPrice(),campDetailRepository.selectCampDetailOne(reservation.getCampId(),reservation.getCampdetailId()).getDetailName());
+                        reservationDTOs.add(reservationDTO);
+                    }
+                });
+            });
+            model.addAttribute("reservations", reservationDTOs);
         } catch (UserNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "error";

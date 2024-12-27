@@ -100,4 +100,12 @@ public class BoardService {
         return boardRepository.findCommentsByBoardId(boardId);
     }
 
+    public void deleteComment(int commentId) {
+        boardRepository.deleteComment(commentId);
+    }
+
+    public Comment findCommentById(int commentId) {
+        return boardRepository.findCommentById(commentId);
+    }
+
 }
