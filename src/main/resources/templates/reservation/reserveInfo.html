@@ -3,31 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .wrap{
+            margin: 0 auto;
+            text-align: center;
+        }
+        table{
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
 
-<h2>예약 페이지</h2>
+<div class="wrap">
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>아이디</th>
-        <th>입실</th>
-        <th>퇴실</th>
-        <th>상태</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="item : ${reservelist}">
-        <td th:text="${item.userId}">아이디</td>
-        <td th:text="${#temporals.format(item.checkInDate, 'yyyy-MM-dd')}">입실</td>
-        <td th:text="${#temporals.format(item.checkOutDate, 'yyyy-MM-dd')}">퇴실</td>
-        <td th:text="${item.status}">상태</td>
-    </tr>
-    </tbody>
-</table>
+    <h2>예약이 완료되었습니다!</h2>
 
+    <table border="1">
+        <thead>
+        <tr>
+            <th>아이디</th>
+            <th>입실</th>
+            <th>퇴실</th>
+            <th>상태</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${reservelist}">
+            <td th:text="${item.userId}">아이디</td>
+            <td th:text="${#temporals.format(item.checkInDate, 'yyyy-MM-dd')}">입실</td>
+            <td th:text="${#temporals.format(item.checkOutDate, 'yyyy-MM-dd')}">퇴실</td>
+            <td th:text="${item.status}">상태</td>
+        </tr>
+        </tbody>
+    </table>
 
+</div>
 
 </body>
 </html>
