@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="./camplist.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/list/camplist.css}">
     <title>CampOn || List</title>     
 
     
@@ -72,10 +72,10 @@
             <form method="get" action="/camplist/sort" class="sort-form">
                 <label for="sort"></label>
                 <select name="sort" id="sort" onchange="this.form.submit()">
-                    <option value="default">추천순</option>
-                    <option value="price_asc">가격 낮은순</option>
-                    <option value="price_desc">가격 높은순</option>
-                    <option value="rating">평점 높은순</option>
+                    <option value="default"><a th:href="@{/camplist(region=${selectedRegion}, sort='price')}">가격순 정렬</a></option>
+                    <option value="price_asc"><a th:href="@{/camplist(region=${selectedRegion}, sort='rating')}">평점순 정렬</a></option>
+
+
                 </select>
             </form>
         </div>
@@ -107,7 +107,7 @@
         </div>
 
         <!-- 페이지네이션 -->
-        
+
         <div class="pagination">
             <button class="prev">&lt;</button> <!-- 이전 -->
             <button class="active">1</button>

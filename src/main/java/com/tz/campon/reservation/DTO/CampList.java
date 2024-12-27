@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CampList {
 
-    @JsonProperty("campId")
+    @JsonProperty("camp_id")
     int campId;
     @JsonProperty("name")
     String name;
@@ -37,6 +37,8 @@ public class CampList {
     double mapX;
     @JsonProperty("mapY")
     double mapY;
+    @JsonProperty("phone")
+    String phone;
 
 
 

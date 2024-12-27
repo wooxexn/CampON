@@ -2,19 +2,15 @@
 
 function initKakaoMap() {
             const mapContainer = document.getElementById('kakao-map');
-
-                    const latitude = [[${camplist2.mapX}]]; // 경도
-                    const longitude = [[${camplist2.mapY}]]; //위도
-
             const mapOption = {
-                center: new kakao.maps.LatLng(mapX, mapY),
+                center: new kakao.maps.LatLng(37.727872, 127.511138),
                 level: 3 // 확대 레벨
             };
             const map = new kakao.maps.Map(mapContainer, mapOption);
 
             // 마커생성
             const marker = new kakao.maps.Marker({
-                position: new kakao.maps.LatLng((mapX, mapY)
+                position: new kakao.maps.LatLng(37.727872, 127.511138)
             });
             marker.setMap(map);
         }
@@ -48,28 +44,29 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 // 더보기 기능
 // 캠핑장 소개글 더보기/간략히 보기 토글
 document.addEventListener('DOMContentLoaded', function() {
-    const descriptionText = document.getElementById('camping-description');
-    const toggleButton = document.getElementById('toggle-description');
-    const initialText = descriptionText.innerText.substring(0, 130); // 첫 100자만 보여줍니다.
-    const fullText = descriptionText.innerText; // 전체 텍스트
+const descriptionText = document.getElementById('camping-description');
+const toggleButton = document.getElementById('toggle-description');
+const initialText = descriptionText.innerText.substring(0, 130); // 첫 100자만 보여줍니다.
+const fullText = descriptionText.innerText; // 전체 텍스트
 
-    // 처음에는 100자까지만 보여주고, 버튼을 "더보기"로 설정
+// 처음에는 100자까지만 보여주고, 버튼을 "더보기"로 설정
+descriptionText.innerText = initialText + '...';
+toggleButton.innerText = '더보기';
+
+toggleButton.addEventListener('click', function() {
+// 더보기 버튼 클릭 시, 텍스트 변경
+if (descriptionText.innerText === initialText + '...') {
+    descriptionText.innerText = fullText;
+    toggleButton.innerText = '접기';
+} else {
     descriptionText.innerText = initialText + '...';
     toggleButton.innerText = '더보기';
-
-    toggleButton.addEventListener('click', function() {2
-        // 더보기 버튼 클릭 시, 텍스트 변경
-        if (descriptionText.innerText === initialText + '...') {
-            descriptionText.innerText = fullText;
-            toggleButton.innerText = '접기';
-        } else {
-            descriptionText.innerText = initialText + '...';
-            toggleButton.innerText = '더보기';
-        }
-    });
+}
+});
 });
 
 // 리뷰글자수 제한
