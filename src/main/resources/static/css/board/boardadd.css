@@ -1,0 +1,156 @@
+/* 공통 스타일 */
+:root {
+    --primary-color: #007bff; /* 기본 테마 색상 */
+    --secondary-color: #333;
+    --background-color: #fafafa;
+    --border-color: #ccc;
+}
+
+/* 기본 설정 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    text-align: center;
+    padding: 40px; /* 헤더 여백 증가 */
+    background-color: #f8f9fa;
+    border-bottom: 3px solid #ddd; /* 경계선 더 강조 */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 38px; /* 헤더 크기 더 강조 */
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* 입력 섹션 */
+.write-section {
+    max-width: 900px; /* 섹션 너비 */
+    margin: 50px auto; /* 가운데 정렬 */
+    background-color: #fff;
+    padding: 40px 30px; /* 섹션 내부 여백 */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* 그림자 강조 */
+}
+
+/* 작성자 */
+.write-author {
+    font-size: 18px;
+    margin-bottom: 20px; /* 작성자와 입력 칸 간격 */
+    color: #555;
+    font-weight: bold;
+}
+
+/* 제목 입력 칸 */
+.write-title {
+    margin-bottom: 30px; /* 제목 칸과 내용 칸 간격 */
+    width: 100%; /* 부모 요소의 폭에 맞춤 */
+}
+
+.write-title input {
+    display: block; /* 내용 칸과 동일한 블록 요소 */
+    width: 100%; /* 부모 요소의 전체 폭에 맞춤 */
+    box-sizing: border-box; /* padding과 border를 포함한 폭 계산 */
+    max-width: 100%; /* 부모 요소를 넘지 않도록 제한 */
+    padding: 12px;
+    font-size: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+
+.write-title input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* 내용 입력 칸 */
+.write-editor {
+    margin-bottom: 30px; /* 내용 칸과 버튼 간격 */
+}
+
+.write-editor textarea {
+    display: block; /* 제목 칸과 동일한 블록 요소 */
+    width: 100%; /* 부모 요소의 전체 폭에 맞춤 */
+    box-sizing: border-box; /* padding과 border를 포함한 폭 계산 */
+    max-width: 100%; /* 부모 요소를 넘지 않도록 제한 */
+    padding: 12px;
+    font-size: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    resize: none;
+    background-color: var(--background-color);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: 320px; /* 내용 칸 높이 */
+}
+
+.write-editor textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* 버튼 섹션 */
+.write-buttons {
+    display: flex;
+    justify-content: flex-end; /* 버튼 오른쪽 정렬 */
+    gap: 15px; /* 버튼 간 간격 */
+    margin-top: 30px; /* 버튼과 입력 칸 사이 간격 */
+}
+
+.cancel-button,
+.submit-button {
+    padding: 12px 25px; /* 버튼 크기 조정 */
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* 취소 버튼 */
+.cancel-button {
+    background-color: #e9ecef;
+    color: #333;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cancel-button:hover {
+    background-color: #dee2e6;
+    transform: translateY(-2px);
+}
+
+/* 제출 버튼 */
+.submit-button {
+    background-color: var(--secondary-color);
+    color: #fff;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+.submit-button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 접근성 개선: 포커스 스타일 */
+button:focus,
+input:focus,
+textarea:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}

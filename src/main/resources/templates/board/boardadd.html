@@ -1,23 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 작성</title>
+    <!-- Summernote CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/board/boardadd.css">
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Summernote JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
 </head>
 <body>
+<header>
+    <h1>게시판 작성</h1>
+</header>
 
-<form th:action="@{/board/add}" method="post" enctype="multipart/form-data">
-    <input type="text" id="userId" name="userId" th:value="${userId}" hidden>
+<section class="write-section">
+    <div class="write-container">
+        <form action="/board/add" method="post" enctype="multipart/form-data">
+            <!-- 작성자 -->
+            <div class="write-author">
+                <span th:text="${userId}">작성자: 전우선</span>
+                <input type="hidden" id="userId" name="userId" th:value="${userId}">
+            </div>
 
-    <label for="images">Images:</label>
-    <input type="file" id="images" name="images" multiple required> <!-- 다중 파일 업로드 -->
+            <!-- 제목 입력 -->
+            <div class="write-title">
+                <input type="text" id="caption" name="caption" placeholder="게시글 제목을 입력해주세요." required>
+            </div>
 
-    <label for="caption">Caption:</label>
-    <textarea id="caption" name="caption" required></textarea>
+            <!-- Summernote 에디터 -->
+            <div class="write-editor">
+                <textarea id="content" name="content"></textarea>
+            </div>
 
-    <button type="submit">Submit</button>
-</form>
+            <!-- 이미지 입력 -->
+            <div class="write-images">
+                <input type="file" name="images" multiple>
+            </div>
 
+            <!-- 버튼 -->
+            <div class="write-buttons">
+                <button type="button" class="cancel-button" onclick="window.location.href='/board';">취소</button>
+                <button type="submit" class="submit-button" id="submitButton" disabled>작성</button>
+            </div>
+        </form>
+    </div>
+</section>
 
+<!-- JavaScript -->
+<script src="/js/boardadd.js"></script>
 </body>
 </html>

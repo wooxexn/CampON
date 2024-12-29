@@ -17,19 +17,8 @@ public class BoardRepository {
         this.postMapper = postMapper;
     }
 
-    public List<Board> selectAllPage(int currentPage, int size){
-
-        int start = (currentPage-1)*size+1;
-        int end = currentPage*size;
-
-        System.out.println("start"+start);
-        System.out.println("end"+end);
-        Map<String,Integer> pageInfo = new HashMap<>();
-        pageInfo.put("start", start);
-        pageInfo.put("end", end);
-
-        return postMapper.findAll();
-
+    public List<Board> selectAll() {
+        return postMapper.findAll(); // 페이지네이션 없이 모든 게시글 조회
     }
 
     public List<BoardImage> selectAllPageImage(){
@@ -44,71 +33,77 @@ public class BoardRepository {
         postMapper.save(board);
     }
 
-    public void saveImage(String id,String image){
-        postMapper.saveImage(id,image);
+    public void saveImage(Integer id, String image){
+        postMapper.saveImage(id, image);
     }
 
-    public Board findById(String id){
-        return postMapper.findById(id);
+    public Board findById(Integer id) {
+        Board board = postMapper.findById(id);
+        System.out.println("Repository에서 조회된 게시글: " + board);
+        return board;
     }
 
-    public List<String> findImageById(String id){
+    public List<String> findImageById(Integer id){
         return postMapper.findImageUrlByBoardId(id);
     }
 
-    public void update(String image_url, String board_id){
+    public void update(String image_url, Integer board_id){
         postMapper.update(image_url, board_id);
     }
 
-    public void updateImage(int id,String image_url){
-        postMapper.updateImage(image_url,id);
+    public void updateImage(Integer id, String image_url){
+        postMapper.updateImage(image_url, id);
     }
 
-    public void delete(String id){
+    public void delete(Integer id){
         postMapper.deleteById(id);
     }
 
-    public void deleteImage(String id){
+    public void deleteImage(Integer id){
         postMapper.deleteImageByBoardId(id);
     }
 
     // 좋아요 추가
-    public void addLike(String boardId, String userId) {
+    public void addLike(Integer boardId, String userId) {
         postMapper.addLike(boardId, userId);
     }
 
+    public void updateLikeCount(Integer boardId, int likeCount) {
+        postMapper.updateLikeCount(boardId, likeCount); // 좋아요 수 업데이트
+    }
+
     // 좋아요 제거
-    public void removeLike(String boardId, String userId) {
+    public void removeLike(Integer boardId, String userId) {
         postMapper.removeLike(boardId, userId);
     }
 
     // 특정 사용자가 게시글에 좋아요를 눌렀는지 확인
-    public boolean isLikedByUser(String boardId, String userId) {
+    public boolean isLikedByUser(Integer boardId, String userId) {
         return postMapper.isLikedByUser(boardId, userId);
     }
 
     // 좋아요 개수 증가
-    public void incrementLikeCount(String boardId) {
+    public void incrementLikeCount(Integer boardId) {
         postMapper.incrementLikeCount(boardId);
     }
 
     // 좋아요 개수 감소
-    public void decrementLikeCount(String boardId) {
+    public void decrementLikeCount(Integer boardId) {
         postMapper.decrementLikeCount(boardId);
     }
 
     // 현재 좋아요 개수 가져오기
-    public int getLikeCount(String boardId) {
+    public int getLikeCount(Integer boardId) {
         return postMapper.getLikeCount(boardId);
     }
 
     // 댓글 추가
-    public void addComment(String boardId, String userId, String content) {
+    public void addComment(Integer boardId, String userId, String content) {
         postMapper.addComment(boardId, userId, content);
     }
 
     // 특정 게시글의 댓글 조회
-    public List<Comment> findCommentsByBoardId(String boardId) {
+    public List<Comment> findCommentsByBoardId(Integer boardId) {
         return postMapper.findCommentsByBoardId(boardId);
     }
 
@@ -120,5 +115,5 @@ public class BoardRepository {
     public Comment findCommentById(int commentId) {
         return postMapper.findCommentById(commentId);
     }
-
 }
+
