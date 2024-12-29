@@ -1,6 +1,5 @@
 package com.tz.campon.common.generator;
 
-import com.tz.campon.board.post.BoardRepository;
 import com.tz.campon.board.post.PostMapper;
 import org.springframework.stereotype.Component;
 
@@ -13,21 +12,24 @@ public class CustomUUIDGenerator {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final SecureRandom random = new SecureRandom();
     private final PostMapper postMapper;
+
     public CustomUUIDGenerator(PostMapper postMapper) {
         this.postMapper = postMapper;
     }
-    public String generateUniqueUUID() {
-        String uuid;
+
+    public Integer generateUniqueUUID() {
+        Integer boardId;
         do {
-            uuid = generateCustomUUID();
-        } while (postMapper.existsByReservationUuid(uuid)); // 예약 번호 존재하는 지 확인
-        return uuid;
+            boardId = generateCustomUUID();
+        } while (postMapper.existsByReservationUuid(boardId)); // 예약 번호 존재하는 지 확인
+        return boardId;
     }
-    private String generateCustomUUID() {
+
+    private Integer generateCustomUUID() {
         StringBuilder sb = new StringBuilder(PREFIX);
         for (int i = 0; i < RANDOM_PART_LENGTH; i++) {
             sb.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
         }
-        return sb.toString();
+        return Integer.parseInt(sb.toString().substring(2));  // PREFIX가 "BD"이므로, 그 이후 숫자만 Integer로 변환
     }
 }

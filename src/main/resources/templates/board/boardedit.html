@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 수정</title>
 </head>
 <body>
+<h1>게시글 수정</h1>
+<form action="/board/edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="boardId" th:value="${board.boardId}">
+    <input type="text" name="caption" th:value="${board.caption}" placeholder="게시글 제목을 입력해주세요." required>
 
-<form th:action="@{/board/edit}" method="post" enctype="multipart/form-data">
-    <input type="text" id="boardId" name="boardId" th:value="${board.boardId}" hidden>
+    <!-- 이미지 수정 -->
+    <input type="file" name="images" multiple>  <!-- 기존 이미지 외에 새로운 이미지 추가 가능 -->
 
-    <label for="images">Images:</label>
-    <input type="file" id="images" name="images" multiple> <!-- 다중 파일 업로드 -->
-
-    <label for="caption">Caption:</label>
-    <textarea id="caption" name="caption" required th:text="${board.caption}"></textarea>
-
-    <button type="submit">Submit</button>
+    <button type="submit">수정하기</button>
 </form>
-
 
 </body>
 </html>
