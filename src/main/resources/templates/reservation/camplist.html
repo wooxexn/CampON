@@ -73,6 +73,7 @@
             <select name="sort" id="sort" onchange="this.form.submit()">
                 <option value="price" th:selected="${selectedSort == 'price'}">가격순 정렬</option>
                 <option value="rating" th:selected="${selectedSort == 'rating'}">평점순 정렬</option>
+                <option value="" th:selected="${selectedSort == ''}">기본 정렬</option>
             </select>
         </form>
     </div>

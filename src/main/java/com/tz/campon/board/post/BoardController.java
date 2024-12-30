@@ -98,7 +98,7 @@ public class BoardController {
     }
 
     @GetMapping("/board/detail/{id}")
-    public String getPostDetail(@PathVariable("id") Integer id, Model model) {
+    public String getPostDetail(@PathVariable("id") Integer id, Model model,Authentication authentication) {
         // 게시글 데이터를 가져옵니다.
         Board post = boardService.getPostById(id);
         List<BoardImage> imageList = boardService.getBoardImage(id);
@@ -119,6 +119,7 @@ public class BoardController {
         model.addAttribute("post", post);
         model.addAttribute("images", imageList);
         model.addAttribute("formattedCreateAt", formattedDate); // 변환된 날짜 추가
+        model.addAttribute("isLoggedIn", authentication != null && authentication.isAuthenticated());
 
         return "board/boarddetail";
     }

@@ -94,6 +94,7 @@ public class SecurityConfig {
                                 "/detail",      // 캠핑장 상세
                                 "/detail/3d",   // 3D 화면
                                 "/board",       // 게시판 메인
+                                "/board/detail/**",
                                 "/camplist/**",
                                 "/campinfo/**",
                                 "/campdetail/**",

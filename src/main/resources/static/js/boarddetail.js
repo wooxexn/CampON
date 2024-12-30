@@ -13,6 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function toggleLike(boardId) {
     const likeButton = document.querySelector('.like-button');
+    const isLoggedIn = likeButton.getAttribute('data-is-logged-in') === 'true';
+
+    if (!isLoggedIn) {
+        alert('좋아요를 누르려면 로그인해야 합니다.');
+        return;
+    }
+
     const likeCountSpan = document.querySelector('.post-actions span');
 
     fetch(`/board/like/${boardId}`, { method: 'POST' })
@@ -36,6 +43,11 @@ function toggleLike(boardId) {
 // 댓글 작성 후 새로 고침 없이 댓글을 추가하는 기능
 document.getElementById("commentForm").addEventListener("submit", function(event) {
     event.preventDefault(); // 폼 제출의 기본 동작을 막음
+
+    if (!isLoggedIn) {
+        alert('댓글을 작성하려면 로그인해야 합니다.');
+        return;
+    }
 
     let content = document.querySelector("textarea[name='content']").value;
     let boardId = document.querySelector("input[name='boardId']").value;

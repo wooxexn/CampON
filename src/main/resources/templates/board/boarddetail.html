@@ -60,7 +60,8 @@
 
   <!-- 좋아요 섹션 -->
   <section class="post-actions">
-    <button class="like-button" th:onclick="|toggleLike(${post?.boardId ?: 0})|">❤️ 좋아요</button>
+    <button class="like-button" th:data-is-logged-in="${isLoggedIn}"
+            th:onclick="|toggleLike(${post?.boardId ?: 0})|">❤️ 좋아요</button>
     <span th:text="'좋아요: ' + ${post?.likeCount ?: 0}">0</span>
   </section>
 
@@ -78,7 +79,7 @@
     <p th:if="${post?.comments == null || post.comments.isEmpty()}">댓글이 없습니다.</p>
 
     <!-- 댓글 작성 -->
-    <form id="commentForm" method="post" action="/board/comment/add">
+    <form id="commentForm" method="post" action="/board/comment/add" th:if="${isLoggedIn}">
       <textarea name="content" placeholder="댓글을 입력하세요" required></textarea>
       <input type="hidden" name="boardId" th:value="${post?.boardId}">
       <button type="submit">댓글 작성</button>

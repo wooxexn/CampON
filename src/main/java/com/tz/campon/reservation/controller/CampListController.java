@@ -35,7 +35,7 @@ public class CampListController {
             } else if ("rating".equals(sort)) {
                 list = repository.getCampListByRegionSorted(region, "rating");
             } else {
-                list = repository.getCampListByRegion(region);
+                list = repository.getAllCamp();
             }
         } else {
             if ("price".equals(sort)) {
