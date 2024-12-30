@@ -94,19 +94,22 @@ public class BoardController {
     @ResponseBody
     public String uploadImage(@RequestParam("file") MultipartFile file) {
         // 이미지를 저장하고 URL을 반환하는 로직
-        String imageUrl = boardService.saveImage(file);
-        return imageUrl; // 클라이언트에 반환할 이미지 URL
+        return boardService.saveImage(file); // 클라이언트에 반환할 이미지 URL
     }
 
     @GetMapping("/board/detail/{id}")
     public String getPostDetail(@PathVariable("id") Integer id, Model model) {
         // 게시글 데이터를 가져옵니다.
         Board post = boardService.getPostById(id);
+        List<BoardImage> imageList = boardService.getBoardImage(id);
 
         if (post == null) {
             model.addAttribute("errorMessage", "해당 게시글을 찾을 수 없습니다.");
             return "error/404";
         }
+
+        List<Comment> comments = boardService.getComments(id);
+        post.setComments(comments);
 
         // createdAt을 문자열로 변환
         String formattedDate = post.getCreateAt() != null
@@ -114,6 +117,7 @@ public class BoardController {
                 : "작성일 없음";
 
         model.addAttribute("post", post);
+        model.addAttribute("images", imageList);
         model.addAttribute("formattedCreateAt", formattedDate); // 변환된 날짜 추가
 
         return "board/boarddetail";
@@ -171,7 +175,8 @@ public class BoardController {
 
 
     @PostMapping("/board/comment/add")
-    public String addComment(@RequestParam("boardId") Integer boardId,
+    @ResponseBody
+    public Comment addComment(@RequestParam("boardId") Integer boardId,
                              @RequestParam("content") String content,
                              Authentication authentication) {
         // 로그인된 사용자의 ID를 가져오기
@@ -181,7 +186,7 @@ public class BoardController {
         boardService.addComment(boardId, userId, content);
 
         // 게시글 상세 페이지로 리다이렉트
-        return "redirect:/board/detail/" + boardId;
+        return boardService.findLastComment();
     }
 
 

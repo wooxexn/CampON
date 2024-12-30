@@ -56,8 +56,8 @@ public interface PostMapper {
     @Delete("delete from board_images where board_id = #{boardId}")
     void deleteImageByBoardId(@Param("boardId") Integer boardId);
 
-    @Select("select * from board_images")
-    List<BoardImage> findAllImages();
+    @Select("select * from board_images where board_id = #{boardId}")
+    List<BoardImage> findAllImages(@Param("boardId") Integer boardId);
 
     /*
      게시글 수 카운팅
@@ -108,5 +108,7 @@ public interface PostMapper {
     @Select("SELECT * from comments where comment_id = #{commentId}")
     Comment findCommentById(@Param("commentId") int commentId);
 
+    @Select("SELECT * from comments order by created_at desc limit 0,1")
+    Comment findLastComment();
 
 }

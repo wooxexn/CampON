@@ -98,7 +98,8 @@ public class SecurityConfig {
                                 "/campinfo/**",
                                 "/campdetail/**",
                                 "/check-login-status",
-                                "/reviewAll/**"
+                                "/reviewAll/**",
+                                "/uploads/**"
                         ).permitAll()
                         // 로그인한 사용자만 접근 가능한 URL
                         .requestMatchers(

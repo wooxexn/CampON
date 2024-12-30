@@ -60,7 +60,7 @@ document.getElementById("commentForm").addEventListener("submit", function(event
             newComment.innerHTML = `
         <p><strong>${data.userId || '익명'}</strong></p>
         <p>${data.content || '내용 없음'}</p>
-        <span>${data.createAt}</span>
+        <span>${data.created_at}</span>
       `;
             commentList.appendChild(newComment);
 
@@ -101,7 +101,7 @@ function updateComments(boardId) {
                 commentItem.innerHTML = `
                     <p><strong>${comment.userId}</strong></p>
                     <p>${comment.content}</p>
-                    <p class="comment-date">${comment.createAt}</p>
+                    <p class="comment-date">${comment.created_at}</p>
                     <button class="delete-comment" onclick="deleteComment(${comment.commentId}, ${boardId})">삭제</button>
                 `;
                 commentList.appendChild(commentItem);

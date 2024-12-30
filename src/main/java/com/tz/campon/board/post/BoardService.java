@@ -45,8 +45,8 @@ public class BoardService {
         return boardRepository.selectAll();  // 페이지네이션 없이 모든 게시글을 가져옴
     }
 
-    public List<BoardImage> getBoardImage() {
-        return boardRepository.selectAllPageImage();
+    public List<BoardImage> getBoardImage(Integer id) {
+        return boardRepository.selectAllPageImage(id);
     }
 
     public int getTotal() {
@@ -57,16 +57,11 @@ public class BoardService {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         String fullPath = uploadDir + File.separator + fileName;
 
-        // 폴더 확인 및 생성
-        File uploadDirectory = new File(uploadDir);
-        if (!uploadDirectory.exists()) {
-            uploadDirectory.mkdirs();
-        }
-
         try {
             File destination = new File(fullPath);
             file.transferTo(destination); // 파일 저장
-            return "/uploads/" + fileName; // 업로드 후 URL 반환
+            System.out.println(fullPath);
+            return fileName; // 업로드 후 URL 반환
         } catch (IOException e) {
             throw new RuntimeException("Failed to save image", e);
         }
@@ -161,4 +156,6 @@ public class BoardService {
     public Comment findCommentById(int commentId) {
         return boardRepository.findCommentById(commentId);
     }
+
+    public Comment findLastComment() {return boardRepository.findLastComment();}
 }
