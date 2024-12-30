@@ -97,31 +97,31 @@ nav ul li a:hover::after {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-
 /* Footer */
-        footer {
-            padding: 60px 50px;
-            background-color: #f9f9f9;
-            text-align: center;
-            border-top: 1px solid #ccc;
-        }
+footer {
+    padding: 60px 50px;
+    background-color: #f9f9f9;
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
 
-        footer p {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #777;
-            font-family: 'Nanum Gothic', sans-serif;
-        }
+footer p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #777;
+    font-family: 'Nanum Gothic', sans-serif;
+}
 
-        footer .footer-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+footer .footer-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
 
 
-        /* 메인 */
+
+/* 메인 */
 
         main .container {
             width: 50%;
