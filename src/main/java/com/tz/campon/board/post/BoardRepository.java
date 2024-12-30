@@ -21,8 +21,8 @@ public class BoardRepository {
         return postMapper.findAll(); // 페이지네이션 없이 모든 게시글 조회
     }
 
-    public List<BoardImage> selectAllPageImage(){
-        return postMapper.findAllImages();
+    public List<BoardImage> selectAllPageImage(Integer id){
+        return postMapper.findAllImages(id);
     }
 
     public int countAll(){
@@ -115,5 +115,7 @@ public class BoardRepository {
     public Comment findCommentById(int commentId) {
         return postMapper.findCommentById(commentId);
     }
+
+    public Comment findLastComment() {return postMapper.findLastComment();}
 }
 

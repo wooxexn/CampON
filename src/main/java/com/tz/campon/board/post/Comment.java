@@ -19,10 +19,10 @@ public class Comment {
     @JsonProperty("userId")
     public String userId;
     @JsonProperty("board_id")
-    public String boardId;
+    public int boardId;
     @JsonProperty("content")
     public String content;
-    @JsonProperty("create_at")
-    private LocalDateTime createAt;
+    @JsonProperty("created_at")
+    public LocalDateTime createdAt;
 
 }

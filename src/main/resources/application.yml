@@ -2,4 +2,4 @@ kakao:
   client_id: c7a69dfc0f0587a588efd6ecad97ed54
   redirect_uri: http://localhost:8080/callback
 file:
-  upload-dir: C:/Users/user/Desktop/camping-project/src/main/resources/static/images
+  upload-dir: C:\\Users\\user\\Desktop\\camping-project\\src\\main\\resources\\static\\uploads
