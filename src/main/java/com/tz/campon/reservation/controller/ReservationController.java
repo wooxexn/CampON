@@ -57,12 +57,12 @@ public class ReservationController {
             reservationRepository.register(reservation);
             // 성공 후 메시지 추가
             model.addAttribute("message", "예약이 성공적으로 추가되었습니다.");
-            return "redirect:/reserveInfo";
+            return "redirect:/main";
         } catch (Exception e) {
             model.addAttribute("message", "예약 추가에 실패했습니다.");
             System.out.println(e);
             System.out.println("예약실패");
-            return "redirect:/campdetail";
+            return "redirect:/main";
         }
 
 

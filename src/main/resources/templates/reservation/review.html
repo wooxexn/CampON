@@ -43,7 +43,6 @@
     </div>
 
     <div class="reviewInfo">
-        <div th:text="${review.campId}"></div>
         <div th:text="${review.comment}"></div>
         <div th:text="${#dates.format(review.createdAt, 'yyyy-MM-dd')}"></div>
     </div>
@@ -52,6 +51,11 @@
             <span th:each="star : ${#numbers.sequence(1, 5)}"
                   th:classappend="${star <= review.rating} ? '' : 'empty-stars'">★</span>
     </div>
+    <form th:action="@{/delete}" method="post" th:if="${userId == review.userId}">
+        <input type="hidden" name="reviewId" th:value="${review.reviewId}">
+        <input type="hidden" name="campId" th:value="${review.campId}">
+        <button type="submit" class="deleteBtn">삭제</button>
+    </form>
 
 </div>
 

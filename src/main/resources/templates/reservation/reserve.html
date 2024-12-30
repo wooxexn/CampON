@@ -201,6 +201,11 @@
             // 결과 출력
             resultElement.value = number;
         }
+
+        function showAlert() {
+            alert("예약이 완료되었습니다.");
+            return true; // true를 반환해야 폼이 정상적으로 제출됨
+        }
     </script>
 </head>
 <body>
@@ -273,7 +278,7 @@
     <input type="hidden" id="total_price" name="totalPrice" th:value="${camplist2.price}" required /> <br>
     <input type="hidden" id="status" name="status" value="예약 완료" required /> <br>
 
-    <button type="submit">예약 추가</button>
+    <button type="submit" onclick="return showAlert()">예약 추가</button>
 </form>
 
 <!-- Footer -->

@@ -188,6 +188,8 @@ footer .footer-title {
             font-size: 18px ;
         }
 
+
+
         .reserve-button:hover{
             background-color: #33A14B;
         }
@@ -332,6 +334,7 @@ footer .footer-title {
             line-height: 1.2;
             margin-bottom: 5px;
         }
+
 
         /* 주소 */
        .address-container {

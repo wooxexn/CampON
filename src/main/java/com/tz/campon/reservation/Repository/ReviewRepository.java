@@ -21,6 +21,13 @@ public class ReviewRepository {
 
     }
 
+    public int deleteReview(int review_id){
+
+        int row = session.delete("d.deleteReviewById", review_id);
+
+        return row;
+    }
+
     public List<Review> getReviewOnly3(int camp_id){
 
         return session.selectList("d.getReviewOnly3", camp_id);
@@ -60,3 +67,4 @@ public class ReviewRepository {
     }
 
 }
+

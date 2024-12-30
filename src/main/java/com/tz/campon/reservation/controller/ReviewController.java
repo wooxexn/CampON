@@ -6,6 +6,7 @@ import com.tz.campon.reservation.Repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,6 +56,9 @@ public class ReviewController {
                                @RequestParam ( required = false , defaultValue = "1" , name="currentPage") Integer currentPage,
                                Model model){
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+
 
         int pageSize = 5; // 한 페이지에 보여줄 데이터 수
         int grpSize = 2; // 페이지 그룹 크기
@@ -66,15 +70,35 @@ public class ReviewController {
         List<Review> reviewList = reviewRepository.getReviewPage(camp_id ,currentPage);
 
 
+
         PageHandler pageHandler = new PageHandler(currentPage, totalCount, pageSize, grpSize);
         System.out.println(reviewList);
 
+
+        model.addAttribute("userId", userId);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("camp_id", camp_id);
         model.addAttribute("pageHandler", pageHandler);
 
         return "reservation/review";
 
+    }
+
+    @PostMapping("/delete")
+    public String deleteReview(@RequestParam (name = "campId") int campId,
+                               @RequestParam (name = "reviewId") int reviewId, Model model){
+
+
+
+        try {
+            reviewRepository.deleteReview(reviewId);
+        } catch (Exception e) {
+            System.out.println("삭제 실패");
+            e.printStackTrace(); // 예외를 기록합니다.
+        }
+
+
+        return "redirect:/reviewAll?camp_id=" + campId; // URL
     }
 
 }
