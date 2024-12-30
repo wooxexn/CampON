@@ -146,14 +146,14 @@ form {
     font-size: 16px;
     cursor: pointer;
     border: none;
-    background-color: #4369ff;
+    background-color: black;
     color: white;
     border-radius: 5px;
     margin-top: 20px;
     align-self: center;
 }
 .add-button:hover{
-    background-color: #5476ff;
+    color: #444;
 }
 
 .rating {
