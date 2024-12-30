@@ -40,7 +40,7 @@
         <!-- 왼쪽 메뉴 -->
         <div class="mypage-menu">
             <ul>
-                <li><a href="/mypage" class="active">예약 조회</a></li>
+                <li><a href="/mypage" class="active">예약 정보</a></li>
                 <li><a href="#" class="open-modal" onclick="openModal()">정보 수정</a></li>
             </ul>
         </div>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="reservation-list">
-                <h3>예약 조회</h3>
+                <h3>예약 정보</h3>
 
                 <!-- 예약 내역이 있을 때 -->
                 <div th:if="${reservations != null and not #lists.isEmpty(reservations)}">
@@ -72,7 +72,7 @@
                             <td>
                                 <form th:action="@{/mypage/cancel}" method="post">
                                     <input type="hidden" th:name="reservationId" th:value="${reservation.reservationId}">
-                                    <button type="submit">취소</button>
+                                    <button type="submit" class="cancelBtn">취소</button>
                                 </form>
                             </td>
                         </tr>

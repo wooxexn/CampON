@@ -395,22 +395,48 @@ button:hover {
     outline: none;
 }
 
+/* 테이블 스타일 */
 table {
-    margin: 0 auto; /* 테이블을 수평 가운데 정렬 */
-    width: 80%; /* 테이블의 너비를 설정 (원하는 대로 조정 가능) */
-    border-collapse: collapse; /* 테이블 셀 테두리를 합치기 */
-    text-align: center; /* 테이블 텍스트를 가운데 정렬 */
+    margin: 0 auto; /* 테이블 수평 가운데 정렬 */
+    width: 80%; /* 테이블 너비 */
+    border-collapse: collapse; /* 셀 테두리 합치기 */
+    text-align: center; /* 셀 텍스트 수평 가운데 정렬 */
 }
 
 table th, table td {
     padding: 15px; /* 셀 내부 여백 */
     border: 1px solid #ddd; /* 셀 테두리 */
-    text-align: center; /* 텍스트 수평 가운데 정렬 */
-    vertical-align: middle; /* 텍스트 수직 가운데 정렬 */
+    text-align: center; /* 셀 텍스트 수평 가운데 정렬 */
+    vertical-align: middle; /* 셀 텍스트와 버튼 수직 가운데 정렬 */
+    height: 60px; /* 셀 높이 고정 */
 }
 
+/* 테이블 헤더 스타일 */
 thead th {
     background-color: #f4f4f4; /* 테이블 헤더 배경색 */
-    font-weight: bold;
+    font-weight: bold; /* 굵은 글씨 */
 }
 
+/* 취소 버튼 스타일 */
+.cancelBtn {
+    all: unset; /* 모든 기본 스타일 초기화 */
+    color: #333; /* 텍스트 색상 */
+    font-size: 16px; /* 글자 크기 */
+    cursor: pointer; /* 클릭 가능한 커서 */
+    text-decoration: none; /* 밑줄 제거 */
+    line-height: 1.5; /* 텍스트 높이 맞춤 */
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    outline: none; /* 포커스 테두리 제거 */
+}
+
+/* 호버, 포커스, 활성화 상태 모두 처리 */
+.cancelBtn:hover,
+.cancelBtn:focus,
+.cancelBtn:active {
+    color: #333; /* 색상 유지 */
+    text-decoration: underline; /* 밑줄 유지 */
+    background: none; /* 배경 유지 */
+    border: none; /* 테두리 제거 */
+    outline: none; /* 포커스 테두리 제거 */
+}
