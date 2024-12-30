@@ -7,6 +7,35 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<!-- Header -->
+<header>
+    <div class="logo">
+        <a href="/main" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="/images/campon-logo.png" alt="CampON Logo">
+            <span style="font-size: 24px; font-weight: bold; margin-left: 10px; color: inherit;">CAMPON</span>
+        </a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/main" class="menu-link">HOME</a></li>
+            <li><a href="/camplist" class="menu-link">CAMPING LIST</a></li>
+            <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
+        </ul>
+        <div class="auth-links">
+            <!-- 로그인 상태일 때만 로그아웃/마이페이지 표시 -->
+            <div th:if="${isLoggedIn}">
+                <a href="/logout">로그아웃</a>
+                <a href="/mypage">마이페이지</a>
+            </div>
+            <!-- 로그인 상태가 아닐 때만 로그인/회원가입 표시 -->
+            <div th:unless="${isLoggedIn}">
+                <a href="/login">로그인</a>
+                <a href="/register">회원가입</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
 
 <div class="reserveWrap">
 
@@ -167,6 +196,14 @@
 
   </script>
 
+<!-- Footer -->
+<footer>
+    <p class="footer-title">CAMPON</p>
+    <p>캠프온(CAMP ON) Address: 에이콘 아카데미 Tel: 010-1234-5678</p>
+    <p>Designer: 전우선 Business: 563-12-02365 E-commerce: 2024 서울홍대 0962</p>
+</footer>
 
+<!-- JavaScript 파일 연결 -->
+<script src="/js/main.js"></script>
 </body>
 </html>
