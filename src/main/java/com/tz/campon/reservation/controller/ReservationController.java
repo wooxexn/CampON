@@ -74,8 +74,10 @@ public class ReservationController {
                                 @RequestParam(name="check_out_date") String   check_out_date,
                                 @RequestParam (name = "campdetail_id") int campdetail_id,
                                 Model model){
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
+
         CampDetail campDetailOne = campDetailRepository.selectCampDetailOne(camp_id, campdetail_id);
         CampList campList = campListRepository.getCampgroundById(camp_id);
         List<Reservation> reservationList = reservationRepository.getReservationById(userId);

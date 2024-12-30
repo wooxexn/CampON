@@ -187,8 +187,13 @@ footer .footer-title {
             border: 1px solid black;
         }
 
+
         .image-placeholder{
+
             width: 100%;
+            object-fit: cover; /* 부모 요소를 채우면서 비율 유지 */
+
+
         }
 
         .camp-item {
