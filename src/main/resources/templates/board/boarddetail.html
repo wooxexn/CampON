@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${post?.caption ?: '게시글 상세보기'}">게시글 상세보기</title>
+  <link rel="stylesheet" href="/css/board/boarddetail.css">
+</head>
+<body>
+<!-- Header -->
+<header>
+  <div class="logo">
+    <a href="/main" style="display: flex; align-items: center; text-decoration: none;">
+      <img src="/images/campon-logo.png" alt="CampON Logo">
+      <span style="font-size: 24px; font-weight: bold; margin-left: 10px; color: inherit;">CAMPON</span>
+    </a>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/main" class="menu-link">HOME</a></li>
+      <li><a href="/camplist" class="menu-link">CAMPING LIST</a></li>
+      <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
+    </ul>
+    <div class="auth-links">
+      <div th:if="${isLoggedIn}">
+        <a href="/logout">로그아웃</a>
+        <a href="/mypage">마이페이지</a>
+      </div>
+      <div th:unless="${isLoggedIn}">
+        <a href="/login">로그인</a>
+        <a href="/register">회원가입</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Main Content -->
+<main class="board-detail">
+  <!-- 게시글 정보 -->
+  <section class="post-header">
+    <h2 th:text="${post?.caption ?: '제목 없음'}">게시글 제목</h2>
+    <div class="post-meta">
+      <span><strong>작성자:</strong>
+        <span th:text="${post?.userId ?: '작성자 없음'}">작성자 없음</span>
+      </span>
+      <span><strong>작성일:</strong> <span th:text="${formattedCreateAt}">작성일 없음</span></span>
+    </div>
+  </section>
+
+  <!-- 게시글 내용 -->
+  <section class="post-content">
+    <p th:text="${post?.caption ?: '내용 없음'}">게시글 내용</p>
+    <div class="post-images" th:if="${post?.imageUrls != null && !post.imageUrls.isEmpty()}">
+      <img th:each="image : ${post.imageUrls}" th:src="@{${image}}" alt="게시글 이미지">
+    </div>
+    <div th:if="${post?.imageUrls == null || post.imageUrls.isEmpty()}">
+      <p>이미지가 없습니다.</p>
+    </div>
+  </section>
+
+  <!-- 좋아요 섹션 -->
+  <section class="post-actions">
+    <button class="like-button" th:onclick="|toggleLike(${post?.boardId ?: 0})|">❤️ 좋아요</button>
+    <span th:text="'좋아요: ' + ${post?.likeCount ?: 0}">0</span>
+  </section>
+
+  <!-- 댓글 섹션 -->
+  <section class="comments">
+    <h3>댓글</h3>
+    <div id="commentList" th:if="${post?.comments != null && !post.comments.isEmpty()}">
+      <!-- 댓글 목록이 여기 추가됩니다. -->
+    </div>
+    <p th:if="${post?.comments == null || post.comments.isEmpty()}">댓글이 없습니다.</p>
+
+    <!-- 댓글 작성 -->
+    <form id="commentForm" method="post" action="/board/comment/add">
+      <textarea name="content" placeholder="댓글을 입력하세요" required></textarea>
+      <input type="hidden" name="boardId" th:value="${post?.boardId}">
+      <button type="submit">댓글 작성</button>
+    </form>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer>
+  <p class="footer-title">CAMPON</p>
+  <p>캠프온(CAMP ON) Address: 에이콘 아카데미 Tel: 010-1234-5678</p>
+  <p>Designer: 전우선 Business: 563-12-02365 E-commerce: 2024 서울홍대 0962</p>
+</footer>
+</body>
+<script src="/js/main.js"></script>
+<script src="/js/boarddetail.js"></script>
+</html>

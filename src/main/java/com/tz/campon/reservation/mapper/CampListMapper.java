@@ -4,6 +4,7 @@ import com.tz.campon.reservation.DTO.CampList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +32,8 @@ public interface CampListMapper {
 
     @Select("SELECT * FROM campground WHERE region = #{region} ORDER BY rating DESC")
     ArrayList<CampList> getCampListByRegionSortedByRating(@Param("region") String region);
+
+    @Update("UPDATE campground SET rating = #{rating} WHERE camp_id = #{campId}")
+    void updateCampRating(@Param("campId") int campId, @Param("rating") int rating);
 
 }

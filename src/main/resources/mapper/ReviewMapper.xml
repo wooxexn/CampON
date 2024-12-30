@@ -45,6 +45,10 @@
     <insert id="regReview" parameterType="com.tz.campon.reservation.DTO.Review">
         insert into review ( user_id, camp_id, rating, comment, created_at) values (#{userId}, #{campId}, #{rating}, #{comment}, NOW());
     </insert>
+    
+    <select id="calculateAverageRating" parameterType="int" resultType="int">
+        SELECT ROUND(AVG(rating)) FROM review WHERE camp_id = #{campId}
+    </select>
 
 
 </mapper>

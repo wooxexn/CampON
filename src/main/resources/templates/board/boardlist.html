@@ -1,212 +1,95 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Member List</title>
-
-    <style>
-
-        .active{
-            color:red;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-toggle {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background-color: white;
-            border: 1px solid #ccc;
-            min-width: 100px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 10px;
-            text-decoration: none;
-            color: black;
-            display: block;
-        }
-
-        .dropdown-item:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const checkLoginAndRedirect = (callback) => {
-                fetch('/check-login-status') // 로그인 상태를 확인하는 API 호출
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.loggedIn) {
-                            callback(); // 로그인 상태라면 원래 동작 수행
-                        } else {
-                            alert('로그인이 필요합니다.');
-                            window.location.href = '/login'; // 로그인 페이지로 이동
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error checking login status:', error);
-                    });
-            };
-
-            document.querySelectorAll('.like-button').forEach(button => {
-                button.addEventListener('click', function () {
-                    const boardId = this.getAttribute('data-id');
-                    checkLoginAndRedirect(() => {
-                        fetch(`/board/like/${boardId}`, { method: 'POST' })
-                            .then(response => response.json())
-                            .then(likeCount => {
-                                this.querySelector('span').textContent = likeCount;
-                            });
-                    });
-                });
-            });
-
-            document.querySelectorAll('.comment-submit').forEach(button => {
-                button.addEventListener('click', function () {
-                    const boardId = this.getAttribute('data-id');
-                    const content = document.querySelector(`.comment-input[data-id="${boardId}"]`).value;
-                    checkLoginAndRedirect(() => {
-                        fetch(`/board/comment/${boardId}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: `content=${encodeURIComponent(content)}`
-                        })
-                            .then(response => response.json())
-                            .then(comments => {
-                                const commentList = document.querySelector(`ul[data-id="${boardId}"]`);
-                                commentList.innerHTML = comments.map(comment =>
-                                    `<li>${comment.userId}: ${comment.content}</li>`).join('');
-                            })
-                            .catch(error => console.error('Error:', error.message));
-                    });
-                });
-            });
-        });
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.delete-comment').forEach(button => {
-                button.addEventListener('click', function () {
-                    const commentId = this.getAttribute('data-comment-id');
-                    fetch(`/board/comment/delete`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `commentId=${encodeURIComponent(commentId)}`
-                    })
-                        .then(response => response.text())
-                        .then(message => {
-                            alert(message);
-                            location.reload();
-                        })
-                        .catch(error => console.error('Error:', error.message));
-                });
-            });
-        });
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampON</title>
+    <link rel="stylesheet" href="/css/board/boardlist.css">
 </head>
 <body>
-<h1>Member List</h1>
-
-<a th:href="@{/board/add}">+</a>
-
-<!-- Display member list -->
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>image</th>
-        <th>caption</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="member : ${members}">
-        <td th:text="${member.userId}"></td>
-        <td>
-            <div th:each="image : ${images}" th:if="${member.boardId == image.boardId}">
-                <img th:src="@{/images/{filePath}(filePath=${image.imageUrl})}" alt="Image" style="width: 100px; height: auto;">
+<!-- Header -->
+<header>
+    <div class="logo">
+        <a href="/main" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="/images/campon-logo.png" alt="CampON Logo">
+            <span style="font-size: 24px; font-weight: bold; margin-left: 10px; color: inherit;">CAMPON</span>
+        </a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/main" class="menu-link">HOME</a></li>
+            <li><a href="/camplist" class="menu-link">CAMPING LIST</a></li>
+            <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
+        </ul>
+        <div class="auth-links">
+            <div th:if="${isLoggedIn}">
+                <a href="/logout">로그아웃</a>
+                <a href="/mypage">마이페이지</a>
             </div>
-        </td>
-        <td th:text="${member.caption}"></td>
-        <td>
-            <!-- 본인 글 확인 -->
-            <div th:if="${#authentication != null and member.userId == #authentication.name}">
-                <div class="dropdown">
-                    <button class="dropdown-toggle">⋮</button>
-                    <div class="dropdown-menu">
-                        <a th:href="@{/board/edit/{id}(id=${member.boardId})}" class="dropdown-item">수정</a>
-                        <a th:href="@{/board/delete/{id}(id=${member.boardId})}" class="dropdown-item" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
-                    </div>
-                </div>
+            <div th:unless="${isLoggedIn}">
+                <a href="/login">로그인</a>
+                <a href="/register">회원가입</a>
             </div>
-        </td>
-        <td>
-            <button class="like-button" th:attr="data-id=${member.boardId}">
-                좋아요 (<span th:text="${member.likeCount}">0</span>)
-            </button>
-        </td>
-        <td>
-            <!-- 댓글 목록 -->
-            <div>
-                <h4>댓글</h4>
-                <ul class="comment-list" th:attr="data-id=${member.boardId}">
-                    <li th:each="comment : ${member.comments}">
-                        <span th:text="${comment.userId} + ': ' + ${comment.content}"></span>
-                        <!-- 삭제 버튼 -->
-                        <button th:if="${comment.userId == #authentication.name}"
-                                class="delete-comment"
-                                th:attr="data-comment-id=${comment.commentId}">삭제</button>
-                    </li>
-                </ul>
-            </div>
-            <!-- 댓글 입력 -->
-            <textarea class="comment-input" th:attr="data-id=${member.boardId}" placeholder="댓글을 입력하세요"></textarea>
-            <button class="comment-submit" th:attr="data-id=${member.boardId}">댓글 등록</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        </div>
+    </nav>
+</header>
 
+<!-- 게시글 목록 섹션 -->
+<section class="board-section">
+    <div class="board-container">
+        <h2>캠핑 로그</h2>
+        <div class="board-header">
+            <span>게시글 총 <strong th:text="${totalPosts}">0</strong>개</span>
+            <a href="/board/add" class="create-post-button">글 작성</a>
+        </div>
+        <div class="board-list">
+            <table>
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>좋아요</th>
+                    <th>작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="post : ${posts}">
+                    <td th:text="${post.boardId}">1</td>
+                    <td><a th:href="@{/board/detail/{id}(id=${post.boardId})}" th:text="${post.caption}">제목</a></td>
+                    <td th:text="${post.userId}">작성자</td>
+                    <td th:text="${post.likeCount}">0</td>
+                    <td><span th:text="${post.formattedCreateAt}">작성일 없음</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(posts)}" class="no-posts">
+            등록된 게시글이 없습니다.
+        </div>
+    </div>
+</section>
 
+<!-- Main Section -->
+<section class="main-section">
+    <video class="main-video" autoplay muted loop>
+        <source src="/videos/bannervideo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
+    <div class="main-text">
+        <div class="title">캠프온: 營地</div>
+        <p>자연과 함께하는 특별한 하루</p>
+    </div>
+</section>
 
-<!-- 페이징-->
-<div class="pagination">
+<!-- Footer -->
+<footer>
+    <p class="footer-title">CAMPON</p>
+    <p>캠프온(CAMP ON) Address: 에이콘 아카데미 Tel: 010-1234-5678</p>
+    <p>Designer: 전우선 Business: 563-12-02365 E-commerce: 2024 서울홍대 0962</p>
+</footer>
 
-    <!-- 이전 그룹 -->
-    <span th:if="${pageHandler.grpStartPage > 1}">
-        <a th:href="@{/list(currentPage=${pageHandler.grpStartPage -1})}" class="prev">이전</a>
-    </span>
-
-    <!-- 페이지 번호 -->
-    <span th:each="page : ${#numbers.sequence(pageHandler.grpStartPage, pageHandler.grpEndPage)}">
-        <a th:href="@{/list(currentPage=${page})}"
-           th:classappend="${page == pageHandler.currentPage} ? 'active' : ''"
-           th:text="${page}"></a>
-    </span>
-
-    <!-- 다음 그룹 -->
-    <span th:if="${pageHandler.grpEndPage < pageHandler.totalPage}">
-        <a th:href="@{/list(currentPage=${pageHandler.grpEndPage +1})}" class="next">다음</a>
-    </span>
-
-</div>
-
-
+<script src="/js/main.js"></script>
 </body>
 </html>

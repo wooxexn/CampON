@@ -55,4 +55,8 @@ public class ReviewRepository {
         return row;
     }
 
+    public int calculateAverageRating(int camp_id){
+        return session.selectOne("d.calculateAverageRating", camp_id);
+    }
+
 }

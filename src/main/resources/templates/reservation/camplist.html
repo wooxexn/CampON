@@ -69,13 +69,11 @@
         </form>
 
         <!-- 정렬 -->
-        <form method="get" action="/camplist/sort" class="sort-form">
-            <label for="sort"></label>
+        <form method="get" action="/camplist" class="sort-form">
+            <label for="sort">정렬 기준:</label>
             <select name="sort" id="sort" onchange="this.form.submit()">
-                <option value="price"><a th:href="@{/camplist(region=${selectedRegion}, sort='price')}">가격순 정렬</a></option>
-                <option value="rating"><a th:href="@{/camplist(region=${selectedRegion}, sort='rating')}">평점순 정렬</a></option>
-
-
+                <option value="price" th:selected="${selectedSort == 'price'}">가격순 정렬</option>
+                <option value="rating" th:selected="${selectedSort == 'rating'}">평점순 정렬</option>
             </select>
         </form>
     </div>
