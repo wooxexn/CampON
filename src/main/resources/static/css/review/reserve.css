@@ -1,7 +1,107 @@
-  .reserveWrap{
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap');
 
-    margin: 0 auto;
-  }
+body {
+  margin: 0;
+  font-family: 'Noto Serif KR', serif;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 70px;
+  margin-right: 15px;
+}
+
+.logo a {
+  text-decoration: none;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Noto Serif KR', serif;
+}
+
+.logo a:hover {
+  text-decoration: underline;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 20px;
+  position: relative;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-family: 'Nanum Gothic', sans-serif;
+  position: relative;
+}
+
+/* 밑줄 표시 */
+nav ul li a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+}
+
+/* Hover 시 밑줄 추가 */
+nav ul li a:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+}
+
+.auth-links {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.auth-links a {
+  margin-left: 10px;
+  text-decoration: none;
+  color: #333;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+
+.reserveWrap {
+  flex: 1; /* 남은 공간을 차지 */
+  padding-bottom: 220px; /* 푸터의 높이만큼 여백 추가 */
+}
 
   .checkDay{
 
@@ -98,4 +198,26 @@ button:hover {
   color: white; /* 글자색 */
   padding: 10px 20px; /* 여백 */
   border-radius: 5px; /* 둥근 모서리 */
+}
+
+
+/* Footer */
+footer {
+  padding: 60px 50px;
+  background-color: #f9f9f9;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+
+footer p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #777;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+footer .footer-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }

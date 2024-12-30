@@ -4,6 +4,106 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #fff;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px;
+            margin-right: 15px;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        .logo a:hover {
+            text-decoration: underline;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-family: 'Nanum Gothic', sans-serif;
+            position: relative;
+        }
+
+        /* 밑줄 표시 */
+        nav ul li a.active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+        }
+
+        /* Hover 시 밑줄 추가 */
+        nav ul li a:hover::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+        }
+
+        .auth-links {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+        }
+
+        .auth-links a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #333;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        /* 캠핑장 상세 내용 */
         .camp-detail-container {
             font-family: Arial, sans-serif;
             max-width: 600px;
@@ -12,7 +112,6 @@
             border: 1px solid #ccc;
             border-radius: 8px;
             background-color: #f9f9f9;
-
         }
 
         .camp-detail-item {
@@ -35,6 +134,47 @@
             border-radius: 8px;
             margin-top: 10px;
         }
+
+        /* 예약 추가 버튼 중앙 정렬 */
+        button {
+            display: block;
+            width: 200px; /* 버튼 너비 */
+            margin: 50px auto; /* 수평 가운데 정렬 */
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* 버튼 호버 효과 */
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 50px;
+            background-color: #f9f9f9;
+            text-align: center;
+            border-top: 1px solid #ccc;
+        }
+
+        footer p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #777;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        footer .footer-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
     </style>
     <script>
         function count(type)  {
@@ -64,8 +204,35 @@
     </script>
 </head>
 <body>
+<!-- Header -->
+<header>
+    <div class="logo">
+        <a href="/main" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="/images/campon-logo.png" alt="CampON Logo">
+            <span style="font-size: 24px; font-weight: bold; margin-left: 10px; color: inherit;">CAMPON</span>
+        </a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/main" class="menu-link">HOME</a></li>
+            <li><a href="/camplist" class="menu-link">CAMPING LIST</a></li>
+            <li><a href="/board" class="menu-link">CAMPING LOG</a></li>
+        </ul>
+        <div class="auth-links">
+            <!-- 로그인 상태일 때만 로그아웃/마이페이지 표시 -->
+            <div th:if="${isLoggedIn}">
+                <a href="/logout">로그아웃</a>
+                <a href="/mypage">마이페이지</a>
+            </div>
+            <!-- 로그인 상태가 아닐 때만 로그인/회원가입 표시 -->
+            <div th:unless="${isLoggedIn}">
+                <a href="/login">로그인</a>
+                <a href="/register">회원가입</a>
+            </div>
+        </div>
+    </nav>
+</header>
 
-<h2>예약 추가</h2>
 
 <form th:action="@{/addReserve}" method="post" >
 
@@ -109,6 +276,14 @@
     <button type="submit">예약 추가</button>
 </form>
 
+<!-- Footer -->
+<footer>
+    <p class="footer-title">CAMPON</p>
+    <p>캠프온(CAMP ON) Address: 에이콘 아카데미 Tel: 010-1234-5678</p>
+    <p>Designer: 전우선 Business: 563-12-02365 E-commerce: 2024 서울홍대 0962</p>
+</footer>
 
+<!-- JavaScript 파일 연결 -->
+<script src="/js/main.js"></script>
 </body>
 </html>
