@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap');
-
-body {
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Noto Serif KR', serif;
 }
-
-/* Header */
+/* 헤더 / 푸터 */
 header {
     display: flex;
     justify-content: space-between;
@@ -121,7 +121,8 @@ footer .footer-title {
 
 
 
-/* 메인 */
+
+        /* 메인 */
 
         main .container {
             width: 50%;
@@ -187,8 +188,6 @@ footer .footer-title {
             font-weight: bold;
             font-size: 18px ;
         }
-
-
 
         .reserve-button:hover{
             background-color: #33A14B;
@@ -319,12 +318,10 @@ footer .footer-title {
             font-size: 12px;
         }
 
-        .stars {
-            display: inline-block;
-            color: gold;
-        }
-        .empty-stars {
-            color: lightgray;
+        .review-star {
+            display: flex;
+            gap: 1px;
+            font-size: 13px;
         }
 
         .review-content {
@@ -334,7 +331,6 @@ footer .footer-title {
             line-height: 1.2;
             margin-bottom: 5px;
         }
-
 
         /* 주소 */
        .address-container {
