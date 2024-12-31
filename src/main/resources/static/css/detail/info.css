@@ -122,247 +122,241 @@ footer .footer-title {
 
 
 
-        /* 메인 */
+/* 메인 */
 
-        main .container {
-            width: 50%;
-            margin: 0 auto;
-        }
+main .container {
+    width: 50%;
+    margin: 0 auto;
+}
 
-        main{
-            background-color: white ;
-        }
-        .camping-info {
-            padding: 20px 0 20px;
-            display: flex;
-            gap: 20px;
-            align-items: stretch;
-            background-color : white;
-        }
-        .image-section img{
-            width: 420px;
-            height: 280px;
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-        }
+main{
+    background-color: white ;
+}
+.camping-info {
+    padding: 20px 0 20px;
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    background-color : white;
+}
+.image-section img{
+    width: 420px;
+    height: 280px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
 
-        .info-section h3 {
-            font-size: 20px;
-            padding-bottom: 12px;
-            font-weight : bold;
+.info-section h3 {
+    font-size: 20px;
+    padding-bottom: 12px;
+    font-weight : bold;
 
-        }
+}
 
-        .info-section p{
-            font-size : 16px;
-        }
+.info-section p{
+    font-size : 16px;
+}
 
-        .info-section {
-            flex: 1;
-            position: relative;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-        }
-
-
-        /* 가격 */
-        .detail-price {
-            text-align: right;
-            margin-top: auto;
-            margin-bottom: 10px;
-        }
-
-        /* 예약버튼 */
-        .reserve-button {
-            width: 100%;
-            height : 45px;
-            background-color: #008A1E;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px ;
-        }
-
-        .reserve-button:hover{
-            background-color: #33A14B;
-        }
+.info-section {
+    flex: 1;
+    position: relative;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
 
 
-        .tab-section div {
-            flex: 1;
-        }
+/* 가격 */
+.detail-price {
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
 
-        /*별점*/
-        .stat-point{
-            font-weight:bold;
-        }
+/* 예약버튼 */
+.reserve-button {
+    width: 100%;
+    height : 45px;
+    background-color: #008A1E;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px ;
+}
 
-        .icon-star{
-            color : black;
-        }
-
-        /* 지도 */
-        .map {
-            flex: 0 0 300px;
-            height: 300px;
-            text-align: center;
-            line-height: 200px;
-        }
-
-        /* 시설정보 */
-         .facility-info {
-            background-color: #f7f8fb;
-            padding: 20px;
-            margin: 10px 0;
-        }
+.reserve-button:hover{
+    background-color: #33A14B;
+}
 
 
-        .facility-info h3{
-            padding-bottom: 10px;
-        }
+.tab-section div {
+    flex: 1;
+}
 
-        /* 캠핑장 소개글 */
-        .description{
-            background-color: #f7f8fb;
-            padding: 20px;
-            margin: 10px 0;
-            position: relative;
-            padding-bottom: 50px;
-        }
+/*별점*/
+.stat-point{
+    font-weight:bold;
+}
 
+.icon-star{
+    color : black;
+}
 
-        .description h3{
-            padding-bottom: 10px;
-        }
+/* 지도 */
+.map {
+    flex: 0 0 300px;
+    height: 300px;
+    text-align: center;
+    line-height: 200px;
+}
 
-        /* 더보기 CSS */
-        .more-btn {
-            background-color: #f7f8fb;
-            color: black;
-            border: none;
-            padding: 10px 0;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 0;
-            width: 100%;
-            text-align: center;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            margin-top: 20px;
-        }
-
-        /* 리뷰 */
-        .review-all {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        .review-all a{
-            text-decoration: none;
-            font-weight: bold;
-            font-size : 14px;
-            color : black;
-
-        }
-
-        .review {
-            padding : 10px;
-            border: 2px solid #f7f8fb;
-            border-radius: 10px;
-            box-shadow: 1px rgba(0, 0, 0, 0.5);
-            height: 180px;
-            background-color: #f7f8fb;
-        }
-
-        .review-section {
-            display: flex;
-            justify-content: space-between;
-
-        }
-
-        .review-box {
-            margin: 10px;
-            border-radius: 10px;
-            width: 30%;
-            height : 100px;
-            padding: 10px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            background-color: white;
-        }
-
-        .review-user {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .user-name {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .user-info {
-            color: #777;
-            font-size: 12px;
-        }
-
-        .review-star {
-            display: flex;
-            gap: 1px;
-            font-size: 13px;
-        }
-
-        .review-content {
-            font-size: 14px;
-            font-weight: bold;
-            color: #6d6d6d;
-            line-height: 1.2;
-            margin-bottom: 5px;
-        }
-
-        /* 주소 */
-       .address-container {
-           display: flex;
-           align-items: center;
-           gap: 10px;
-       }
-
-       #camping-address {
-           font-size: 15px;
-           margin: 0;
-       }
-
-       .copy-button {
-           background-color: white;
-           color: #246BEB;
-           border: none;
-           padding: 5px;
-           cursor: pointer;
-           font-size: 15px;
-           font-weight: bold;
-           display: inline-flex;
-           align-items: center;
-           gap: 5px;
-       }
-
-       .copy-button:hover {
-           color: #33A14B;
-       }
+/* 시설정보 */
+ .facility-info {
+    background-color: #f7f8fb;
+    padding: 20px;
+    margin: 10px 0;
+}
 
 
+.facility-info h3{
+    padding-bottom: 10px;
+}
+
+/* 캠핑장 소개글 */
+.description{
+    background-color: #f7f8fb;
+    padding: 20px;
+    margin: 10px 0;
+    position: relative;
+    padding-bottom: 50px;
+}
 
 
+.description h3{
+    padding-bottom: 10px;
+}
 
+/* 더보기 CSS */
+.more-btn {
+    background-color: #f7f8fb;
+    color: black;
+    border: none;
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-top: 20px;
+}
 
+/* 리뷰 */
+.review-all {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.review-all a{
+    text-decoration: none;
+    font-weight: bold;
+    font-size : 14px;
+    color : black;
+
+}
+
+.review {
+    padding : 10px;
+    border: 2px solid #f7f8fb;
+    border-radius: 10px;
+    box-shadow: 1px rgba(0, 0, 0, 0.5);
+    height: 180px;
+    background-color: #f7f8fb;
+}
+
+.review-section {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.review-box {
+    margin: 10px;
+    border-radius: 10px;
+    width: 30%;
+    height : 100px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.review-user {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.user-info {
+    color: #777;
+    font-size: 12px;
+}
+
+.review-star {
+    display: flex;
+    gap: 1px;
+    font-size: 13px;
+}
+
+.review-content {
+    font-size: 14px;
+    font-weight: bold;
+    color: #6d6d6d;
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+
+/* 주소 */
+.address-container {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+#camping-address {
+   font-size: 15px;
+   margin: 0;
+}
+
+.copy-button {
+   background-color: white;
+   color: #246BEB;
+   border: none;
+   padding: 5px;
+   cursor: pointer;
+   font-size: 15px;
+   font-weight: bold;
+   display: inline-flex;
+   align-items: center;
+   gap: 5px;
+}
+
+.copy-button:hover {
+   color: #33A14B;
+}
