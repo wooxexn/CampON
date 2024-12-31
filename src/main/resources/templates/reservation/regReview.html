@@ -55,7 +55,7 @@
         </div>
 
         <label for="reply"></label>
-        <textarea id="reply" name="comment" required placeholder="리뷰를 작성해주세요!" class="review-input"></textarea> <br>
+        <textarea id="reply" name="comment" required placeholder="리뷰를 작성해주세요!" class="review-input" maxlength="80"></textarea> <br>
 
         <input type="hidden" id="camp_id" name="campId" th:value="${camp_id}" required> <br>
         <input type="hidden" id="user_id" name="userId" th:value="${user_id}" required> <br>
