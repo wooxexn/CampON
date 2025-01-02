@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Serif KR', 'Apple SD Gothic Neo', serif;
 }
 /* 헤더 / 푸터 */
 header {
@@ -30,7 +30,7 @@ header {
     color: #333;
     font-size: 24px;
     font-weight: bold;
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Serif KR', 'Apple SD Gothic Neo', serif;
 }
 
 .logo a:hover {
@@ -58,7 +58,7 @@ nav ul li a {
     text-decoration: none;
     color: #333;
     font-size: 16px;
-    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'Noto Serif KR', 'Apple SD Gothic Neo', serif;
     position: relative;
 }
 
@@ -94,12 +94,12 @@ nav ul li a:hover::after {
     margin-left: 10px;
     text-decoration: none;
     color: #333;
-    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'Noto Serif KR', 'Apple SD Gothic Neo', serif;
 }
 
 /* Footer */
 footer {
-    padding: 60px 50px;
+    padding: 30px 50px;
     background-color: #f9f9f9;
     text-align: center;
     border-top: 1px solid #ccc;
@@ -109,7 +109,7 @@ footer p {
     margin: 5px 0;
     font-size: 14px;
     color: #777;
-    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'Noto Serif KR', 'Apple SD Gothic Neo', serif;
 }
 
 footer .footer-title {
@@ -118,9 +118,14 @@ footer .footer-title {
     margin-bottom: 10px;
 }
 
+footer a {
+    color: inherit; /* 부모 요소의 색상 상속 */
+    text-decoration: none; /* 밑줄 제거 */
+}
 
-
-
+footer a:hover {
+    text-decoration: underline; /* 마우스를 올렸을 때만 밑줄 추가 */
+}
 
 /* 메인 */
 
