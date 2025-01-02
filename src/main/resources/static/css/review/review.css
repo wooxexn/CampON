@@ -235,3 +235,12 @@ footer .footer-title {
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+footer a {
+    color: inherit; /* 부모 요소의 색상 상속 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+footer a:hover {
+    text-decoration: underline; /* 마우스를 올렸을 때만 밑줄 추가 */
+}

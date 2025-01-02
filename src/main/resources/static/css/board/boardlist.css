@@ -162,6 +162,15 @@ footer .footer-title {
     margin-bottom: 10px;
 }
 
+footer a {
+    color: inherit; /* 부모 요소의 색상 상속 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+footer a:hover {
+    text-decoration: underline; /* 마우스를 올렸을 때만 밑줄 추가 */
+}
+
 /* Board Section */
 .board-section {
     margin: 0 auto; /* 수평 가운데 정렬 */
