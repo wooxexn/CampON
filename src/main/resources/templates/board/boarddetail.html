@@ -45,6 +45,15 @@
       </span>
       <span><strong>작성일:</strong> <span th:text="${formattedCreateAt}">작성일 없음</span></span>
     </div>
+    <div th:if="${#authentication != null and post?.userId == #authentication.name}">
+      <div class="dropdown">
+        <button class="dropdown-toggle">⋮</button>
+        <div class="dropdown-menu">
+          <a th:href="@{/board/edit/{id}(id=${post.boardId})}" class="dropdown-item">수정</a>
+          <a th:href="@{/board/delete/{id}(id=${post.boardId})}" class="dropdown-item" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- 게시글 내용 -->
@@ -60,7 +69,9 @@
 
   <!-- 좋아요 섹션 -->
   <section class="post-actions">
-    <button class="like-button" th:data-is-logged-in="${isLoggedIn}"
+    <button class="like-button"
+            th:data-board-id="${post?.boardId ?: 0}"
+            th:data-is-logged-in="${isLoggedIn}"
             th:onclick="|toggleLike(${post?.boardId ?: 0})|">❤️ 좋아요</button>
     <span th:text="'좋아요: ' + ${post?.likeCount ?: 0}">0</span>
   </section>
@@ -68,15 +79,17 @@
   <!-- 댓글 섹션 -->
   <section class="comments">
     <h3>댓글</h3>
-    <div id="commentList" th:if="${post?.comments != null && !post.comments.isEmpty()}">
-      <!-- 댓글 목록이 여기 추가됩니다. -->
-      <div th:each="comment : ${post?.comments}" class="comment-item">
+    <div id="commentList">
+      <div th:if="${post?.comments != null && !post.comments.isEmpty()}" th:each="comment : ${post?.comments}" class="comment-item">
         <p><strong th:text="${comment.userId}"></strong></p>
         <p th:text="${comment.content}"></p>
         <span th:text="${comment.createdAt}"></span>
+        <button th:if="${#authentication != null and comment.userId == #authentication.name}"
+                class="delete-comment"
+                th:onclick="|deleteComment(${comment.commentId}, ${comment.boardId})|">삭제</button>
       </div>
     </div>
-    <p th:if="${post?.comments == null || post.comments.isEmpty()}">댓글이 없습니다.</p>
+    <p id="noCommentsMessage" th:if="${post?.comments == null || post.comments.isEmpty()}">댓글이 없습니다.</p>
 
     <!-- 댓글 작성 -->
     <form id="commentForm" method="post" action="/board/comment/add" th:if="${isLoggedIn}">

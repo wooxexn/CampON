@@ -8,7 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -113,8 +115,9 @@ public class BoardService {
     }
 
     // 좋아요 처리
-    public int toggleLike(Integer boardId, String userId) {
+    public Map<String, Object> toggleLike(Integer boardId, String userId) {
         boolean isLiked = boardRepository.isLikedByUser(boardId, userId);
+        int likeCount;
 
         if (isLiked) {
             boardRepository.removeLike(boardId, userId);  // 좋아요 취소
@@ -124,14 +127,22 @@ public class BoardService {
             boardRepository.incrementLikeCount(boardId);  // 좋아요 수 증가
         }
 
-        // 좋아요 수가 음수로 내려가지 않도록 처리
-        int likeCount = boardRepository.getLikeCount(boardId);
-        if (likeCount < 0) {
-            likeCount = 0;  // 좋아요 수가 음수일 경우 0으로 설정
-            boardRepository.updateLikeCount(boardId, likeCount);  // 업데이트
-        }
+        likeCount = boardRepository.getLikeCount(boardId);
 
-        return likeCount;  // 최종 좋아요 수 반환
+        // 응답 데이터를 구성하여 반환
+        Map<String, Object> response = new HashMap<>();
+        response.put("isLiked", !isLiked);  // 변경된 상태 반환
+        response.put("likeCount", likeCount);
+
+        return response;
+    }
+
+    public boolean isLiked(Integer boardId, String userId) {
+        return boardRepository.isLikedByUser(boardId, userId);
+    }
+
+    public int likeCount(Integer boardId) {
+        return boardRepository.getLikeCount(boardId);
     }
 
 
@@ -147,10 +158,16 @@ public class BoardService {
         return comments;
     }
 
+    public void deleteLike(Integer boardId) {
+        boardRepository.deleteLike(boardId);
+    }
+
     // 댓글 삭제
     public void deleteComment(int commentId) {
         boardRepository.deleteComment(commentId);
     }
+
+    public void deleteCommentByBoardId(Integer boardId) {boardRepository.deleteCommentByBoardId(boardId);}
 
     // 댓글 조회
     public Comment findCommentById(int commentId) {

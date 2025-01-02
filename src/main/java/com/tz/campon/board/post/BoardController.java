@@ -14,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class BoardController {
@@ -162,6 +161,24 @@ public class BoardController {
         return "redirect:/board"; // 게시글 목록으로 리디렉션
     }
 
+    @GetMapping("/board/delete/{id}")
+    public String deletePost(@PathVariable("id") Integer id) {
+        Board post = boardService.getPostById(id);
+        if (post == null) {
+            throw new RuntimeException("Post not found");
+        }
+        // 본인 글인지 확인
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!post.getUserId().equals(authentication.getName())) {
+            throw new RuntimeException("You are not authorized to delete this post");
+        }
+        boardService.deleteLike(id);
+        boardService.deleteCommentByBoardId(id);
+        boardService.deleteBoardImage(id);
+        boardService.deletePostById(id);
+        return "redirect:/board";
+    }
+
     @GetMapping("/board/comments/{id}")
     @ResponseBody
     public ResponseEntity<List<Comment>> getComments(@PathVariable("id") Integer id) {
@@ -193,28 +210,52 @@ public class BoardController {
 
     @PostMapping("/board/comment/delete")
     @ResponseBody
-    public ResponseEntity<String> deleteComment(@RequestParam("commentId") int commentId, Authentication authentication) {
+    public ResponseEntity<Map<String, Object>> deleteComment(@RequestBody Map<String, Integer> requestData, Authentication authentication) {
+        int commentId = requestData.get("commentId");
         String userId = authentication.getName();
-        Comment comment = boardService.findCommentById(commentId);
 
+        Comment comment = boardService.findCommentById(commentId);
         if (comment == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("댓글이 존재하지 않습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("success", false, "message", "댓글이 존재하지 않습니다."));
         }
 
         if (!comment.getUserId().equals(userId)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("댓글 삭제 권한이 없습니다.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Map.of("success", false, "message", "댓글 삭제 권한이 없습니다."));
         }
 
         boardService.deleteComment(commentId);
-        return ResponseEntity.ok("댓글이 삭제되었습니다.");
+
+        // JSON 응답으로 성공 메시지 반환
+        return ResponseEntity.ok(Map.of("success", true, "message", "댓글이 삭제되었습니다."));
     }
 
     @PostMapping("/board/like/{id}")
     @ResponseBody
-    public ResponseEntity<Integer> toggleLike(@PathVariable("id") Integer id, Principal principal) {
+    public ResponseEntity<Map<String, Object>> toggleLike(@PathVariable("id") Integer id, Principal principal) {
         String userId = principal.getName();
-        int likeCount = boardService.toggleLike(id, userId);
-        return ResponseEntity.ok(likeCount);
+
+        // 좋아요 상태 및 카운트 변경
+        Map<String, Object> response = boardService.toggleLike(id, userId);
+
+        // 성공 응답 반환
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/board/like/status/{id}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getLikeStatus(@PathVariable("id") Integer id, Principal principal) {
+        Map<String, Object> response = new HashMap<>();
+        if (principal != null) {
+            String userId = principal.getName();
+            response.put("isLiked", boardService.isLiked(id, userId));
+        } else {
+            response.put("isLiked", false); // 비로그인 사용자는 좋아요 불가
+        }
+        response.put("likeCount", boardService.likeCount(id));
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/test")

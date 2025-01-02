@@ -84,6 +84,7 @@ public class SecurityConfig {
                                 "/",            // 인트로 화면
                                 "/main",        // 메인 페이지
                                 "/login",       // 로그인
+                                "/logout",
                                 "/register",    // 회원가입
                                 "/callback",    // 소셜 로그인 콜백
                                 "/css/**",      // 정적 리소스
@@ -104,16 +105,17 @@ public class SecurityConfig {
                         ).permitAll()
                         // 로그인한 사용자만 접근 가능한 URL
                         .requestMatchers(
-                                "/mypage",
-                                "/mypage/edit",
-                                "/mypage/reservations", // 예약 조회
-                                "/mypage/cancel",       // 예약 취소
-                                "/reserve",             // 예약 페이지
+                                "/mypage/**",
+                                "/mypage/edit/**",
+                                "/mypage/reservations/**", // 예약 조회
+                                "/mypage/cancel/**",       // 예약 취소
+                                "/reserve/**",             // 예약 페이지
                                 "/board/add/**",           // 게시판 글 작성
                                 "/board/edit/**",       // 게시판 글 수정
                                 "/board/delete/**",     // 게시판 글 삭제
                                 "/board/like/**",       // 게시판 좋아요
-                                "/board/comment/**"     // 게시판 댓글 작성
+                                "/board/comment/**",     // 게시판 댓글 작성
+                                "/campdetailView/**"
                         ).authenticated()
                         .anyRequest().authenticated() // 기타 모든 요청은 인증 필요
                 )
@@ -133,7 +135,7 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessHandler(customLogoutSuccessHandler()) // 로그아웃 성공 시 이전 페이지로 이동
-                        .invalidateHttpSession(false) // 세션 무효화
+                        .invalidateHttpSession(true) // 세션 무효화
                         .clearAuthentication(true) // 인증 정보 삭제
                         .deleteCookies("JSESSIONID") // 쿠키 삭제
                         .permitAll()

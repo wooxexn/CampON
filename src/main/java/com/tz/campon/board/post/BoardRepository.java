@@ -97,6 +97,10 @@ public class BoardRepository {
         return postMapper.getLikeCount(boardId);
     }
 
+    public void deleteLike(Integer boardId) {
+        postMapper.deleteLike(boardId);
+    }
+
     // 댓글 추가
     public void addComment(Integer boardId, String userId, String content) {
         postMapper.addComment(boardId, userId, content);
@@ -111,6 +115,8 @@ public class BoardRepository {
     public void deleteComment(int commentId) {
         postMapper.deleteComment(commentId);
     }
+
+    public void deleteCommentByBoardId(Integer boardId) {postMapper.deleteCommentByBoardId(boardId);}
 
     public Comment findCommentById(int commentId) {
         return postMapper.findCommentById(commentId);

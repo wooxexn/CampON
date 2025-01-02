@@ -93,6 +93,9 @@ public interface PostMapper {
     @Select("SELECT like_count FROM board WHERE board_id = #{boardId}")
     int getLikeCount(@Param("boardId") Integer boardId);
 
+    @Delete("DELETE from likes where board_id = #{boardId}")
+    void deleteLike(@Param("boardId") Integer boardId);
+
     // 댓글 추가
     @Insert("INSERT INTO comments (board_id, user_id, content, created_at) VALUES (#{boardId}, #{userId}, #{content}, NOW())")
     void addComment(@Param("boardId") Integer boardId, @Param("userId") String userId, @Param("content") String content);
@@ -104,6 +107,9 @@ public interface PostMapper {
     // 댓글 삭제
     @Delete("DELETE FROM comments WHERE comment_id = #{commentId}")
     void deleteComment(@Param("commentId") int commentId);
+
+    @Delete("DELETE from comments where board_id = #{boardId}")
+    void deleteCommentByBoardId(@Param("boardId") Integer boardId);
 
     @Select("SELECT * from comments where comment_id = #{commentId}")
     Comment findCommentById(@Param("commentId") int commentId);
