@@ -215,7 +215,7 @@ footer {
     bottom: 0; /* 화면의 아래쪽에 위치 */
     left: 0; /* 화면의 왼쪽 시작점에 맞춤 */
     width: 100%; /* 화면 전체 너비 */
-    padding: 60px 50px; /* 기존 크기 유지 */
+    padding: 30px 50px; /* 기존 크기 유지 */
     background-color: #f9f9f9; /* 푸터 배경색 */
     text-align: center; /* 텍스트 중앙 정렬 */
     border-top: 1px solid #ccc; /* 상단 테두리 */
